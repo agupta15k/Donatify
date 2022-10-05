@@ -10,18 +10,26 @@ Endpoints:
 empty()  --  empty function that only returns a static string
 
 
-2. /getall/
+2. /items/
 
     Input parameters: 
     None
 
     Output:
-    Response returns all the items present in table in json format
+    Response returns the items present in table
 
 3. /additem/
 
     Input parameters:
-    item_name, quantity, description, zipcode, city
+    item_name, quantity, description, zipcode, city, donor_id, category
+
+    Output:
+    Response returns a success, message
+
+4. /updateitem/
+
+    Input parameters:
+    item_name, quantity, description, zipcode, city, donor_id, category
 
     Output:
     Response returns a success, message
@@ -34,7 +42,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
 import json
-from funcs import *
+import funcs
 
 #Flask application configuration
 app = Flask(__name__)
@@ -42,36 +50,36 @@ CORS(app)
 
 #### error handlers ####
 # http exceptions handler
-@app.errorhandler(HTTPException)
-def handle_exception(e):
-    """Return JSON instead of HTML for HTTP errors."""
-    # start with the correct headers and status code from the error
-    response = e.get_response()
-    # replace the body with JSON
-    response.data = json.dumps({
-        "code": e.code,
-        "name": e.name,
-        "description": e.description,
-    })
-    response.content_type = "application/json"
-    logging.error('########### ' + str(e) + ' ###########', exc_info=True)
-    return response
+# @app.errorhandler(HTTPException)
+# def handle_exception(e):
+#     """Return JSON instead of HTML for HTTP errors."""
+#     # start with the correct headers and status code from the error
+#     response = e.get_response()
+#     # replace the body with JSON
+#     response.data = json.dumps({
+#         "code": e.code,
+#         "name": e.name,
+#         "description": e.description,
+#     })
+#     response.content_type = "application/json"
+#     logging.error('########### ' + str(e) + ' ###########', exc_info=True)
+#     return response
 
 
-@app.errorhandler(Exception)
-def handle_exception(e):
-    # pass through HTTP errors
-    if isinstance(e, HTTPException):
-        return e
-    err = {
-        "code": -1,
-        "name": "Server Error",
-        "description": "Unexpected Error. Please contact Admin"
+# @app.errorhandler(Exception)
+# def handle_exception(e):
+#     # pass through HTTP errors
+#     if isinstance(e, HTTPException):
+#         return e
+#     err = {
+#         "code": -1,
+#         "name": "Server Error",
+#         "description": "Unexpected Error. Please contact Admin"
 
-    }
-    logging.error('########### ' + str(e) + ' ###########', exc_info=True)
-    # now you're handling non-HTTP exceptions only
-    return jsonify(err)
+#     }
+#     logging.error('########### ' + str(e) + ' ###########', exc_info=True)
+#     # now you're handling non-HTTP exceptions only
+#     return jsonify(err)
 
 #### end of error handlers ####
 
@@ -79,40 +87,63 @@ def handle_exception(e):
 @app.route('/', methods=['GET', 'POST'])
 def empty():
 
-    return "Empty function called"
+    return jsonify({"status": 200, "data": [], "message": "Backend working"})
 
-
-@app.route('/getall/', methods=['POST','GET'])
+@app.route('/items/', methods=['GET'])
 def home():
     '''
     Home page route method
-    Output: Return all the item data present in the item table.
+    Output: Return 10 item set present in the item table. 
     '''
-    records = get_all_items()
-    return jsonify(records)
     
+    if request.method == 'GET':
+        page = request.args.get('page')
+        id =  request.args.get('id')
+        print(page)
+        status, msg = funcs.get_items(page, id)
+        
+        if status:
+            return jsonify({"status": 200, "data": msg, "message": "Fetched records successfully"})
+        else:
+            return jsonify({"status": 400, "data": [], "message": msg})
+
 @app.route('/additem/', methods=['POST','GET'])
 def additem():
     '''
     Inserting new item 
-    Output: Return the status of the operation and ass
+    Output: Return the status of the operation 
     '''
     
     # extract request parameters
     if request.method == 'POST':
-        item_name = request.form['item_name']
-        quantity = request.form['quantity'] 
-        description = request.form['description']
-        zipcode = request.form['zipcode']
-        city = request.form['city']
-
-        status = insert_item(item_name, quantity, description, zipcode, city)
+        data = json.loads(request.data)
+        
+        status, msg = funcs.insert_item(
+            data['item_name'], data['quantity'], data['description'], data['zipcode'], data['city'], data['donor_id'], data['category'])
     
         if status:
-            return jsonify({"status": status, "message": 'Record inserted successfully '})
+            return jsonify({"status": 200, "data":[], "message": msg})
         else:
-            return jsonify({"status": status, "message": 'Failed to insert'})
+            return jsonify({"status": 400, "data":[], "message": msg})
             
+
+@app.route('/updateitem/', methods=['POST', 'PUT', 'GET'])
+def updateitem():
+    '''
+    updating item 
+    Output: Return the status of the operation
+    '''
+
+    # extract request parameters
+    if request.method == 'PUT':
+        data = json.loads(request.data)
+
+        status, msg = funcs.update_item(data)
+
+        if status:
+            return jsonify({"status": 200, "data":[], "message": msg})
+        else:
+            return jsonify({"status": 400, "data":[], "message": msg})
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)

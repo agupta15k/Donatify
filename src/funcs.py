@@ -1,7 +1,9 @@
 '''
 This file holds the entire database related configuration and fucntions
 '''
+import re
 import mysql.connector
+from ast import literal_eval as make_tuple
 
 #database connection
 connection = mysql.connector.connect(
@@ -9,27 +11,30 @@ connection = mysql.connector.connect(
 cursor = connection.cursor()
 
 
-def get_all_items():
+def get_items(page, user_id):
     '''
     Select/View operation
     '''
     try:
-        sql_select_query = """select * from items"""
         
-        cursor.execute(sql_select_query)
-        # fetch result
+        sql_get_data_query = """select Interests from users where ID = %s"""
+        record = (int(user_id),)
+        cursor.execute(sql_get_data_query, record)
         record = cursor.fetchall()
-
-        # for row in record:
-        #     print("Id = ", row[0], )
-        #     print("Name = ", row[1])
-        #     print("Join Date = ", row[2])
-        #     print("Salary  = ", row[3], "\n")
-        print(record)
-        return record
+    
+        record = str(record).replace("[('[","")
+        record = record.replace("]',)]","")
+        tuplerecord = make_tuple(record)
+        
+        sql_select_query = """select * from items where category in {} order by item_id  limit 10 offset {} """.format(tuplerecord, int(page)*10-10)
+        cursor.execute(sql_select_query)
+        new_record = cursor.fetchall()
+        return True,new_record
         
     except mysql.connector.Error as error:
         print("Failed to get record from MySQL table: {}".format(error))
+        msg = "Failed to get record from MySQL table: {}".format(error)
+        return False,msg
 
     # finally:
     #     if connection.is_connected():
@@ -38,24 +43,27 @@ def get_all_items():
     #         print("MySQL connection is closed")
             
 
-def insert_item(item_name, quantity, description, zipcode, city):
+def insert_item(item_name, quantity, description, zipcode, city, donor_id, category):
     '''
     Insert operation
     '''
 
     try:
-        mysql_insert_query = """INSERT INTO items (item_name, quantity, description, zipcode, city) 
-                                VALUES (%s, %s, %s, %s, %s) """
+        print(item_name)
+        mysql_insert_query = """INSERT INTO items (item_name, quantity, description, zipcode, city, donor_id, category) 
+                                VALUES (%s, %s, %s, %s, %s, %s, %s) """
 
-        record = (item_name, int(quantity), description,int(zipcode), city)
+        record = (item_name, quantity, description,zipcode, city, donor_id, category)
         cursor.execute(mysql_insert_query, record)
         connection.commit()
         print("Record inserted successfully into item table")
-        return True
+        msg = "Record inserted successfully into item table"
+        return True, msg
 
     except mysql.connector.Error as error:
         print("Failed to insert into items table {}".format(error))
-        return False
+        msg = "Failed to insert into items table {}".format(error)
+        return False, msg
 
     # finally:
     #     if connection.is_connected():
@@ -63,6 +71,24 @@ def insert_item(item_name, quantity, description, zipcode, city):
     #         connection.close()
     #         print("MySQL connection is closed")
     
+def update_item(data):
+    '''
+    Update Operation
+    '''
+    try:
+        mysql_update_query = """UPDATE items set item_name = %s, quantity = %s, description = %s, zipcode = %s, city = %s, donor_id = %s, category = %s WHERE item_id = %s """
+
+        input_data = (data['item_name'], data['quantity'], data['description'], data['zipcode'], data['city'], data['donor_id'], data['category'], data['item_id'])
+        cursor.execute(mysql_update_query, input_data)
+        connection.commit()
+        print("Record updated successfully into item table")
+        msg = "Record updated successfully into item table"
+        return True, msg
+
+    except mysql.connector.Error as error:
+        print("Failed to update into items table {}".format(error))
+        msg = "Failed to update into items table {}".format(error)
+        return False, msg
     
 
 

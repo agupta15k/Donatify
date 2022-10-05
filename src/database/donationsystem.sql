@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2022 at 08:55 AM
+-- Generation Time: Oct 05, 2022 at 08:28 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -30,8 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `donation` (
   `donation_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `donor_id` int(11) NOT NULL,
-  `reciever_id` int(11) NOT NULL
+  `recipient_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -45,16 +44,43 @@ CREATE TABLE `items` (
   `item_name` varchar(1000) NOT NULL,
   `quantity` int(11) NOT NULL,
   `description` varchar(1000) NOT NULL,
-  `zipcode` bigint(20) NOT NULL,
-  `city` varchar(1000) NOT NULL
+  `zipcode` varchar(20) NOT NULL,
+  `city` varchar(1000) NOT NULL,
+  `donor_id` int(11) NOT NULL,
+  `category` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`item_id`, `item_name`, `quantity`, `description`, `zipcode`, `city`) VALUES
-(1, 'table', 1, 'I have a office table to donate', 27606, 'Raleigh');
+INSERT INTO `items` (`item_id`, `item_name`, `quantity`, `description`, `zipcode`, `city`, `donor_id`, `category`) VALUES
+(1, 'book', 2, 'old books', '27606', 'Raleigh', 1, 'furniture'),
+(2, 'table', 2, 'new table', '27606', 'Raleigh', 1, 'books'),
+(3, 'veggies', 100, 'lot of veggies', '27606', 'Raleigh', 2, 'food');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `City` varchar(50) NOT NULL,
+  `Zipcode` varchar(50) NOT NULL,
+  `Interests` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`ID`, `Name`, `Email`, `Password`, `City`, `Zipcode`, `Interests`) VALUES
+(1, 'ABC', 'abc@gmail.com', '1234567', 'Raleigh', '27606', '[\"food\", \"furniture\", \"appliance\", \"electronics\"]');
 
 --
 -- Indexes for dumped tables
@@ -73,6 +99,12 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -86,7 +118,13 @@ ALTER TABLE `donation`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

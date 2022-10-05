@@ -17,13 +17,18 @@ class RegisterUser extends React.Component {
     };
 
     handleSubmit = (event) => {
-        const keys = ['name', 'email', 'pass', 're_pass', 'zip'];
+        const keys = ['name', 'email', 'pass', 're_pass'];
         for (let i = 0; i < keys.length; i++) {
             if (!this.validateInput(keys[i])) return;
         }
         const selectedCitites = document.getElementsByName('city');
         if (selectedCitites.length === 1 && !selectedCitites[0].value) {
             alert('Missing values for city. Please enter your city.');
+            event.preventDefault();
+            return false;
+        }
+        if (this.state.codes.length === 0) {
+            alert('Missing values for zip codes. Please enter your zip code.');
             event.preventDefault();
             return false;
         }

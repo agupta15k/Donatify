@@ -1,13 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-
+import { WithContext as ReactTags } from 'react-tag-input';
 
 class RegisterUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isValid: false
+            codes: []
         };
     }
     validateInput = (key) => {
@@ -34,6 +34,18 @@ class RegisterUser extends React.Component {
         const url = new URL(document.location.href);
         document.location.href = url.origin;
         document.getElementsByClassName('signup-image-link')[0].href = url.origin;
+    };
+
+    handleAddition = (event) => {
+        this.setState({
+            codes: [...this.state.codes, event]
+        });
+    };
+
+    handleDelete = (id) => {
+        this.setState({
+            codes: this.state.codes.filter((tag, index) => index !== id)
+        })
     };
 
     render() {
@@ -78,6 +90,11 @@ class RegisterUser extends React.Component {
             }
         ];
         const animatedComponents = makeAnimated();
+        const keyCodes = {
+            comma: 188,
+            enter: 13,
+        };
+        const delimiters = [keyCodes.comma, keyCodes.enter];
         return (
             <div className='signup'>
                 <div className="container">
@@ -87,7 +104,7 @@ class RegisterUser extends React.Component {
                             <form className="register-form" id="register-form">
                                 <div className="form-group">
                                     <img src="signup-name.png"/>
-                                    <input type="text" name="name" id="name" placeholder="Your Name" required/>
+                                    <input autoFocus type="text" name="name" id="name" placeholder="Your Name" required/>
                                 </div>
                                 <div className="form-group">
                                     <img src="signup-email.png"/>
@@ -116,7 +133,7 @@ class RegisterUser extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <img src="signup-zip.png"/>
-                                    <input type="text" name="zip" id="zip" placeholder="Your zip code" required/>
+                                    <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false}/>
                                 </div>
                                 <div className="form-group" style={{overflow: 'unset'}}>
                                     <img src="signup-groceries.png"/>
@@ -146,6 +163,7 @@ class RegisterUser extends React.Component {
                         </div>
                     </div>
                 </div>
+                {console.log(document.getElementById('name'))}
             </div>
         );
     }

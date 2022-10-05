@@ -1,62 +1,61 @@
 import mysql.connector
 import re
+import json
 
-# Getting connection the SQL Server
 connection = mysql.connector.connect(
     host="localhost", user="root", password="", database="User")
 cursor = connection.cursor()
 
-# Checks if logins have correct password and username
-def loginCheck(username, password):
+def getUserProfileByID(ID):
     try:
-        cursor.execute('SELECT * FROM Users WHERE username = %s AND password = %s', (username, password))
+        cursor.execute('SELECT name, email, city, zipcode, interests FROM Users where ID = %s', (int(ID),))
+        user = cursor.fetchone()
+        return user
+    except mysql.connector.Error as error:
+        print(error)
+        return []
+
+
+def getUserProfileByEmail(email):
+    try:
+        cursor.execute('SELECT ID, name, email, city, zipcode, interests FROM Users WHERE email = %s', (email,))
+        user = cursor.fetchone()
+        return user
+    except mysql.connector.Error as error:
+        return []
+
+
+def loginCheck(email, password):
+    try:
+        cursor.execute('SELECT * FROM Users WHERE email = %s AND password = %s', (email, password))
         user = cursor.fetchone()
         if user:
-            return True
+            return (True, 1)
         else:
-            return False
+            return (False,1)
     except mysql.connector.Error as error:
-        print("Failed to insert into Users table {}".format(error))
+        return (False, 0)
 
-# Adds a user while he registers on to the platform
-def addUser(username, password, email):
+def addUser(username, password, email, city, zipcode, interests):
     try:
-        sql_insert_query = "INSERT INTO Users (username, password, email) VALUES (%s, %s, %s)"
-        cursor.execute(sql_insert_query, (username, password, email))
+        sql_insert_query = "INSERT INTO Users (name, password, email, city, zipcode, interests) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql_insert_query, (username, password, email, city, zipcode, interests))
         connection.commit()
         return True
     except mysql.connector.Error as error:
-        print("Failed to insert into Users table {}".format(error))
+        return False
 
-# Checks if usernames are duplicates or not
-def checkDuplicateUsername(username):
-    try:
-        sql_select_query = "SELECT * FROM Users WHERE username = %s"
-        cursor.execute(sql_select_query, (username,))
-        # fetch result
-        record = cursor.fetchall()
-        match = re.match(r'[A-Za-z0-9]+', username)
-        if record or not match:
-            return True
-        else:
-            return False
-    except mysql.connector.Error as error:
-        print("Failed to insert into Users table {}".format(error))
-
-# Checks if emails are duplicated  
 def checkDuplicateEmail(email):
     try:
         sql_select_query = "SELECT * FROM Users WHERE email = %s"
         cursor.execute(sql_select_query, (email,))
         # fetch result
         record = cursor.fetchall()
-        print(record)
         match = re.match(r'[^@]+@[^@]+\.[^@]+', email)
         if record or not match:
-            return True
+            return (True,1)
         else:
-            return False
+            return (False,1)
     except mysql.connector.Error as error:
-        print("Failed to insert into Users table {}".format(error))
-
+        return (False,0)
 

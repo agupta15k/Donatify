@@ -1,9 +1,11 @@
 import React from "react";
 import RegisterUser from "./components/register";
 import LoginUser from "./components/login";
+import Home from './components/home';
+
 import {
-  createBrowserRouter,
-  RouterProvider
+    createBrowserRouter,
+    RouterProvider
 } from "react-router-dom";
 
 class LeftOver extends React.Component {
@@ -14,9 +16,13 @@ class LeftOver extends React.Component {
                 element: <LoginUser />,
             },
             {
-                path: "register",
+                path: "/register",
                 element: <RegisterUser />,
             },
+            {
+                path: "/home",
+                element: <Home />
+            }
         ]);
 
         return <RouterProvider router={router} />;

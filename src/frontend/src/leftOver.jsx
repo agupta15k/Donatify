@@ -12,7 +12,7 @@ class LeftOver extends React.Component {
     render() {
         const router = createBrowserRouter([
             {
-                path: "/",
+                path: "*",
                 element: <LoginUser />,
             },
             {

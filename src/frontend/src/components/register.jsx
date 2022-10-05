@@ -12,7 +12,7 @@ class RegisterUser extends React.Component {
     }
     validateInput = (key) => {
         const value = document.getElementsByName(key);
-        if (value.length == 1 && !value[0].value) return false;
+        if (value.length === 1 && !value[0].value) return false;
         return true;
     };
 
@@ -22,7 +22,7 @@ class RegisterUser extends React.Component {
             if (!this.validateInput(keys[i])) return;
         }
         const selectedCitites = document.getElementsByName('city');
-        if (selectedCitites.length == 1 && !selectedCitites[0].value) {
+        if (selectedCitites.length === 1 && !selectedCitites[0].value) {
             alert('Missing values for city. Please enter your city.');
             event.preventDefault();
             return false;
@@ -103,23 +103,23 @@ class RegisterUser extends React.Component {
                             <h2 className="form-title">Sign up</h2>
                             <form className="register-form" id="register-form">
                                 <div className="form-group">
-                                    <img src="signup-name.png"/>
+                                    <img src="signup-name.png" alt='signup name'/>
                                     <input autoFocus type="text" name="name" id="name" placeholder="Your Name" required/>
                                 </div>
                                 <div className="form-group">
-                                    <img src="signup-email.png"/>
+                                    <img src="signup-email.png" alt='signup enail'/>
                                     <input type="email" name="email" id="email" placeholder="Your Email" required/>
                                 </div>
                                 <div className="form-group">
-                                    <img src="signup-pass.png"/>
+                                    <img src="signup-pass.png" alt='signup password'/>
                                     <input type="password" name="pass" id="pass" placeholder="Password" required/>
                                 </div>
                                 <div className="form-group">
-                                    <img src="signup-repass.png"/>
+                                    <img src="signup-repass.png" alt='signup repeat password'/>
                                     <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password" required/>
                                 </div>
                                 <div className="form-group" style={{overflow: 'unset'}}>
-                                    <img src="signup-city.png"/>
+                                    <img src="signup-city.png" alt='signup city'/>
                                     <Select
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
@@ -127,16 +127,16 @@ class RegisterUser extends React.Component {
                                         options={cities}
                                         placeholder={'Your city'}
                                         maxMenuHeight={100}
-                                        menuPlacement='auto'
+                                        menuPlacement='top'
                                         name='city'
                                     ></Select>
                                 </div>
                                 <div className="form-group">
-                                    <img src="signup-zip.png"/>
+                                    <img src="signup-zip.png" alt='signup zip'/>
                                     <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false}/>
                                 </div>
                                 <div className="form-group" style={{overflow: 'unset'}}>
-                                    <img src="signup-groceries.png"/>
+                                    <img src="signup-groceries.png" alt='signup items'/>
                                     <Select
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
@@ -144,7 +144,7 @@ class RegisterUser extends React.Component {
                                         options={interestItems}
                                         placeholder={'Interested items'}
                                         maxMenuHeight={100}
-                                        menuPlacement='auto'
+                                        menuPlacement='top'
                                         name='groceries'
                                     ></Select>
                                 </div>
@@ -159,7 +159,10 @@ class RegisterUser extends React.Component {
                         </div>
                         <div className="signup-image">
                             <figure><img src="signup-image.png" alt="sign up"/></figure>
-                            <a href="" onClick={this.redirectToLogin} className="signup-image-link">I am already member</a>
+                            {
+                                // eslint-disable-next-line
+                                <a href="" onClick={this.redirectToLogin} className="signup-image-link">I am already member</a>
+                            }
                         </div>
                     </div>
                 </div>

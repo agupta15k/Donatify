@@ -213,7 +213,7 @@ class RegisterUser extends React.Component {
                             <figure><img src="signup-image.png" alt="sign up"/></figure>
                             {
                                 // eslint-disable-next-line
-                                <a href="" onClick={() => this.redirectToPath('')} className="signup-image-link">I am already member</a>
+                                <a href="" onClick={() => this.redirectToPath('')} className="signup-image-link">I am already a member</a>
                             }
                         </div>
                     </div>

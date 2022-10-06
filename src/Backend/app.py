@@ -36,14 +36,14 @@ empty()  --  empty function that only returns a static string
 
 -----------------------------------------------------------------------------------------------------------------
 '''
-#required imports
+# required imports
 from werkzeug.exceptions import HTTPException
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 from utils import *
 
-#Flask application configuration
+# Flask application configuration
 app = Flask(__name__)
 CORS(app)
 
@@ -85,16 +85,43 @@ CORS(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def empty():
+    """
+    Empty function which sends a json when we start the application.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
 
     return jsonify({"status": 200, "data": {}, "message": "Backend working"})
 
 
 @app.route('/items/', methods=['GET'])
 def home():
-    '''
-    Home page route method
-    Output: Return 10 item set present in the item table. 
-    '''
+    """
+    Dashboard which contains a set of items that interests the user.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    page : int
+        Page number of the home dashboard for a particular user. 
+    id : int
+        ID of the user to get their interested items.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains interested items for the user, message in accordance with the status.
+    """
 
     if request.method == 'GET':
         page = request.args.get('page')
@@ -113,12 +140,24 @@ def home():
 
 @app.route('/additem/', methods=['POST', 'GET'])
 def additem():
-    '''
-    Inserting new item 
-    Output: Return the status of the operation 
-    '''
+    """
+    Inserting an item into the dashboard.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
 
-    # extract request parameters
+    Parameters
+    ----------
+    data : json
+        Information about item which is going to get added into the dashboard.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
+
     if request.method == 'POST':
         data = json.loads(request.data)
 
@@ -133,12 +172,24 @@ def additem():
 
 @app.route('/updateitem/', methods=['POST', 'PUT', 'GET'])
 def updateitem():
-    '''
-    updating item 
-    Output: Return the status of the operation
-    '''
+    """
+    Updating an item which is currently posted on the dashboard.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
 
-    # extract request parameters
+    Parameters
+    ----------
+    data : json
+        Updated Item information.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
+
     if request.method == 'PUT':
         data = json.loads(request.data)
 
@@ -152,6 +203,24 @@ def updateitem():
 
 @app.route('/addDonation', methods=['POST', 'GET'])
 def add_Donation():
+    """
+    Information of a donation transaction which happens betweens two users.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    data : json
+        Information about the item which is getting donated.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
+
     if request.method == 'POST':
         data = json.loads(request.data)
         item_id = data['item_id']
@@ -166,6 +235,24 @@ def add_Donation():
 
 @app.route('/donor/history', methods=['POST', 'GET'])
 def getDonorInfo():
+    """
+    Get information for the donor's previous transactions.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    id : int
+        ID associated with the donor user.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains the information of the donor user's past transactions, message in accordance with the status.
+    """
+
     if request.method == 'GET':
         id = request.args.get('id')
         status, data = getDonorHistory(id)
@@ -180,6 +267,24 @@ def getDonorInfo():
 
 @app.route('/recipient/history', methods=['POST', 'GET'])
 def getRecieverInfo():
+    """
+    Get information for the receiver's previous transactions.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    id : int
+        ID associated with the receiver user.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains the information of the receiver user's past transactions, message in accordance with the status.
+    """
+
     if request.method == 'GET':
 
         id = request.args.get('id')
@@ -191,10 +296,27 @@ def getRecieverInfo():
                 return jsonify({"status": 200, "data": data, "message": "Donation History Records"})
         else:
             return jsonify({"status": 200, "data": {}, "message": data})
-        
+
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    """
+    Register a user.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    data : json
+        Information about user who is registering.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
 
     if request.method == 'POST':
 
@@ -207,17 +329,17 @@ def register():
         zipcode = str(data['zipcode'])
         interests = str(data['interests'])
 
-        if(repeatPassword != password):
+        if (repeatPassword != password):
             return jsonify({"status": 405, "data": {}, "message": "Passwords do not match"})
 
         check, status = checkDuplicateEmail(email)
-        if(status == 0):
+        if (status == 0):
             return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
-        if(check):
+        if (check):
             return jsonify({"status": 405, "data": {}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
 
         check = addUser(name, password, email, city, zipcode, interests)
-        if(check):
+        if (check):
             return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully"})
         else:
             return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
@@ -228,16 +350,34 @@ def register():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """
+    User login.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    data : json
+        Information about user who is logging in.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains logged in user's information, message in accordance with the status.
+    """
+
     if request.method == 'POST':
         data = json.loads(request.data)
         email = data['email']
         password = data['password']
         check, status = loginCheck(email, password)
-        if(status == 0):
+        if (status == 0):
             return jsonify({"status": 400, "data": {}, "message": "Database Error"})
         if (check):
             userInfo = getUserProfileByEmail(email)
-            if(len(userInfo) == 0):
+            if (len(userInfo) == 0):
                 return jsonify({"status": 400, "data": {}, "message": "Database Error"})
             else:
                 return jsonify({"status": 200, "data": userInfo, "message": "Logged in Succesfully"})
@@ -248,11 +388,29 @@ def login():
 
 @app.route('/profile')
 def getProfile():
+    """
+    Gets the profile of the current user.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    id : int
+        ID of the user who is logged in.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data which contains user's information, message in accordance with the status.
+    """
+
     if request.method == 'GET':
         id = request.args.get('id')
-        if(id):
+        if (id):
             userInfo = getUserProfileByID(id)
-            if(len(userInfo) == 0):
+            if (len(userInfo) == 0):
                 return jsonify({"status": 400, "data": {}, "message": "Database Error"})
             else:
                 return jsonify({"status": 200, "data": userInfo, "message": "Profile gotten succesfully"})
@@ -260,11 +418,24 @@ def getProfile():
 
 @app.route('/updateprofile', methods=['PUT'])
 def updateprofile():
-    '''
-    updating profile 
-    Output: Return the status of the operation
-    '''
-    # extract request parameters
+    """
+    Updates the profile of the current user.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
+    2) Data - Associated data with the operation.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    data : json
+        Updated data of the user.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
+
     if request.method == 'PUT':
         data = json.loads(request.data)
 
@@ -274,6 +445,7 @@ def updateprofile():
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
-        
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)

@@ -6,7 +6,7 @@ import re
 import mysql.connector
 from ast import literal_eval as make_tuple
 
-#database connection
+# database connection
 connection = mysql.connector.connect(
     host="localhost", user="root", password="", database="donationsystem")
 cursor = connection.cursor(dictionary=True)

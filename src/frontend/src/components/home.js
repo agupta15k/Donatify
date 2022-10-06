@@ -7,6 +7,7 @@ import {
     HistoryOutlined,
     SettingOutlined,
     VideoCameraOutlined,
+    LogoutOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
@@ -18,7 +19,16 @@ import Settings from './settings'
 
 const { Header, Sider, Content } = Layout;
 
+const redirectToPath = (path) => {
+    const url = new URL(document.location.href);
+    document.location.href = `${url.origin}${path}`;
+};
+
 const App = () => {
+    let userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
+    if (!userLogonDetails.signInStatus) {
+        redirectToPath('/');
+    }
     const [collapsed, setCollapsed] = useState(false);
     const [content, setContent] = useState('history');
     const items3 = [{
@@ -38,7 +48,18 @@ const App = () => {
         icon: React.createElement(SettingOutlined),
         label: `SETTINGS`,
         onClick: () => setContent('settings'),
-    }]
+    },
+    {
+        key: 'logout',
+        icon: React.createElement(LogoutOutlined),
+        label: 'LOGOUT',
+        onClick: () => {
+            userLogonDetails.signInStatus = false;
+            localStorage.setItem('userLogonDetails', JSON.stringify(userLogonDetails));
+            redirectToPath('/');
+        }
+    }
+    ]
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>

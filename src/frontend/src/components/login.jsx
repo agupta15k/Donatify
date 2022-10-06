@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 
 class LoginUser extends React.Component {
@@ -6,7 +7,8 @@ class LoginUser extends React.Component {
         super(props);
         this.state = {
             email: '',
-            pass: ''
+            pass: '',
+            loginSuccess: false
         };
     }
 
@@ -33,7 +35,9 @@ class LoginUser extends React.Component {
             }
             await this.props.onSubmitLogin(apiInput);
             if (this.props.userId && this.props.apiStatus) {
-                this.redirectToPath('/home');
+                this.setState({
+                    loginSuccess: true
+                });
                 return true;
             } else {
                 alert(this.props.apiMessage || 'Invalid email or password. Enter correct email and password, and try again.');
@@ -52,32 +56,34 @@ class LoginUser extends React.Component {
 
     render() {
         return (
-            <div className='signup'>
-                <div className="container">
-                    <div className="signin-content">
-                        <div className="signin-image">
-                            <figure><img src="signin-image.jpg" alt="sign in" /></figure>
-                            <a href="" onClick={() => this.redirectToPath('/register')} className="signup-image-link">Create an account</a>
-                        </div>
-                        <div className="signin-form">
-                            <h2 className="form-title">Sign in</h2>
-                            <form className="register-form" id="login-form">
-                                <div className="form-group">
-                                    <img src="signup-email.png" alt="signin email" />
-                                    <input autoFocus type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleInput} required />
-                                </div>
-                                <div className="form-group">
-                                    <img src="signup-pass.png" alt="signin password" />
-                                    <input type="password" name="pass" id="pass" placeholder="Password" value={this.state.pass} onChange={this.handleInput} required />
-                                </div>
-                                <div className="form-group form-button">
-                                    <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" className="form-submit" value="Log in" />
-                                </div>
-                            </form>
+            <section>
+                {this.state.loginSuccess ? <Navigate to={'/register'}/> : <div className='signup'>
+                    <div className="container">
+                        <div className="signin-content">
+                            <div className="signin-image">
+                                <figure><img src="signin-image.jpg" alt="sign in" /></figure>
+                                <a href="" onClick={() => this.redirectToPath('/register')} className="signup-image-link">Create an account</a>
+                            </div>
+                            <div className="signin-form">
+                                <h2 className="form-title">Sign in</h2>
+                                <form className="register-form" id="login-form">
+                                    <div className="form-group">
+                                        <img src="signup-email.png" alt="signin email" />
+                                        <input autoFocus type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleInput} required />
+                                    </div>
+                                    <div className="form-group">
+                                        <img src="signup-pass.png" alt="signin password" />
+                                        <input type="password" name="pass" id="pass" placeholder="Password" value={this.state.pass} onChange={this.handleInput} required />
+                                    </div>
+                                    <div className="form-group form-button">
+                                        <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" className="form-submit" value="Log in" />
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>}
+            </section>
         );
     }
 }

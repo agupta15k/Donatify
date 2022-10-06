@@ -1,7 +1,7 @@
 import React from "react";
 import RegisterUser from "./containers/registerUser";
 import LoginUser from "./containers/login";
-import Home from './components/home';
+import Home from './containers/home';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import {

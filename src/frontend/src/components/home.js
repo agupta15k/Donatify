@@ -7,7 +7,8 @@ import {
     HistoryOutlined,
     SettingOutlined,
     VideoCameraOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    HeartOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
@@ -15,7 +16,8 @@ import { connect } from "react-redux";
 
 import Profile from './profile';
 import History from './history';
-import Settings from './settings'
+import Settings from './settings';
+// import Donate from './donate';
 
 const { Header, Sider, Content } = Layout;
 
@@ -31,7 +33,14 @@ const App = () => {
     }
     const [collapsed, setCollapsed] = useState(false);
     const [content, setContent] = useState('history');
-    const items3 = [{
+    const items3 = [
+    // {
+    //     key: `donate`,
+    //     icon: React.createElement(HeartOutlined),
+    //     label: `DONATE`,
+    //     onClick: () => setContent('donate'),
+    // },
+    {
         key: `profile`,
         icon: React.createElement(UserOutlined),
         label: `PROFILE`,
@@ -93,6 +102,7 @@ const App = () => {
                 >
                     {content === 'profile' && <Profile />}
                     {/* {content === 'history' && <History />} */}
+                    {/* {content === 'donate' && <Donate />} */}
                     {content === 'settings' && <Settings />}
                 </Content>
             </Layout>

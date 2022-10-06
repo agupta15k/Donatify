@@ -1,6 +1,6 @@
 import axios from '../axios';
 
-const loginAPI = (value) => {
+const registerUserApi = (value) => {
     return {
         status: 200,
         data: {
@@ -10,8 +10,13 @@ const loginAPI = (value) => {
     };
     // Todo: Uncomment this and remove the test API response once API is up and running
     // return axios.post('/login', {
+    //     name: value.name,
     //     email: value.email,
-    //     password: value.pass
+    //     password: value.pass,
+    //     repeatpassword: value.rePass,
+    //     city: value.cities,
+    //     zipcode: value.zipCodes,
+    //     interests: value.interests
     // });
 }
-export default loginAPI;
+export default registerUserApi;

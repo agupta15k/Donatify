@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 
 class LoginUser extends React.Component {
@@ -11,46 +10,42 @@ class LoginUser extends React.Component {
         };
     }
 
-    handleEmailInput = (event) => {
-        this.setState({
-            ...this.state,
-            email: event.target.value
-        })
-    };
-
-    handlePasswordInput = (event) => {
-        this.setState({
-            ...this.state,
-            pass: event.target.value
-        })
-    };
-
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log(this.state)
-        console.log(document.getElementById('email'), document.getElementById('pass'))
-        // let res = await onSubmitLogin({
-        //     userName: this.state.email,
-        //     password: this.state.pass
-        // });
-        let res = {
-            data: {
-                success: true,
-                user_id: 1
+    handleInput = (event) => {
+        if (event.type === 'change') {
+            if (event.target) {
+                this.setState({
+                    [event.target.id]: event.target.value
+                });
             }
         }
-        await this.props.dispatch_login_action(res.data);
-        if (res.data.success) {
-            const url = new URL(document.location.href);
-            const target = `${url.origin}/home`;
-            document.location.href = target;
-            // return true;
+    }
+
+    handleSubmit = async (event) => {
+        const keys = ['email', 'pass'];
+        for (let i = 0; i < keys.length; i++) {
+            if (this.state[keys[i]] === '') return;
         }
+        event.preventDefault();
+        if (this.props) {
+            const apiInput = {
+                email: this.state.email,
+                pass: this.state.pass
+            }
+            await this.props.onSubmitLogin(apiInput);
+            if (this.props.user_id) {
+                this.redirectToPath('/home');
+                return true;
+            } else {
+                alert('Invalid email or password. Enter correct email and password, and try again.');
+                return false;
+            }
+        }
+        return false;
     };
 
-    redirectToLogin = () => {
+    redirectToPath = (path) => {
         const url = new URL(document.location.href);
-        const target = `${url.origin}/register`;
+        const target = `${url.origin}${path}`;
         document.location.href = target;
         document.getElementsByClassName('signup-image-link')[0].href = target;
     };
@@ -58,25 +53,25 @@ class LoginUser extends React.Component {
     render() {
         return (
             <div className='signup'>
-                <div class="container">
-                    <div class="signin-content">
-                        <div class="signin-image">
+                <div className="container">
+                    <div className="signin-content">
+                        <div className="signin-image">
                             <figure><img src="signin-image.jpg" alt="sign in" /></figure>
-                            <a href="" onClick={this.redirectToLogin} class="signup-image-link">Create an account</a>
+                            <a href="" onClick={() => this.redirectToPath('/register')} className="signup-image-link">Create an account</a>
                         </div>
-                        <div class="signin-form">
-                            <h2 class="form-title">Sign in</h2>
-                            <form class="register-form" id="login-form">
-                                <div class="form-group">
-                                    <img src="signup-email.png" />
-                                    <input type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleEmailInput} required />
+                        <div className="signin-form">
+                            <h2 className="form-title">Sign in</h2>
+                            <form className="register-form" id="login-form">
+                                <div className="form-group">
+                                    <img src="signup-email.png" alt="signin email" />
+                                    <input autoFocus type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleInput} required />
                                 </div>
-                                <div class="form-group">
-                                    <img src="signup-pass.png" />
-                                    <input type="password" name="your_pass" id="your_pass" placeholder="Password" value={this.state.pass} onChange={this.handlePasswordInput} required />
+                                <div className="form-group">
+                                    <img src="signup-pass.png" alt="signin password" />
+                                    <input type="password" name="pass" id="pass" placeholder="Password" value={this.state.pass} onChange={this.handleInput} required />
                                 </div>
-                                <div class="form-group form-button">
-                                    <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" class="form-submit" value="Log in" />
+                                <div className="form-group form-button">
+                                    <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" className="form-submit" value="Log in" />
                                 </div>
                             </form>
                         </div>
@@ -87,18 +82,4 @@ class LoginUser extends React.Component {
     }
 }
 
-
-const mapDispatchToProps = dispatch => {
-    return {
-        dispatch_login_action: (data) => {
-            dispatch({
-                type: "SUBMITLOGIN",
-                payload: data
-            })
-        }
-    }
-}
-const mapStateToProps = state => ({
-    user_id: state.user_id
-})
-export default connect(mapStateToProps, mapDispatchToProps)(LoginUser);
+export default LoginUser;

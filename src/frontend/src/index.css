@@ -243,6 +243,9 @@ input {
 			color: #222; }
 		input:focus:-moz-placeholder {
 			color: #222; }
+	input.error {
+		border-bottom: 1.5px solid rgb(198, 52, 52);
+	}
 
 .agree-term {
 	display: inline-block;

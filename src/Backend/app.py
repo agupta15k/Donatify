@@ -11,7 +11,7 @@ def register():
     if request.method == 'POST':
      
         data = json.loads(request.data)
-        username = data['name']
+        name = data['name']
         password = data['password']
         repeatPassword = data['repeatpassword']
         email = data['email']
@@ -20,22 +20,22 @@ def register():
         interests = str(data['interests'])
         
         if(repeatPassword != password):
-            return jsonify({"status": 405,"data":[], "message": "Passwords do not match"})
+            return jsonify({"status": 405,"data":{}, "message": "Passwords do not match"})
 
         check, status = checkDuplicateEmail(email)
         if(status == 0):
-            return jsonify({"status": 400,"data":[], "message": "Error while Accessing the database"})
+            return jsonify({"status": 400,"data":{}, "message": "Error while Accessing the database"})
         if(check):
-            return jsonify({"status": 405,"data":[], "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
+            return jsonify({"status": 405,"data":{}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
         
-        check = addUser(username, password, email, city, zipcode, interests)
+        check = addUser(name, password, email, city, zipcode, interests)
         if(check):
-            return jsonify({"status": 200,"data":[], "message": "You have registered succesfully"})
+            return jsonify({"status": 200,"data":{}, "message": "You have registered succesfully"})
         else:
-            return jsonify({"status": 400,"data":[], "message": "Error while adding an user"})
+            return jsonify({"status": 400,"data":{}, "message": "Error while adding an user"})
     elif request.method == 'POST':
-        return jsonify({"status": 405,"data":[], "message": "Please fill out the form !"})
-    return jsonify({"status": 200,"data":[], "message": ""})
+        return jsonify({"status": 405,"data":{}, "message": "Please fill out the form !"})
+    return jsonify({"status": 200,"data":{}, "message": ""})
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -46,16 +46,16 @@ def login():
         password = data['password']
         check, status = loginCheck(email, password)
         if(status == 0):
-            return jsonify({"status": 400,"data":[], "message": "Database Error"})
+            return jsonify({"status": 400,"data":{}, "message": "Database Error"})
         if (check):
             userInfo = getUserProfileByEmail(email)
             if(len(userInfo) == 0):
-                return jsonify({"status": 400,"data":[], "message": "Database Error"})
+                return jsonify({"status": 400,"data":{}, "message": "Database Error"})
             else:
                 return jsonify({"status": 200,"data":userInfo, "message": "Logged in Succesfully"})
         else:
-            return jsonify({"status": 405,"data":[], "message": "Incorrect email/Password"})
-    return jsonify({"status": 200,"data":[], "message": ""})
+            return jsonify({"status": 405,"data":{}, "message": "Incorrect email/Password"})
+    return jsonify({"status": 200,"data":{}, "message": ""})
 
 @app.route('/profile')
 def getProfile():
@@ -64,7 +64,7 @@ def getProfile():
         if(id):
             userInfo = getUserProfileByID(id)
             if(len(userInfo) == 0):
-                return jsonify({"status": 400,"data":[], "message": "Database Error"})
+                return jsonify({"status": 400,"data":{}, "message": "Database Error"})
             else:
                 return jsonify({"status": 200,"data":userInfo, "message": "Profile gotten succesfully"})
 
@@ -82,9 +82,9 @@ def updateprofile():
         status, msg = updateProfile(data)
 
         if status:
-            return jsonify({"status": 200, "data": [], "message": msg})
+            return jsonify({"status": 200, "data": {}, "message": msg})
         else:
-            return jsonify({"status": 400, "data": [], "message": msg})
+            return jsonify({"status": 400, "data": {}, "message": msg})
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)

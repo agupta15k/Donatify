@@ -57,7 +57,7 @@ class LoginUser extends React.Component {
     render() {
         return (
             <section>
-                {this.state.loginSuccess ? <Navigate to={'/register'}/> : <div className='signup'>
+                {this.state.loginSuccess ? <Navigate to={'/home'}/> : <div className='signup'>
                     <div className="container">
                         <div className="signin-content">
                             <div className="signin-image">

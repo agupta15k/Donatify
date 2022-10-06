@@ -3,7 +3,7 @@ import loginReducer from './login';
 import registerReducer from './registerUser';
 import home from './home';
 export default combineReducers({
-    home,
     loginReducer,
+    home,
     registerReducer
 })

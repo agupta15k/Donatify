@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardText, CardTitle, CardSubtitle, FormGroup, Form, Label, Input, FormText,Col } from 'reactstrap';
 import RegisterUser from './register';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { WithContext as ReactTags } from 'react-tag-input';

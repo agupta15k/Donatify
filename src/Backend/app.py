@@ -76,5 +76,24 @@ def getProfile():
             else:
                 return jsonify({"status": 200,"data":userInfo, "message": "Profile gotten succesfully"})
 
+
+@app.route('/updateprofile', methods=['PUT'])
+def updateprofile():
+    '''
+    updating profile 
+    Output: Return the status of the operation
+    '''
+
+    # extract request parameters
+    if request.method == 'PUT':
+        data = json.loads(request.data)
+
+        status, msg = updateProfile(data)
+
+        if status:
+            return jsonify({"status": 200, "data": [], "message": msg})
+        else:
+            return jsonify({"status": 400, "data": [], "message": msg})
+
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)

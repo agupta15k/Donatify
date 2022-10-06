@@ -1,8 +1,9 @@
 import React from "react";
-import RegisterUser from "./components/register";
-import LoginUser from "./components/login";
+import RegisterUser from "./containers/registerUser";
+import LoginUser from "./containers/login";
 import Home from './components/home';
-
+import { Provider } from 'react-redux';
+import store from './app/store';
 import {
     createBrowserRouter,
     RouterProvider
@@ -25,7 +26,11 @@ class LeftOver extends React.Component {
             }
         ]);
 
-        return <RouterProvider router={router} />;
+        return (
+            <Provider store={store}>
+                <RouterProvider router={router} />
+            </Provider>
+        );
     }
 }
 

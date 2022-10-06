@@ -7,27 +7,18 @@ app = Flask(__name__)
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        repeatPassword = request.form['repeatpassword']
-        email = request.form['email']
-        city = request.form['city']
-        zipcode = request.form['zipcode']
-        interests = request.form['interests']
-
-    # Postman Checks
-    # if request.method == 'POST':
-    #     print(1)
-    #     data = json.loads(request.data)
-    #     username = data['username']
-    #     password = data['password']
-    #     repeatPassword = data['repeatpassword']
-    #     email = data['email']
-    #     city = data['city']
-    #     zipcode = data['zipcode']
-    #     interests = data['interests']
-
+     
+        data = json.loads(request.data)
+        username = data['name']
+        password = data['password']
+        repeatPassword = data['repeatpassword']
+        email = data['email']
+        city = str(data['city'])
+        zipcode = str(data['zipcode'])
+        interests = str(data['interests'])
+        
         if(repeatPassword != password):
             return jsonify({"status": 405,"data":[], "message": "Passwords do not match"})
 
@@ -49,9 +40,10 @@ def register():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-        email = request.form['email']
-        password = request.form['password']
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        email = data['email']
+        password = data['password']
         check, status = loginCheck(email, password)
         if(status == 0):
             return jsonify({"status": 400,"data":[], "message": "Database Error"})
@@ -83,7 +75,6 @@ def updateprofile():
     updating profile 
     Output: Return the status of the operation
     '''
-
     # extract request parameters
     if request.method == 'PUT':
         data = json.loads(request.data)

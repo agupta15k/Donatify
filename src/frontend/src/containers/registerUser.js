@@ -7,12 +7,10 @@ const mapDispatchToProps = dispatch => {
         onSubmitRegister: async (value) => {
             try {
                 let res = await registerUserApi(value)
-                if (res.status === 200) {
-                    dispatch({
-                        type: "SUBMITREGISTER",
-                        payload: res
-                    })
-                }
+                dispatch({
+                    type: res.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
+                    payload: res
+                });
             } catch (error) {
                 console.error('Some error occurred while calling axios API', error)
             }
@@ -21,7 +19,8 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    user_id: state.registerReducer.user_id,
+    apiStatus: state.registerReducer.success,
+    apiMessage: state.registerReducer.message
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterUser);

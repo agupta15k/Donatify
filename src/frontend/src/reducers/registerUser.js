@@ -1,18 +1,22 @@
 const initialState = {
-    user_id: '',
-    localStorageData: '',
+    message: '',
     success: false,
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "SUBMITREGISTER": {
-            if (action.payload)
-                localStorage.setItem("user_id", action.payload.data.user_id);
             return {
                 ...state,
-                user_id: action.payload.data.user_id,
-                success: action.payload.data.status === 200
+                success: true,
+                message: action.payload.message
+            }
+        }
+        case "REGISTERFAILURE": {
+            return {
+                ...state,
+                success: false,
+                message: action.payload.message
             }
         }
         default: return state;

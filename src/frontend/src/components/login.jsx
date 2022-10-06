@@ -32,11 +32,11 @@ class LoginUser extends React.Component {
                 pass: this.state.pass
             }
             await this.props.onSubmitLogin(apiInput);
-            if (this.props.user_id) {
+            if (this.props.userId && this.props.apiStatus) {
                 this.redirectToPath('/home');
                 return true;
             } else {
-                alert('Invalid email or password. Enter correct email and password, and try again.');
+                alert(this.props.apiMessage || 'Invalid email or password. Enter correct email and password, and try again.');
                 return false;
             }
         }

@@ -1,18 +1,33 @@
 const initialState = {
-    user_id: '',
-    localStorageData: '',
+    userId: '',
+    message: '',
     success: false,
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "SUBMITLOGIN": {
-            if (action.payload)
-                localStorage.setItem("user_id", action.payload.data.user_id);
+            if (action.payload && action.payload.data) {
+                const userId = action.payload.data.ID
+                localStorage.setItem("userId", JSON.stringify({userId, authorizationTime: new Date()}));
+                return {
+                    ...state,
+                    userId,
+                    success: true,
+                    message: action.payload.message
+                }
+            }
             return {
                 ...state,
-                user_id: action.payload.data.user_id,
-                success: action.payload.data.status === 200
+                success: false,
+                message: action.payload.message
+            }
+        }
+        case "LOGINFAILURE": {
+            return {
+                ...state,
+                success: false,
+                message: action.payload.message
             }
         }
         default: return state;

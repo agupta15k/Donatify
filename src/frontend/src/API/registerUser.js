@@ -1,13 +1,18 @@
 import axios from '../axios';
 
 const registerUserApi = (value) => {
+    // Success dummy response
     return {
         status: 200,
-        data: {
-            success: true,
-            user_id: 1
-        }
+        message: 'You have registered successfully',
+        data: {}
     };
+    // Failure dummy response
+    // return {
+    //     status: 405,
+    //     message: 'Registration failed',
+    //     data: {}
+    // }
     // Todo: Uncomment this and remove the test API response once API is up and running
     // return axios.post('/login', {
     //     name: value.name,

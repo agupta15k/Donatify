@@ -7,13 +7,10 @@ const mapDispatchToProps = dispatch => {
         onSubmitLogin: async (value) => {
             try {
                 let res = await onSubmitLoginAPI(value)
-                console.log('akagutest', res);
-                if (res.status === 200) {
-                    dispatch({
-                        type: "SUBMITLOGIN",
-                        payload: res
-                    })
-                }
+                dispatch({
+                    type: res && res.status === 200 ? 'SUBMITLOGIN' : 'LOGINFAILURE',
+                    payload: res
+                });
             } catch (error) {
                 console.error('Some error occurred while calling axios API', error)
             }
@@ -22,7 +19,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    user_id: state.loginReducer.user_id,
+    userId: state.loginReducer.userId,
+    apiStatus: state.loginReducer.success,
+    apiMessage: state.loginReducer.message
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginUser);

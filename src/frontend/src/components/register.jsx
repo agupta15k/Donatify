@@ -72,11 +72,11 @@ class RegisterUser extends React.Component {
                 interests: this.state.interests.map((interest) => interest.value)
             };
             await this.props.onSubmitRegister(apiInput);
-            if (this.props.user_id) {
-                this.redirectToPath('/home');
+            if (this.props.apiStatus) {
+                this.redirectToPath('');
                 return true;
             } else {
-                alert('User creation could not complete. Please try again.');
+                alert(this.props.apiMessage || 'User creation could not complete. Please try again.');
                 return false;
             }
         }

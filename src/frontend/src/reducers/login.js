@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
         case "SUBMITLOGIN": {
             if (action.payload && action.payload.data) {
                 const userId = action.payload.data.ID
-                localStorage.setItem("userId", JSON.stringify({userId, authorizationTime: new Date()}));
+                localStorage.setItem("userLogonDetails", JSON.stringify({userId, signInTime: new Date(), signInStatus: true}));
                 return {
                     ...state,
                     userId,

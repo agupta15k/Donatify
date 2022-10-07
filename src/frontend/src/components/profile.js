@@ -34,7 +34,6 @@ class Profile extends Component {
         this.toggle();
     }
     toggle = () => {
-        console.log('inside toggle')
         this.setState({
             ...this.state,
             modal: !this.state.modal
@@ -56,10 +55,20 @@ class Profile extends Component {
         })
     }
     loadProfile = async () => {
-        let res = await getProfileAPI(this.props.props.userId)
+        let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId
+        let res = await getProfileAPI(userId)
         this.setState({
             ...this.state,
-            user: res.data.data,
+            user: {
+                id: res.data.data.id,
+                name: res.data.data.name,
+                email: res.data.data.email,
+                city: res.data.data.city,
+                zipCodes: res.data.data.zipcode.map((code) => ({ id: code, text: code })),
+                password: res.data.data.password,
+                interests: res.data.data.interests
+
+            },
         });
     };
     togglePassword = (event) => {
@@ -77,13 +86,9 @@ class Profile extends Component {
         })
     };
     handleSave = async () => {
-        console.log('inside handle save')
-        let res = await updateProfileAPI(this.state.user)
-        console.log(res)
-        console.log('before load profile')
+        let zipCodes = this.state.user.zipCodes.map((code) => (code.text))
+        let res = await updateProfileAPI({ ...this.state.user, zipCodes })
         await this.loadProfile();
-        console.log(this.state.user)
-        console.log('before toggle')
         this.toggle();
     }
 
@@ -97,28 +102,73 @@ class Profile extends Component {
         })
     }
 
+
     handleAddition = (event) => {
         this.setState({
-            codes: [...this.state.codes, event]
+            user: { ...this.state.user, zipCodes: [...this.state.user.zipCodes, event] }
         });
     };
 
-    handleInput = (event) => {
-        console.log(event)
+    handleDelete = (id) => {
+        this.setState({
+            user: { ...this.state.user, zipCodes: this.state.user.zipCodes.filter((tag, index) => index !== id) }
+        })
+    };
+    handleCityChange = (event) => {
+        let city = event.values.map(item => item.value)
         this.setState({
             user: {
                 ...this.state.user,
-                city: event.target.value
+                city
             }
         });
     }
 
-    componentDidMount() {
-        console.log(this.state)
-        this.loadProfile();
+    handleZipCodeChange = (event) => {
+        let zipCodes = event.values.map(item => item.text)
+        this.setState({
+            user: {
+                ...this.state.user,
+                zipCodes
+            }
+        })
+    }
+
+    handleInterestsChange = (event) => {
+        let interests = event.values.map(item => item.value)
+        this.setState({
+            user: {
+                ...this.state.user,
+                interests
+            }
+        })
+    }
+
+    handleInput = (event) => {
+        if (event.type === 'change') {
+            if (event.target) {
+                this.setState({
+                    user: {
+                        ...this.state.user,
+                        [event.target.id]: event.target.value
+                    }
+                });
+            }
+        } else {
+            this.setState({
+                user: {
+                    ...this.state.user,
+                    [event.name]: event.values
+                }
+            });
+        }
+    }
+
+    componentDidMount = async () => {
+        await this.loadProfile();
     }
     render() {
-        const city = [
+        const cities = [
             {
                 label: 'Raleigh',
                 value: 'raleigh'
@@ -130,6 +180,32 @@ class Profile extends Component {
             {
                 label: 'Durham',
                 value: 'durham'
+            }
+        ];
+        const interestItems = [
+            {
+                label: 'Fruits',
+                value: 'fruits'
+            },
+            {
+                label: 'Vegetables',
+                value: 'vegetables'
+            },
+            {
+                label: 'Table',
+                value: 'table'
+            },
+            {
+                label: 'Chair',
+                value: 'chair'
+            },
+            {
+                label: 'Chair1',
+                value: 'chair1'
+            },
+            {
+                label: 'Chair2',
+                value: 'chair2'
             }
         ];
         const animatedComponents = makeAnimated();
@@ -160,7 +236,7 @@ class Profile extends Component {
                             {this.state.user.email}
                         </CardSubtitle>
                         <CardText>
-                            CItites: {this.state.user.city.join(",")}
+                            CItites: {this.state.user.city}
                         </CardText>
                         <Button color="danger" onClick={this.toggle}>
                             Edit Profile
@@ -212,22 +288,45 @@ class Profile extends Component {
                                 />
                             </FormGroup>
                             <div className="form-group" style={{ overflow: 'unset' }}>
-                                <img src="../signup-city.png" alt='signup city' />
+                                {/* <img src="signup-city.png" alt='signup city' /> */}
                                 <Select
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     isMulti
-                                    options={city}
+                                    options={cities}
                                     placeholder={'Your city'}
-                                    maxMenuHeight={100}
+                                    maxMenuHeight={200}
                                     menuPlacement='top'
                                     name='city'
-                                    onChange={(event) => this.handleInput({ values: event, name: 'city' })}
+                                    onChange={(event) => this.handleCityChange({ values: event, name: 'city' })}
                                 />
                             </div>
                             <div className="form-group">
-                                <img src="../signup-zip.png" alt='signup zip' />
-                                <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false} />
+                                {/* <img src="signup-zip.png" alt='signup zip' /> */}
+                                <ReactTags
+                                    name='zip'
+                                    id='zip'
+                                    placeholder='Your zip codes'
+                                    tags={this.state.user.zipCodes}
+                                    delimiters={delimiters}
+                                    handleAddition={this.handleAddition}
+                                    handleDelete={this.handleDelete}
+                                    autofocus={false}
+                                />
+                            </div>
+                            <div className="form-group" style={{ overflow: 'unset' }}>
+                                {/* <img src="signup-groceries.png" alt='signup items' /> */}
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={interestItems}
+                                    placeholder={'Interested items'}
+                                    maxMenuHeight={200}
+                                    menuPlacement='top'
+                                    name='interests'
+                                    onChange={(event) => this.handleInterestsChange({ values: event, name: 'interests' })}
+                                />
                             </div>
                             {/* <FormGroup>
                                 <Label for="exampleFile">

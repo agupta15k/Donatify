@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Col, Row, Slider } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined, FolderViewOutlined } from '@ant-design/icons';
-import getDonotHistoryAPI from '../API/getDonorHistory';
-import getRecipietHistoryAPI from '../API/getRecipientHistory';
-import { Card, Avatar, Radio,Modal,Button } from 'antd';
+import getDonorHistoryAPI from '../API/getDonorHistory';
+import getRecipientHistoryAPI from '../API/getRecipientHistory';
+import { Card, Avatar, Radio, Modal, Button } from 'antd';
 const { Meta } = Card;
 
 class History extends Component {
@@ -32,233 +32,13 @@ class History extends Component {
   }
 
   loadHistory = async () => {
-    // const donorHistory= await getDonorHistoryAPI(this.props.props.userId)
-    // const recipientHistory = await getRecipietHistoryAPI(this.props.props.userId)
-
-    const donorHistory = [{
-      itemName: 'rice1',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice2',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice3',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice4',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice5',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice6',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice7',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice8',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice9',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice10',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice11',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice12',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorId: '1',
-      itemCategory: 'food'
-    }
-    ]
+    let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId
+    const donorHistory = await getDonorHistoryAPI(userId);
+    const recipientHistory = await getRecipientHistoryAPI(userId);
     this.setState({
-      donorHistory
-    })
-    const recipientHistory = [{
-      itemName: 'rice1',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice2',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice3',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice4',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice5',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice6',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice7',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice8',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice9',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice10',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice11',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    },
-    {
-      itemName: 'rice12',
-      itemQuantity: 1,
-      itemDescription: 'left over rice',
-      itemZipCode: '27606',
-      itemCity: 'raleigh',
-      itemDonorName: '1',
-      itemCategory: 'food'
-    }
-    ]
-    this.setState({
+      donorHistory,
       recipientHistory
-    })
+    });
   };
 
   loadMore = () => {
@@ -271,15 +51,11 @@ class History extends Component {
     );
   };
 
-  componentDidMount() {
-    // console.log(this.state)
-    console.log("history component")
-    console.log(this.props)
-    this.loadHistory();
+  componentDidMount = async () => {
+    await this.loadHistory();
   }
 
   setHistory = (event) => {
-    console.log("radio", event)
     this.setState({
       history: event.target.value
     })
@@ -311,7 +87,7 @@ class History extends Component {
       <>
         <Radio.Group options={this.state.options} onChange={this.setHistory} value={this.state.history} optionType="button" buttonStyle="solid" />
         <Card title={this.state.history}>
-          {(this.state.history === 'All' || this.state.history === 'Donor History') ?
+          {((this.state.history === 'All' || this.state.history === 'Donor History') && this.state.donorHistory.length > 0) ?
             this.state.donorHistory.map((d) => (
               <Card.Grid style={gridStyle}>
                 <Card
@@ -324,9 +100,9 @@ class History extends Component {
                       src="https://picsum.photos/300/200"
                     />
                   }
-                  // actions={[
-                  //   <FolderViewOutlined key="view" />
-                  // ]}
+                // actions={[
+                //   <FolderViewOutlined key="view" />
+                // ]}
                 >
                   <Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
@@ -337,7 +113,7 @@ class History extends Component {
                     View Details
                   </Button>
                   <Modal title="Basic Modal" open={this.state.isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <p>Item Name: {d.itemName}</p> 
+                    <p>Item Name: {d.itemName}</p>
                     <p>Item Quantity: {d.itemQuantity}</p>
                     <p>Item Description: {d.itemDescription}</p>
                     <p>Item Zip Code: {d.itemZipCode}</p>
@@ -350,7 +126,7 @@ class History extends Component {
             :
             (<div></div>)
           }
-          {(this.state.history === 'All' || this.state.history === 'Recipient History') ?
+          {((this.state.history === 'All' || this.state.history === 'Recipient History') && this.state.recipientHistory.length > 0) ?
             this.state.recipientHistory.map((d) => (
               <Card.Grid style={gridStyle}>
                 <Card
@@ -363,9 +139,9 @@ class History extends Component {
                       src="https://picsum.photos/300/200"
                     />
                   }
-                  // actions={[
-                  //   <FolderViewOutlined key="view" />
-                  // ]}
+                // actions={[
+                //   <FolderViewOutlined key="view" />
+                // ]}
                 >
                   <Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
@@ -376,7 +152,7 @@ class History extends Component {
                     View Details
                   </Button>
                   <Modal title="Item Details" open={this.state.isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <p>Item Name: {d.itemName}</p> 
+                    <p>Item Name: {d.itemName}</p>
                     <p>Item Quantity: {d.itemQuantity}</p>
                     <p>Item Description: {d.itemDescription}</p>
                     <p>Item Zip Code: {d.itemZipCode}</p>

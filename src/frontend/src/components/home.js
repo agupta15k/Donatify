@@ -18,7 +18,6 @@ import { Navigate } from 'react-router-dom';
 
 import Profile from './profile';
 import History from './history';
-import Settings from './settings';
 import Donate from './donate';
 import MarketPlace from './marketPlace';
 

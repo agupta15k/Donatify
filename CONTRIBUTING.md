@@ -1,4 +1,4 @@
-# Contributing to Donation Home
+# Contributing to Donatify Home
 :clap:First off, thanks for taking the time to contribute!:clap:
 
 We are looking forward to contributions that will enable lesser human intervention!
@@ -8,7 +8,7 @@ Please do take a look at our [Code of Conduct](#code-of-conduct).
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the --------. By participating, you are expected to uphold this code. Please report unacceptable behavior to --------
+This project and everyone participating in it is governed by the repository owner. By participating, you are expected to uphold this code. Please report unacceptable behavior to the repository owner.
 
 
 ## How Can I Contribute?
@@ -31,7 +31,7 @@ This section guides you through submitting a bug report.
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for the Donation Home.
+This section guides you through submitting an enhancement suggestion for the Donatify.
 
 #### Before Submitting An Enhancement Suggestion
 * Check the **debugging guide.**

@@ -21,7 +21,7 @@ const addItemApi = (value) => {
         zipcode: value.itemZipCode,
         city: value.itemCity,
         donor_id: value.itemDonorId,
-        category: value.itemCategory.value
+        category: value.itemCategory
     });
 }
 export default addItemApi;

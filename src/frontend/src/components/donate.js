@@ -1,6 +1,7 @@
 import React from "react";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { Spinner } from 'reactstrap';
 
 
 class Donate extends React.Component {
@@ -13,7 +14,8 @@ class Donate extends React.Component {
             itemZipCode: '',
             itemCity: {},
             itemDonorId: props.props.userId,
-            itemCategory: {}
+            itemCategory: {},
+            loading: false
         };
     }
 
@@ -55,12 +57,18 @@ class Donate extends React.Component {
                 itemDonorId: this.state.itemDonorId,
                 itemCategory: this.state.itemCategory.value
             };
+            this.setState({
+                loading: true
+            });
             await this.props.props.onAddItem(apiInput);
             if (this.props.props.apiStatus) {
                 this.redirectToPath('/home/history');
                 return true;
             } else {
                 alert(this.props.props.apiMessage || 'Item addition could not complete. Please try again.');
+                this.setState({
+                    loading: false
+                });
                 return false;
             }
         }
@@ -160,7 +168,7 @@ class Donate extends React.Component {
                                     />
                                 </div>
                                 <div className="form-group form-button">
-                                    <input type="submit" name="donate" id="donate" className="form-submit" value="Donate" onClick={this.handleSubmit} />
+                                    {this.state.loading ? <Spinner/> : <input type="submit" name="donate" id="donate" className="form-submit" value="Donate" onClick={this.handleSubmit} />}
                                 </div>
                             </form>
                         </div>

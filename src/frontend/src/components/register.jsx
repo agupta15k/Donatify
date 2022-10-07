@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { WithContext as ReactTags } from 'react-tag-input';
+import { Spinner } from 'reactstrap';
 
 class RegisterUser extends React.Component {
     constructor(props) {
@@ -49,6 +50,11 @@ class RegisterUser extends React.Component {
             if (this.state[keys[i]] === '') return;
         }
         event.preventDefault();
+        const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');
+        if (!this.state.email.match(emailRegex)) {
+            alert('Email format not correct. Enter email in correct format');
+            return false;
+        }
         if (this.state.pass !== this.state.rePass) {
             alert('Password does not match the confirmation. Ensure to enter matching passwords');
             return false;
@@ -71,12 +77,18 @@ class RegisterUser extends React.Component {
                 zipCodes: this.state.zipCodes.map((zipCode) => zipCode.id),
                 interests: this.state.interests.map((interest) => interest.value)
             };
+            this.setState({
+                loading: true
+            });
             await this.props.onSubmitRegister(apiInput);
             if (this.props.apiStatus) {
                 this.redirectToPath('/');
                 return true;
             } else {
                 alert(this.props.apiMessage || 'User creation could not complete. Please try again.');
+                this.setState({
+                    loading: false
+                });
                 return false;
             }
         }
@@ -205,7 +217,7 @@ class RegisterUser extends React.Component {
                                     <label for="agree-term" className="label-agree-term"><span><span></span></span>I agree all statements in <a className="term-service">Terms of service</a></label>
                                 </div> */}
                                 <div className="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" className="form-submit" value="Register" onClick={this.handleSubmit}/>
+                                    {this.state.loading ? <Spinner /> : <input type="submit" name="signup" id="signup" className="form-submit" value="Register" onClick={this.handleSubmit}/>}
                                 </div>
                             </form>
                         </div>

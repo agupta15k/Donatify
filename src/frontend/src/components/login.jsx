@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { Spinner } from 'reactstrap';
 
 
 class LoginUser extends React.Component {
@@ -8,7 +9,8 @@ class LoginUser extends React.Component {
         this.state = {
             email: '',
             pass: '',
-            loginSuccess: false
+            loginSuccess: false,
+            loading: false
         };
     }
 
@@ -28,11 +30,19 @@ class LoginUser extends React.Component {
             if (this.state[keys[i]] === '') return;
         }
         event.preventDefault();
+        const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');
+        if (!this.state.email.match(emailRegex)) {
+            alert('Email format not correct. Enter email in correct format');
+            return false;
+        }
         if (this.props) {
             const apiInput = {
                 email: this.state.email,
                 pass: this.state.pass
             }
+            this.setState({
+                loading: true
+            });
             await this.props.onSubmitLogin(apiInput);
             if (this.props.userId && this.props.apiStatus) {
                 this.setState({
@@ -40,6 +50,9 @@ class LoginUser extends React.Component {
                 });
                 return true;
             } else {
+                this.setState({
+                    loading: false
+                });
                 alert(this.props.apiMessage || 'Invalid email or password. Enter correct email and password, and try again.');
                 return false;
             }
@@ -76,7 +89,7 @@ class LoginUser extends React.Component {
                                         <input type="password" name="pass" id="pass" placeholder="Password" value={this.state.pass} onChange={this.handleInput} required />
                                     </div>
                                     <div className="form-group form-button">
-                                        <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" className="form-submit" value="Log in" />
+                                        {this.state.loading ? <Spinner/> : <input type="submit" onClick={this.handleSubmit} name="signin" id="signin" className="form-submit" value="Log in"/>}
                                     </div>
                                 </form>
                             </div>

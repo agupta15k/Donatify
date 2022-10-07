@@ -26,7 +26,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapsed: false,
+            collapsed: true,
             content: '',
             userLogonDetails: {}
         }

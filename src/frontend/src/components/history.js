@@ -316,7 +316,7 @@ class History extends Component {
               <Card.Grid style={gridStyle}>
                 <Card
                   style={{
-                    width: 50,
+                    width: '100%',
                   }}
                   cover={
                     <img
@@ -334,7 +334,7 @@ class History extends Component {
                     description={d.itemDescription}
                   />
                   <Button type="primary" onClick={showModal}>
-                    Item Details
+                    View Details
                   </Button>
                   <Modal title="Basic Modal" open={this.state.isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <p>Item Name: {d.itemName}</p> 
@@ -355,7 +355,7 @@ class History extends Component {
               <Card.Grid style={gridStyle}>
                 <Card
                   style={{
-                    width: 50,
+                    width: '100%',
                   }}
                   cover={
                     <img
@@ -373,7 +373,7 @@ class History extends Component {
                     description={d.itemDescription}
                   />
                   <Button type="primary" onClick={showModal}>
-                    Item Details
+                    View Details
                   </Button>
                   <Modal title="Item Details" open={this.state.isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <p>Item Name: {d.itemName}</p> 

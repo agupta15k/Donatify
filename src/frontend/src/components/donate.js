@@ -41,7 +41,7 @@ class Donate extends React.Component {
             alert('Missing value for category. Enter category for the item.');
             return false;
         }
-        if (this.props) {
+        if (this.props.props) {
             const apiInput = {
                 itemName: this.state.itemName,
                 itemQuantity: this.state.itemQuantity,
@@ -51,18 +51,21 @@ class Donate extends React.Component {
                 itemDonorId: this.state.itemDonorId,
                 itemCategory: this.state.itemCategory.value
             };
-            /*
-            await this.props.onSubmitRegister(apiInput);
-            if (this.props.apiStatus) {
-                this.redirectToPath('');
+            await this.props.props.onAddItem(apiInput);
+            if (this.props.props.apiStatus) {
+                this.redirectToPath('/home/history');
                 return true;
             } else {
-                alert(this.props.apiMessage || 'User creation could not complete. Please try again.');
+                alert(this.props.props.apiMessage || 'Item addition could not complete. Please try again.');
                 return false;
             }
-            */
         }
         return false;
+    };
+
+    redirectToPath = (path) => {
+        const url = new URL(document.location.href);
+        document.location.href = `${url.origin}${path}`;
     };
 
     render() {

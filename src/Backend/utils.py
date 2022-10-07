@@ -240,9 +240,8 @@ def getUserProfileByID(ID):
 
     try:
         cursor.execute(
-            'SELECT name, email, city, zipcode, interests FROM Users where ID = %s', (int(ID),))
+            'SELECT name, email, city, zipcode, interests FROM users where ID = %s', (int(ID),))
         user = cursor.fetchone()
-
         user["city"] = ast.literal_eval(user["city"])
         user["zipcode"] = ast.literal_eval(user["zipcode"])
         user["interests"] = ast.literal_eval(user["interests"])
@@ -304,7 +303,7 @@ def getUserProfileByEmail(email):
 
     try:
         cursor.execute(
-            'SELECT ID, name, email, city, zipcode, interests FROM Users WHERE email = %s', (email,))
+            'SELECT ID, name, email, city, zipcode, interests FROM users WHERE email = %s', (email,))
         user = cursor.fetchone()
         print(user)
         user["city"] = ast.literal_eval(user["city"])
@@ -334,7 +333,7 @@ def loginCheck(email, password):
 
     try:
         cursor.execute(
-            'SELECT * FROM Users WHERE email = %s AND password = %s', (email, password))
+            'SELECT * FROM users WHERE email = %s AND password = %s', (email, password))
         user = cursor.fetchone()
         if user:
             return (True, 1)
@@ -370,7 +369,7 @@ def addUser(name, password, email, city, zipcode, interests):
     """
 
     try:
-        sql_insert_query = "INSERT INTO Users (name, password, email, city, zipcode, interests) VALUES (%s, %s, %s, %s, %s, %s)"
+        sql_insert_query = "INSERT INTO users (name, password, email, city, zipcode, interests) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql_insert_query, (name, password,
                                           email, city, zipcode, interests))
         connection.commit()
@@ -395,7 +394,7 @@ def checkDuplicateEmail(email):
     """
 
     try:
-        sql_select_query = "SELECT * FROM Users WHERE email = %s"
+        sql_select_query = "SELECT * FROM users WHERE email = %s"
         cursor.execute(sql_select_query, (email,))
         # fetch result
         record = cursor.fetchall()

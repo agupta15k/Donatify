@@ -83,7 +83,7 @@ CORS(app)
 #### end of error handlers ####
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'OPTIONS'])
 def empty():
     """
     Empty function which sends a json when we start the application.\n
@@ -101,7 +101,7 @@ def empty():
     return jsonify({"status": 200, "data": {}, "message": "Backend working"})
 
 
-@app.route('/items/', methods=['GET'])
+@app.route('/items', methods=['GET', 'OPTIONS'])
 def home():
     """
     Dashboard which contains a set of items that interests the user.\n
@@ -136,9 +136,11 @@ def home():
                 return jsonify({"status": 200, "data": msg, "message": "Fetched records successfully"})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/additem/', methods=['POST', 'GET'])
+@app.route('/additem', methods=['POST', 'GET', 'OPTIONS'])
 def additem():
     """
     Inserting an item into the dashboard.\n
@@ -168,9 +170,11 @@ def additem():
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateitem/', methods=['POST', 'PUT', 'GET'])
+@app.route('/updateitem', methods=['POST', 'PUT', 'GET', 'OPTIONS'])
 def updateitem():
     """
     Updating an item which is currently posted on the dashboard.\n
@@ -199,9 +203,11 @@ def updateitem():
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/addDonation', methods=['POST', 'GET'])
+@app.route('/addDonation', methods=['POST', 'GET', 'OPTIONS'])
 def add_Donation():
     """
     Information of a donation transaction which happens betweens two users.\n
@@ -231,9 +237,11 @@ def add_Donation():
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/donor/history', methods=['POST', 'GET'])
+@app.route('/donor/history', methods=['POST', 'GET', 'OPTIONS'])
 def getDonorInfo():
     """
     Gets information for the current users previous donations.\n
@@ -263,9 +271,11 @@ def getDonorInfo():
                 return jsonify({"status": 200, "data": data, "message": "Donation History Records"})
         else:
             return jsonify({"status": 400, "data": {}, "message": data})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/recipient/history', methods=['POST', 'GET'])
+@app.route('/recipient/history', methods=['POST', 'GET', 'OPTIONS'])
 def getRecieverInfo():
     """
     Gets information for all the items received by the user in the past.\n
@@ -296,9 +306,11 @@ def getRecieverInfo():
                 return jsonify({"status": 200, "data": data, "message": "Donation History Records"})
         else:
             return jsonify({"status": 200, "data": {}, "message": data})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/register', methods=['POST', 'GET'])
+@app.route('/register', methods=['POST', 'GET', 'OPTIONS'])
 def register():
     """
     Register a user.\n
@@ -345,10 +357,11 @@ def register():
             return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
     elif request.method == 'POST':
         return jsonify({"status": 405, "data": {}, "message": "Please fill out the form !"})
+    
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET', 'OPTIONS'])
 def login():
     """
     User login.\n
@@ -383,10 +396,11 @@ def login():
                 return jsonify({"status": 200, "data": userInfo, "message": "Logged in Succesfully"})
         else:
             return jsonify({"status": 405, "data": {}, "message": "Incorrect email/Password"})
+    
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'OPTIONS', 'PUT'])
 def getProfile():
     """
     Gets the profile of the current user.\n
@@ -414,9 +428,11 @@ def getProfile():
                 return jsonify({"status": 400, "data": {}, "message": "Database Error"})
             else:
                 return jsonify({"status": 200, "data": userInfo, "message": "Profile gotten succesfully"})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateprofile', methods=['PUT'])
+@app.route('/updateprofile', methods=['PUT', 'OPTIONS'])
 def updateprofile():
     """
     Updates the profile of the current user.\n
@@ -445,6 +461,8 @@ def updateprofile():
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
+    
+    return jsonify({"status": 200, "data": {}, "message": ""})
 
 
 if __name__ == '__main__':

@@ -35,6 +35,10 @@ class LeftOver extends React.Component {
             {
                 path: "/home/donate",
                 element: <Home tab={'donate'} />
+            },
+            {
+                path: "/home/marketPlace",
+                element: <Home tab={'marketPlace'} />
             }
         ]);
 

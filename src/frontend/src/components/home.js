@@ -8,7 +8,8 @@ import {
     SettingOutlined,
     VideoCameraOutlined,
     LogoutOutlined,
-    HeartOutlined
+    HeartOutlined,
+    ShopOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { Component, useState } from 'react';
@@ -19,6 +20,7 @@ import Profile from './profile';
 import History from './history';
 import Settings from './settings';
 import Donate from './donate';
+import MarketPlace from './marketPlace';
 
 const { Header, Sider, Content } = Layout;
 
@@ -45,7 +47,7 @@ class Home extends Component {
             if (url.pathname === '/home') {
                 this.redirectToPath('/home/history');
             } else {
-                const paths = ['profile', 'history', 'donate'];
+                const paths = ['profile', 'history', 'donate','marketPlace'];
                 if (paths.includes(pathWithoutHome)) {
                     this.setState({
                         content: pathWithoutHome
@@ -93,6 +95,12 @@ class Home extends Component {
                 onClick: () => this.redirectToPath('/home/profile')
             },
             {
+                key: `marketPlace`,
+                icon: React.createElement(ShopOutlined),
+                label: `MARKET PLACE`,
+                onClick: () => this.redirectToPath('/home/marketPlace')
+            },
+            {
                 key: 'logout',
                 icon: React.createElement(LogoutOutlined),
                 label: 'LOGOUT',
@@ -138,6 +146,7 @@ class Home extends Component {
                         {(this.state.content === 'history' || this.props.tab === 'history') && <History props={this.props}/>}
                         {(this.state.content === 'donate' || this.props.tab === 'donate') && <Donate props={this.props}/>}
                         {(this.state.content === 'profile' || this.props.tab === 'profile') && <Profile props={this.props}/>}
+                        {(this.state.content === 'marketPlace' || this.props.tab === 'marketPlace') && <MarketPlace props={this.props}/>}
                     </Content>
                 </Layout>
             </Layout>

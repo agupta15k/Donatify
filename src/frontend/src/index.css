@@ -247,6 +247,36 @@ input {
 		border-bottom: 1.5px solid rgb(198, 52, 52);
 	}
 
+textarea {
+	width: 90%;
+	display: block;
+	border: none;
+	border-bottom: 1px solid #999;
+	padding: 6px 10px;
+	font-family: Poppins;
+	box-sizing: border-box; }
+	textarea::-webkit-textarea-placeholder {
+		color: #999; }
+	textarea::-moz-placeholder {
+		color: #999; }
+	textarea:-ms-textarea-placeholder {
+		color: #999; }
+	textarea:-moz-placeholder {
+		color: #999; }
+	textarea:focus {
+		border-bottom: 1px solid #222; }
+		textarea:focus::-webkit-textarea-placeholder {
+			color: #222; }
+		textarea:focus::-moz-placeholder {
+			color: #222; }
+		textarea:focus:-ms-textarea-placeholder {
+			color: #222; }
+		textarea:focus:-moz-placeholder {
+			color: #222; }
+	textarea.error {
+		border-bottom: 1.5px solid rgb(198, 52, 52);
+	}
+
 .agree-term {
 	display: inline-block;
 	width: auto; }

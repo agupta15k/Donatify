@@ -18,9 +18,10 @@ class MarketPlace extends Component {
     }
 
     loadData = async () => {
-        // const recipientItems = await getRecipientItemsAPI(this.props.props.userId)
+        let res = await getRecipientItemsAPI(this.props.props.userId)
 
-        const recipientItems = [{
+        console.log('market place', res)
+        let recipientItems = [{
             itemId: 1,
             itemName: 'rice1',
             itemQuantity: 1,
@@ -143,7 +144,7 @@ class MarketPlace extends Component {
         }
         ]
         this.setState({
-            recipientItems
+            recipientItems:res.data.data
         });
     };
 
@@ -157,11 +158,11 @@ class MarketPlace extends Component {
         );
     };
 
-    componentDidMount() {
+    componentDidMount = async () => {
         // console.log(this.state)
         console.log("history component")
         console.log(this.props)
-        this.loadData();
+        await this.loadData();
     }
 
     setHistory = (event) => {
@@ -245,7 +246,7 @@ class MarketPlace extends Component {
                                         showIcon
                                     />) : (<div></div>)} */}
 
-                                    <Modal title={d.itemName} open={this.state.isModalOpen}  onOk={() => { handleOk(d.itemId) }} onCancel={handleCancel}>
+                                    <Modal title={d.itemName} open={this.state.isModalOpen} onOk={() => { handleOk(d.itemId) }} onCancel={handleCancel}>
                                         <p>Item Name: {d.itemName}</p>
                                         <p>Item Quantity: {d.itemQuantity}</p>
                                         <p>Item Description: {d.itemDescription}</p>

@@ -18,12 +18,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const mapStateToProps = state => {
-    console.log('reducer1', state.loginReducer);
-    return ({
+const mapStateToProps = state =>  ({
     // apiStatus: state.registerReducer.success,
     // apiMessage: state.registerReducer.message
     userId: state.loginReducer.userId
-})}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -10,7 +10,7 @@ const mapDispatchToProps = dispatch => {
         //         let res = await getProfleAPI(value)
         //         dispatch({
         //             type: res.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
-        //             payload: res
+        //             payload: res.data
         //         });
         //     } catch (error) {
         //         console.error('Some error occurred while calling axios API', error)
@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => {
                 let res = await addItemApi(value)
                 dispatch({
                     type: res.status === 200 ? 'SUBMITITEM' : 'ITEMADDFAILURE',
-                    payload: res
+                    payload: res.data
                 });
             } catch (error) {
                 console.error('Some error occurred while calling axios API', error)

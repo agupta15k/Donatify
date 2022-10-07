@@ -7,9 +7,10 @@ const mapDispatchToProps = dispatch => {
         onSubmitLogin: async (value) => {
             try {
                 let res = await onSubmitLoginAPI(value)
+                console.log('akash', res);
                 dispatch({
                     type: res && res.status === 200 ? 'SUBMITLOGIN' : 'LOGINFAILURE',
-                    payload: res
+                    payload: res.data
                 });
             } catch (error) {
                 console.error('Some error occurred while calling axios API', error)

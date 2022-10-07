@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => {
                 let res = await registerUserApi(value)
                 dispatch({
                     type: res.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
-                    payload: res
+                    payload: res.data
                 });
             } catch (error) {
                 console.error('Some error occurred while calling axios API', error)

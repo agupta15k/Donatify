@@ -11,8 +11,8 @@ class Donate extends React.Component {
             itemQuantity: 1,
             itemDescription: '',
             itemZipCode: '',
-            itemCity: '',
-            itemDonorId: '',
+            itemCity: {},
+            itemDonorId: props.props.userId,
             itemCategory: {}
         };
     }
@@ -32,11 +32,15 @@ class Donate extends React.Component {
     }
 
     handleSubmit = async (event) => {
-        const keys = ['itemName', 'itemDescription', 'itemZipCode', 'itemCity'];
+        const keys = ['itemName', 'itemDescription', 'itemZipCode'];
         for (let i = 0; i < keys.length; i++) {
             if (this.state[keys[i]] === '') return;
         }
         event.preventDefault();
+        if (Object.keys(this.state.itemCity).length === 0) {
+            alert('Missing value for city. Enter city for the item.');
+            return false;
+        }
         if (Object.keys(this.state.itemCategory).length === 0) {
             alert('Missing value for category. Enter category for the item.');
             return false;
@@ -47,7 +51,7 @@ class Donate extends React.Component {
                 itemQuantity: this.state.itemQuantity,
                 itemDescription: this.state.itemDescription,
                 itemZipCode: this.state.itemZipCode,
-                itemCity: this.state.itemCity,
+                itemCity: this.state.itemCity.value,
                 itemDonorId: this.state.itemDonorId,
                 itemCategory: this.state.itemCategory.value
             };
@@ -69,6 +73,20 @@ class Donate extends React.Component {
     };
 
     render() {
+        const cities = [
+            {
+                label: 'Raleigh',
+                value: 'raleigh'
+            },
+            {
+                label: 'Cary',
+                value: 'cary'
+            },
+            {
+                label: 'Durham',
+                value: 'durham'
+            }
+        ];
         const interestItems = [
             {
                 label: 'Fruits',
@@ -115,9 +133,18 @@ class Donate extends React.Component {
                                     <img src="../signup-zip.png" alt='item zipcode' />
                                     <input type="text" name="zipcode" id="itemZipCode" placeholder="Item zipcode" value={this.state.itemZipCode} onChange={this.handleInput} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group" style={{overflow: 'unset'}}>
                                     <img src="../signup-city.png" alt='item city'/>
-                                    <input type="text" name="city" id="itemCity" placeholder="Item city" value={this.state.itemCity} onChange={this.handleInput} required />
+                                    <Select
+                                        closeMenuOnSelect={true}
+                                        components={animatedComponents}
+                                        options={cities}
+                                        placeholder={'City'}
+                                        maxMenuHeight={200}
+                                        menuPlacement='top'
+                                        name='itemCity'
+                                        onChange={(event) => this.handleInput({values: event, name: 'itemCity'})}
+                                    />
                                 </div>
                                 <div className="form-group" style={{overflow: 'unset'}}>
                                     <img src="../signup-groceries.png" alt='signup items'/>

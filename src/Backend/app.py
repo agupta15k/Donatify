@@ -236,7 +236,7 @@ def add_Donation():
 @app.route('/donor/history', methods=['POST', 'GET'])
 def getDonorInfo():
     """
-    Get information for the donor's previous transactions.\n
+    Gets information for the current users previous donations.\n
     Response is a json which contains:\n
     1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
     2) Data - Associated data with the operation.\n
@@ -245,12 +245,12 @@ def getDonorInfo():
     Parameters
     ----------
     id : int
-        ID associated with the donor user.
+        ID associated with the logged in user.
 
     Returns
     ----------
     json
-        Returns a json containing the status, data which contains the information of the donor user's past transactions, message in accordance with the status.
+        Returns a json containing the status, data which contains the information of the current user's past donations, message in accordance with the status.
     """
 
     if request.method == 'GET':
@@ -268,7 +268,7 @@ def getDonorInfo():
 @app.route('/recipient/history', methods=['POST', 'GET'])
 def getRecieverInfo():
     """
-    Get information for the receiver's previous transactions.\n
+    Gets information for all the items received by the user in the past.\n
     Response is a json which contains:\n
     1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).\n
     2) Data - Associated data with the operation.\n
@@ -277,12 +277,12 @@ def getRecieverInfo():
     Parameters
     ----------
     id : int
-        ID associated with the receiver user.
+        ID associated with the currently logged in user.
 
     Returns
     ----------
     json
-        Returns a json containing the status, data which contains the information of the receiver user's past transactions, message in accordance with the status.
+        Returns a json containing the status, data which contains the information of the items received by the user in the past, message in accordance with the status.
     """
 
     if request.method == 'GET':

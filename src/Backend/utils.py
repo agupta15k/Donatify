@@ -6,16 +6,28 @@ import re
 import mysql.connector
 from ast import literal_eval as make_tuple
 
-# database connection
 connection = mysql.connector.connect(
     host="localhost", user="root", password="", database="donationsystem")
 cursor = connection.cursor(dictionary=True)
 
 
 def get_items(page, user_id):
-    '''
-    Select/View operation
-    '''
+    """
+    Get all the items given the page number and user id from the database.
+
+    Parameters
+    ----------
+    user_id : int
+        ID associated with logged in user.
+    page : int
+        Page number associated with the dashboard. Each pagenumber consists of 10 items.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is the list of all the items that the user is interested in.
+    """
+
     try:
 
         sql_get_data_query = """select Interests from users where ID = %s"""
@@ -47,9 +59,31 @@ def get_items(page, user_id):
 
 
 def insert_item(item_name, quantity, description, zipcode, city, donor_id, category):
-    '''
-    Insert operation
-    '''
+    """
+    Inserts an item into the database.
+
+    Parameters
+    ----------
+    item_name : string
+        Name of the item.
+    quantity : int
+        Quantity of the item.
+    description : string
+        Information about the item.
+    zipcode : string
+        Location of the item in zipcode.
+    city : string
+        Location of the item in terms of city.
+    donor_id : int
+        ID of the user who listed the item.
+    category : string
+        Which category the item belongs to. eg. Food, electronics.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
+    """
 
     try:
         print(item_name)
@@ -77,9 +111,20 @@ def insert_item(item_name, quantity, description, zipcode, city, donor_id, categ
 
 
 def update_item(data):
-    '''
-    Update Operation
-    '''
+    """
+    Updates an item in the database.
+
+    Parameters
+    ----------
+    data : json
+        Updated item information.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
+    """
+
     try:
         mysql_update_query = """UPDATE items set item_name = %s, quantity = %s, description = %s, zipcode = %s, city = %s, donor_id = %s, category = %s WHERE item_id = %s """
 
@@ -98,6 +143,20 @@ def update_item(data):
 
 
 def getDonorHistory(ID):
+    """
+    Gets Donor history of an user given their ID. 
+
+    Parameters
+    ----------
+    ID : int
+        ID of an user.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a list of all the items donated by the user.
+    """
+
     try:
         cursor.execute(
             'SELECT item_id, recipient_id FROM Donation where donation_id = %s', (int(ID),))
@@ -111,6 +170,20 @@ def getDonorHistory(ID):
 
 
 def getRecieverHistory(ID):
+    """
+    Gets receiving history of an user given their ID. 
+
+    Parameters
+    ----------
+    ID : int
+        ID of an user.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a list of all the items received by the user.
+    """
+
     try:
         cursor.execute(
             'SELECT item_id, donation_id, recipient_id FROM Donation where recipient_id = %s', (int(ID),))
@@ -123,6 +196,22 @@ def getRecieverHistory(ID):
 
 
 def addDonation(item_id, recipient_id):
+    """
+    Adds a transaction when the donation has taken place between two users.
+
+    Parameters
+    ----------
+    item_id : int
+        ID of the item being donated.
+    recipient_id : int
+        ID of the person who is receiving the donated id.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
+    """
+
     try:
         sql_insert_query = "INSERT INTO donation (item_id, recipient_id) VALUES (%s, %s)"
         cursor.execute(sql_insert_query, (item_id, recipient_id))
@@ -135,6 +224,20 @@ def addDonation(item_id, recipient_id):
 
 
 def getUserProfileByID(ID):
+    """
+    Get the user information given his ID.
+
+    Parameters
+    ----------
+    ID : int
+        ID of the user.
+
+    Returns
+    ----------
+    list
+        Returns a list containing the information of an user given his id.
+    """
+
     try:
         cursor.execute(
             'SELECT name, email, city, zipcode, interests FROM Users where ID = %s', (int(ID),))
@@ -152,9 +255,20 @@ def getUserProfileByID(ID):
 
 
 def updateProfile(data):
-    '''
-    Update Operation
-    '''
+    """
+    Updates an user in the database.
+
+    Parameters
+    ----------
+    data : json
+        Updated user information.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
+    """
+
     try:
         mysql_update_query = """UPDATE users set name = %s, email=%s, city=%s, zipcode=%s, interests=%s WHERE ID = %s """
 
@@ -174,6 +288,20 @@ def updateProfile(data):
 
 
 def getUserProfileByEmail(email):
+    """
+    Gets the user information given his email.
+
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+
+    Returns
+    ----------
+    list
+        Returns a list containing the information of an user given his email.
+    """
+
     try:
         cursor.execute(
             'SELECT ID, name, email, city, zipcode, interests FROM Users WHERE email = %s', (email,))
@@ -188,6 +316,22 @@ def getUserProfileByEmail(email):
 
 
 def loginCheck(email, password):
+    """
+    Checks if the password and email are matching in the database.
+
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+    password : string
+        Password of the user.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) is a check to see if there is a user present with matching password and email. The second element is a status code of whether there is a database error or not.
+    """
+
     try:
         cursor.execute(
             'SELECT * FROM Users WHERE email = %s AND password = %s', (email, password))
@@ -201,6 +345,30 @@ def loginCheck(email, password):
 
 
 def addUser(name, password, email, city, zipcode, interests):
+    """
+    Checks if the password and email are matching in the database.
+
+    Parameters
+    ----------
+    name : string
+        Name of the user.
+    password : string
+        Password of the user.
+    email : string
+        Email of the user.
+    city : list
+        List of cities which are of interest to the user.
+    zipcode : list
+        List of zipcodes which are of interest to the user.
+    interests : list
+        List of interests of the user.
+
+    Returns
+    ----------
+    bool
+        Checks if the user got added to the database or not.
+    """
+
     try:
         sql_insert_query = "INSERT INTO Users (name, password, email, city, zipcode, interests) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql_insert_query, (name, password,
@@ -212,6 +380,20 @@ def addUser(name, password, email, city, zipcode, interests):
 
 
 def checkDuplicateEmail(email):
+    """
+    Checks if an email is present twice in the database.
+
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) is a check to see if there are two users with the same email. The second element is a status code of whether there is a database error or not.  
+    """
+
     try:
         sql_select_query = "SELECT * FROM Users WHERE email = %s"
         cursor.execute(sql_select_query, (email,))

@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    userId: state.loginReducer.userId,
+    userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

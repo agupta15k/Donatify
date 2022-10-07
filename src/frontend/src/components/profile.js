@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardText, CardTitle, CardSubtitle, FormGroup, Form, Label, Input, FormText,Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardText, CardTitle, CardSubtitle, FormGroup, Form, Label, Input, FormText, Col } from 'reactstrap';
 import RegisterUser from './register';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { WithContext as ReactTags } from 'react-tag-input';
 import updateProfileAPI from '../API/updateProfile';
+import getProfileAPI from '../API/getProfile';
 
-class ModalExample extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,15 +24,17 @@ class ModalExample extends Component {
                 phone: '1231231231',
                 city: ['raleigh', 'durham', 'charlotte'],
                 zipCodes: ['12345', '27606'],
-                password: 'abcdef'
+                password: 'abcdef',
+                interests: []
             }
         }
     }
-    cancelChange=async ()=>{
+    cancelChange = async () => {
         await this.loadProfile();
         this.toggle();
     }
     toggle = () => {
+        console.log('inside toggle')
         this.setState({
             ...this.state,
             modal: !this.state.modal
@@ -53,24 +56,10 @@ class ModalExample extends Component {
         })
     }
     loadProfile = async () => {
-        // const { per, page, } = this.state;
-        // const endpoint = `https://randomuser.me/api/?nat=us&results=${per}&page=${page}`;
-        // const res= await getProfleAPI(this.props.user_id)
-        const res = {
-            data: {
-                success: true,
-                user: {
-                    id: 1,
-                    name: 'Newyork nagaram nidaroya vela nene vontari',
-                    email: 'abc@intel.com',
-                    city: ['raleigh', 'durham', 'charlotte'],
-                    zipCodes: ['12345', '27606'],
-                    password: '4903'
-                }
-            }
-        }
+        let res = await getProfileAPI(this.props.props.userId)
         this.setState({
-            user: res.data.user,
+            ...this.state,
+            user: res.data.data,
         });
     };
     togglePassword = (event) => {
@@ -81,21 +70,20 @@ class ModalExample extends Component {
         })
     }
 
-    
+
     handleDelete = (id) => {
         this.setState({
             codes: this.state.codes.filter((tag, index) => index !== id)
         })
     };
-    handleSave = async ()=>{
-        // const res=await updateProfileAPI(this.state.user)
-        const res= {
-            status:200,
-            data:{
-                success:true
-            }
-        }
+    handleSave = async () => {
+        console.log('inside handle save')
+        let res = await updateProfileAPI(this.state.user)
+        console.log(res)
+        console.log('before load profile')
         await this.loadProfile();
+        console.log(this.state.user)
+        console.log('before toggle')
         this.toggle();
     }
 
@@ -115,12 +103,22 @@ class ModalExample extends Component {
         });
     };
 
+    handleInput = (event) => {
+        console.log(event)
+        this.setState({
+            user: {
+                ...this.state.user,
+                city: event.target.value
+            }
+        });
+    }
+
     componentDidMount() {
         console.log(this.state)
         this.loadProfile();
     }
     render() {
-        const cities = [
+        const city = [
             {
                 label: 'Raleigh',
                 value: 'raleigh'
@@ -153,7 +151,7 @@ class ModalExample extends Component {
                     />
                     <CardBody>
                         <CardTitle tag="h5">
-                        {this.state.user.name}
+                            {this.state.user.name}
                         </CardTitle>
                         <CardSubtitle
                             className="mb-2 text-muted"
@@ -176,7 +174,7 @@ class ModalExample extends Component {
                         <Form>
                             <FormGroup>
                                 {/* <Label> */}
-                                    Name
+                                Name
                                 {/* </Label> */}
                                 <Input
                                     id="name"
@@ -189,7 +187,7 @@ class ModalExample extends Component {
                             </FormGroup>
                             <FormGroup>
                                 {/* <Label for="password"> */}
-                                    Password
+                                Password
                                 {/* </Label> */}
                                 <Input
                                     id="password"
@@ -203,7 +201,7 @@ class ModalExample extends Component {
                             </FormGroup>
                             <FormGroup>
                                 {/* <Label for="password"> */}
-                                    Email
+                                Email
                                 {/* </Label> */}
                                 <Input
                                     id="email"
@@ -213,23 +211,24 @@ class ModalExample extends Component {
                                     readOnly={true}
                                 />
                             </FormGroup>
-                            <div className="form-group" style={{overflow: 'unset'}}>
-                                    <img src="../signup-city.png" alt='signup city'/>
-                                    <Select
-                                        closeMenuOnSelect={false}
-                                        components={animatedComponents}
-                                        isMulti
-                                        options={cities}
-                                        placeholder={'Your city'}
-                                        maxMenuHeight={100}
-                                        menuPlacement='top'
-                                        name='city'
-                                    ></Select>
-                                </div>
-                                <div className="form-group">
-                                    <img src="../signup-zip.png" alt='signup zip'/>
-                                    <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false}/>
-                                </div>
+                            <div className="form-group" style={{ overflow: 'unset' }}>
+                                <img src="../signup-city.png" alt='signup city' />
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={city}
+                                    placeholder={'Your city'}
+                                    maxMenuHeight={100}
+                                    menuPlacement='top'
+                                    name='city'
+                                    onChange={(event) => this.handleInput({ values: event, name: 'city' })}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <img src="../signup-zip.png" alt='signup zip' />
+                                <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false} />
+                            </div>
                             {/* <FormGroup>
                                 <Label for="exampleFile">
                                     File
@@ -259,4 +258,4 @@ class ModalExample extends Component {
     }
 }
 
-export default ModalExample;
+export default Profile;

@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => ({
-    userId: state.loginReducer.userId,
+    userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId,
     apiStatus: state.loginReducer.success,
     apiMessage: state.loginReducer.message
 })

@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state =>  ({
     apiStatus: state.home.success,
     apiMessage: state.home.message,
-    userId: state.loginReducer.userId
+    userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

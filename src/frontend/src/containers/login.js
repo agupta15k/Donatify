@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => {
             try {
                 let res = await onSubmitLoginAPI(value)
                 dispatch({
-                    type: res && res.status === 200 ? 'SUBMITLOGIN' : 'LOGINFAILURE',
+                    type: res && res.data && res.data.status === 200 ? 'SUBMITLOGIN' : 'LOGINFAILURE',
                     payload: res.data
                 });
             } catch (error) {

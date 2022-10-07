@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => {
             try {
                 let res = await registerUserApi(value)
                 dispatch({
-                    type: res.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
+                    type: res && res.data && res.data.status === 200 ? 'SUBMITREGISTER' : 'REGISTERFAILURE',
                     payload: res.data
                 });
             } catch (error) {

@@ -214,7 +214,7 @@ class ModalExample extends Component {
                                 />
                             </FormGroup>
                             <div className="form-group" style={{overflow: 'unset'}}>
-                                    <img src="signup-city.png" alt='signup city'/>
+                                    <img src="../signup-city.png" alt='signup city'/>
                                     <Select
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
@@ -227,7 +227,7 @@ class ModalExample extends Component {
                                     ></Select>
                                 </div>
                                 <div className="form-group">
-                                    <img src="signup-zip.png" alt='signup zip'/>
+                                    <img src="../signup-zip.png" alt='signup zip'/>
                                     <ReactTags name='zip' id='zip' placeholder='Your zip codes' tags={this.state.codes} delimiters={delimiters} handleAddition={this.handleAddition} handleDelete={this.handleDelete} autofocus={false}/>
                                 </div>
                             {/* <FormGroup>

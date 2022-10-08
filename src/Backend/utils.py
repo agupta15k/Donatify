@@ -6,9 +6,12 @@ import re
 import mysql.connector
 from ast import literal_eval as make_tuple
 
-connection = mysql.connector.connect(
-    host="localhost", user="root", password="", database="donationsystem")
-cursor = connection.cursor(dictionary=True)
+try:
+    connection = mysql.connector.connect(
+        host="localhost", user="root", password="", database="donationsystem")
+    cursor = connection.cursor(dictionary=True)
+except:
+    pass
 
 
 def get_items(page, user_id):

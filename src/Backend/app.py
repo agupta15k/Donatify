@@ -41,7 +41,7 @@ from werkzeug.exceptions import HTTPException
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-from utils import *
+from src.Backend.utils import *
 
 # Flask application configuration
 app = Flask(__name__)
@@ -355,8 +355,6 @@ def register():
             return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully"})
         else:
             return jsonify({"status": 400, "data": {}, "message": "Error while adding an user"})
-    elif request.method == 'POST':
-        return jsonify({"status": 405, "data": {}, "message": "Please fill out the form !"})
     
     return jsonify({"status": 200, "data": {}, "message": ""})
 
@@ -432,7 +430,7 @@ def getProfile():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/updateprofile', methods=['PUT', 'OPTIONS'])
+@app.route('/updateprofile', methods=['PUT', 'GET', 'OPTIONS'])
 def updateprofile():
     """
     Updates the profile of the current user.\n
@@ -456,7 +454,6 @@ def updateprofile():
         data = json.loads(request.data)
 
         status, msg = updateProfile(data)
-
         if status:
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:

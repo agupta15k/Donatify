@@ -36,8 +36,9 @@ module.exports = {
 			'error',
 			'always'
 		],
-		'no-trailing-spaces': 'error',
-		'react/prop-types': 'off',
-		'no-unused-vars': 'warn'
+		'no-trailing-spaces': ['error'],
+		'react/prop-types': ['off'],
+		'no-unused-vars': ['warn'],
+		'no-multi-spaces': ['warn']
 	}
 };

@@ -27,7 +27,7 @@ class LoginUser extends React.Component {
     handleSubmit = async (event) => {
         const keys = ['email', 'pass'];
         for (let i = 0; i < keys.length; i++) {
-            if (this.state[keys[i]] === '') return;
+            if (this.state[keys[i]] === '') return false;
         }
         event.preventDefault();
         const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');

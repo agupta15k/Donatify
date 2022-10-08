@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loginComponent renders without crashing 1`] = `
+<section>
+  <div
+    className="signup"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="signin-content"
+      >
+        <div
+          className="signin-image"
+        >
+          <figure>
+            <img
+              alt="sign in"
+              src="signin-image.jpg"
+            />
+          </figure>
+          <a
+            className="signup-image-link"
+            href=""
+            onClick={[Function]}
+          >
+            Create an account
+          </a>
+        </div>
+        <div
+          className="signin-form"
+        >
+          <h2
+            className="form-title"
+          >
+            Sign in
+          </h2>
+          <form
+            className="register-form"
+            id="login-form"
+          >
+            <div
+              className="form-group"
+            >
+              <img
+                alt="signin email"
+                src="signup-email.png"
+              />
+              <input
+                autoFocus={true}
+                id="email"
+                name="email"
+                onChange={[Function]}
+                placeholder="Your Email"
+                required={true}
+                type="email"
+                value=""
+              />
+            </div>
+            <div
+              className="form-group"
+            >
+              <img
+                alt="signin password"
+                src="signup-pass.png"
+              />
+              <input
+                id="pass"
+                name="pass"
+                onChange={[Function]}
+                placeholder="Password"
+                required={true}
+                type="password"
+                value=""
+              />
+            </div>
+            <div
+              className="form-group form-button"
+            >
+              <input
+                className="form-submit"
+                id="signin"
+                name="signin"
+                onClick={[Function]}
+                type="submit"
+                value="Log in"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+`;

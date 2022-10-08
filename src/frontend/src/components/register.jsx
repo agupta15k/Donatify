@@ -47,7 +47,7 @@ class RegisterUser extends React.Component {
     handleSubmit = async (event) => {
         const keys = ['name', 'email', 'pass', 'rePass'];
         for (let i = 0; i < keys.length; i++) {
-            if (this.state[keys[i]] === '') return;
+            if (this.state[keys[i]] === '') return false;
         }
         event.preventDefault();
         const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');
@@ -67,7 +67,7 @@ class RegisterUser extends React.Component {
             alert('Missing values for zip codes. Enter your zip code.');
             return false;
         }
-        if (this.props) {
+        if (Object.keys(this.props).length > 0) {
             const apiInput = {
                 name: this.state.name,
                 email: this.state.email,
@@ -223,10 +223,7 @@ class RegisterUser extends React.Component {
                         </div>
                         <div className="signup-image">
                             <figure><img src="signup-image.png" alt="sign up"/></figure>
-                            {
-                                // eslint-disable-next-line
-                                <a href="" onClick={() => this.redirectToPath('/')} className="signup-image-link">I am already a member</a>
-                            }
+                            <a href="" onClick={() => this.redirectToPath('/')} className="signup-image-link">I am already a member</a>
                         </div>
                     </div>
                 </div>

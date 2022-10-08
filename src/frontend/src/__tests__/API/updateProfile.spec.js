@@ -2,7 +2,7 @@ import updateProfileAPI from '../../API/updateProfile';
 import axios from '../../axios';
 
 describe('updateProfileAPI', () => {
-    it('should call axios post with correct input', () => {
+    it('should call axios put with correct input', () => {
         const mockApiInput = {
             id: 1,
             name: 'abc',

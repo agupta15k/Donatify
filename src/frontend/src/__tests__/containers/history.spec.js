@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import History from '../../components/history';
 
 describe('historyContainer', () => {
-    it('should call axios post with correct input', () => {
+    it('should connect history component to store', () => {
         expect(JSON.stringify(connect(() => {}, () => {})(History))).toEqual(JSON.stringify(historyContainer));
     });
 });

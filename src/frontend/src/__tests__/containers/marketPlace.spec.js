@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import MarketPlace from '../../components/marketPlace';
 
 describe('homeContainer', () => {
-    it('should call axios post with correct input', () => {
+    it('should connect marketPlace component to store', () => {
         expect(JSON.stringify(connect(() => {}, () => {})(MarketPlace))).toEqual(JSON.stringify(marketPlaceContainer));
     });
 });

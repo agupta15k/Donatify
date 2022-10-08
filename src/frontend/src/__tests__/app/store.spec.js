@@ -3,8 +3,8 @@ import reducer from '../../reducers/index';
 import importStore from '../../app/store';
 
 
-describe('getProfleAPI', () => {
-    it('should call axios post with correct input', () => {
+describe('reduxStore', () => {
+    it('store should be set correctly', () => {
         const store = configureStore({
             reducer
         });

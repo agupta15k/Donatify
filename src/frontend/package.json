@@ -22,13 +22,14 @@
 		"react-scripts": "5.0.1",
 		"react-select": "^5.4.0",
 		"react-tag-input": "^6.8.1",
+		"react-test-renderer": "^18.2.0",
 		"reactstrap": "^9.1.4",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
+		"test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
@@ -48,5 +49,9 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"eslint": "^8.25.0",
+		"eslint-plugin-react": "^7.31.8"
 	}
 }

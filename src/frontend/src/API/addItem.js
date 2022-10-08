@@ -3,16 +3,20 @@ import axios from '../axios';
 const addItemApi = (value) => {
     // Success dummy response
     // return {
-    //     status: 200,
-    //     message: 'Record inserted successfully into item table',
-    //     data: {}
+    //     data: {
+    //         status: 200,
+    //         message: 'Record inserted successfully into item table',
+    //         data: {}
+    //     }
     // };
     // Failure dummy response
     // return {
-    //     status: 400,
-    //     message: 'Failed to insert into items table',
-    //     data: {}
-    // }
+    //     data: {
+    //         status: 400,
+    //         message: 'Failed to insert into items table',
+    //         data: {}
+    //     }
+    // };
     // Todo: Uncomment this and remove the test API response once API is up and running
     return axios.post('/additem', {
         item_name: value.itemName,

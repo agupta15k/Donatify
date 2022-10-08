@@ -13,7 +13,7 @@ class Donate extends React.Component {
             itemDescription: '',
             itemZipCode: '',
             itemCity: {},
-            itemDonorId: props.props.userId,
+            itemDonorId: props.props && props.props.userId,
             itemCategory: {},
             loading: false
         };
@@ -36,7 +36,7 @@ class Donate extends React.Component {
     handleSubmit = async (event) => {
         const keys = ['itemName', 'itemDescription', 'itemZipCode'];
         for (let i = 0; i < keys.length; i++) {
-            if (this.state[keys[i]] === '') return;
+            if (this.state[keys[i]] === '') return false;
         }
         event.preventDefault();
         if (Object.keys(this.state.itemCity).length === 0) {

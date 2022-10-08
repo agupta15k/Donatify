@@ -22,6 +22,7 @@
 		"react-scripts": "5.0.1",
 		"react-select": "^5.4.0",
 		"react-tag-input": "^6.8.1",
+		"react-test-renderer": "^18.2.0",
 		"reactstrap": "^9.1.4",
 		"web-vitals": "^2.1.4"
 	},

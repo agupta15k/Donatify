@@ -367,6 +367,17 @@ describe('registerUserComponent', () => {
         });
     });
 
+    it('redirect function updates state correctly', () => {
+        const component = renderer.create(<RegisterUser />);
+        document.getElementsByClassName = () => {
+            return [{
+                href: ''
+            }];
+        };
+        component.getInstance().redirectToPath('/');
+        expect(document.location.href).toEqual('http://localhost/');
+    });
+
     it('state updates when name input value changes', () => {
         const component = renderer.create(<RegisterUser onSubmitRegister={() => {}} apiStatus={true}/>);
         const onChangeInput = {

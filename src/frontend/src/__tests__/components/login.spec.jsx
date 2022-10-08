@@ -39,6 +39,42 @@ describe('loginComponent', () => {
         expect(expectedOutput).toEqual(actualOutput);
     });
 
+    it('handleInput function updates state correctly - not input', () => {
+        const component = renderer.create(<LoginUser />);
+        const expectedOutput = {
+            email: '',
+            pass: '',
+            loginSuccess: false,
+            loading: false
+        };
+        const input = {
+            type: 'test',
+            target: {
+                id: 'email',
+                value: 'test@test.com'
+            }
+        };
+        component.getInstance().handleInput(input);
+        const actualOutput = component.getInstance().state;
+        expect(expectedOutput).toEqual(actualOutput);
+    });
+
+    it('handleInput function updates state correctly - input, no target', () => {
+        const component = renderer.create(<LoginUser />);
+        const expectedOutput = {
+            email: '',
+            pass: '',
+            loginSuccess: false,
+            loading: false
+        };
+        const input = {
+            type: 'change'
+        };
+        component.getInstance().handleInput(input);
+        const actualOutput = component.getInstance().state;
+        expect(expectedOutput).toEqual(actualOutput);
+    });
+
     it('handleSubmit function returns false if email missing', (done) =>{
         const component = renderer.create(<LoginUser />);
         component.getInstance().setState({
@@ -152,6 +188,17 @@ describe('loginComponent', () => {
         }).catch((err) => {
             done(err);
         });
+    });
+
+    it('redirect function updates state correctly', () => {
+        const component = renderer.create(<LoginUser />);
+        document.getElementsByClassName = () => {
+            return [{
+                href: ''
+            }];
+        };
+        component.getInstance().redirectToPath('/');
+        expect(document.location.href).toEqual('http://localhost/');
     });
 
     it('state updates when email input value changes', () => {

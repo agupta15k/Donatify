@@ -254,6 +254,12 @@ describe('donateComponent', () => {
         });
     });
 
+    it('redirect function updates state correctly', () => {
+        const component = renderer.create(<Donate />);
+        component.getInstance().redirectToPath('/');
+        expect(document.location.href).toEqual('http://localhost/');
+    });
+
     it('state updates when itemName input value changes', () => {
         const props = {
             onAddItem: () => {},

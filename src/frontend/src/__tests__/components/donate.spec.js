@@ -219,23 +219,35 @@ describe('donateComponent', () => {
     });
 
     it('handleSubmit function returns true if API calls succeeds', (done) =>{
+        const mockFn = jest.fn();
         const props = {
-            onAddItem: () => {},
+            onAddItem: mockFn,
             apiStatus: true
         };
-        const component = renderer.create(<Donate props={props}/>);
-        window.alert = jest.fn();
-        component.getInstance().setState({
+        const currentState = {
             itemName: 'test',
             itemDescription: 'test',
             itemZipCode: 'test',
-            itemCity: {test: 'test'},
-            itemCategory: {test: 'test'}
-        });
+            itemCity: {label: 'test', value: 'test'},
+            itemCategory: {label: 'test', value: 'test'}
+        };
+        const expectedOutput = {
+            itemName: 'test',
+            itemDescription: 'test',
+            itemDonorId: undefined,
+            itemQuantity: 1,
+            itemZipCode: 'test',
+            itemCity: 'test',
+            itemCategory: 'test'
+        };
+        const component = renderer.create(<Donate props={props}/>);
+        window.alert = jest.fn();
+        component.getInstance().setState(currentState);
         component.getInstance().redirectToPath = jest.fn();
         component.getInstance().handleSubmit({preventDefault: () => {}}).then((val) => {
             expect(val).toEqual(true);
             expect(component.getInstance().state.loading).toEqual(true);
+            expect(mockFn).toHaveBeenCalledWith(expectedOutput);
             done();
         }).catch((err) => {
             done(err);

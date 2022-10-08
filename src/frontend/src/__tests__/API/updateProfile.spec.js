@@ -6,7 +6,7 @@ describe('updateProfileAPI', () => {
         const mockApiInput = {
             id: 1,
             name: 'abc',
-            email: 'email',
+            email: 'test@test.com',
             city: ['raleigh', 'durham', 'charlotte'],
             zipCodes: ['12345', '27606'],
             password: 'abcdef',

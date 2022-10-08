@@ -35,7 +35,7 @@ class LoginUser extends React.Component {
             alert('Email format not correct. Enter email in correct format');
             return false;
         }
-        if (this.props) {
+        if (Object.keys(this.props).length > 0) {
             const apiInput = {
                 email: this.state.email,
                 pass: this.state.pass

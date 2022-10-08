@@ -22,7 +22,7 @@ describe('loginComponent', () => {
     it('handleInput function updates state correctly - input', () => {
         const component = renderer.create(<LoginUser />);
         const expectedOutput = {
-            email: 'test1',
+            email: 'test@test.com',
             pass: '',
             loginSuccess: false,
             loading: false
@@ -31,7 +31,7 @@ describe('loginComponent', () => {
             type: 'change',
             target: {
                 id: 'email',
-                value: 'test1'
+                value: 'test@test.com'
             }
         };
         component.getInstance().handleInput(input);
@@ -55,7 +55,7 @@ describe('loginComponent', () => {
     it('handleSubmit function returns false if pass missing', (done) =>{
         const component = renderer.create(<LoginUser />);
         component.getInstance().setState({
-            email: 'test',
+            email: 'test@test.com',
             pass: ''
         });
         component.getInstance().handleSubmit({}).then((val) => {
@@ -68,12 +68,14 @@ describe('loginComponent', () => {
 
     it('handleSubmit function returns false if email is not correctly formatted', (done) =>{
         const component = renderer.create(<LoginUser />);
+        window.alert = jest.fn();
         component.getInstance().setState({
             email: 'test',
             pass: 'pass'
         });
         component.getInstance().handleSubmit({preventDefault: () => {}}).then((val) => {
             expect(val).toEqual(false);
+            expect(window.alert).toHaveBeenCalledWith('Email format not correct. Enter email in correct format');
             done();
         }).catch((err) => {
             done(err);
@@ -83,7 +85,7 @@ describe('loginComponent', () => {
     it('handleSubmit function returns false if props do not exist', (done) =>{
         const component = renderer.create(<LoginUser />);
         component.getInstance().setState({
-            email: 'test',
+            email: 'test@test.com',
             pass: 'pass'
         });
         component.getInstance().handleSubmit({preventDefault: () => {}}).then((val) => {
@@ -129,16 +131,23 @@ describe('loginComponent', () => {
     });
 
     it('handleSubmit function returns true if API calls succeeds', (done) =>{
-        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);        
-        window.alert = jest.fn();
-        component.getInstance().setState({
+        const mockFn = jest.fn();
+        const currentState = {
             email: 'test@test.com',
             pass: 'pass'
-        });
+        };
+        const expectedOutput = {
+            email: 'test@test.com',
+            pass: 'pass'
+        };
+        const component = renderer.create(<LoginUser onSubmitLogin={mockFn} apiStatus={true} userId={1}/>);
+        window.alert = jest.fn();
+        component.getInstance().setState(currentState);
         component.getInstance().setState = jest.fn();
         component.getInstance().redirectToPath = jest.fn();
         component.getInstance().handleSubmit({preventDefault: () => {}}).then((val) => {
             expect(val).toEqual(true);
+            expect(mockFn).toHaveBeenCalledWith(expectedOutput);
             done();
         }).catch((err) => {
             done(err);
@@ -146,7 +155,7 @@ describe('loginComponent', () => {
     });
 
     it('state updates when email input value changes', () => {
-        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);        
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
         const onChangeInput = {
             type: 'change',
             target: {
@@ -159,7 +168,7 @@ describe('loginComponent', () => {
     });
 
     it('state updates when pass input value changes', () => {
-        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);        
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
         const onChangeInput = {
             type: 'change',
             target: {
@@ -172,7 +181,7 @@ describe('loginComponent', () => {
     });
 
     it('renders spinner when loading is true', () => {
-        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);        
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
         component.getInstance().setState({
             loading: true
         });
@@ -181,12 +190,27 @@ describe('loginComponent', () => {
     });
 
     it('renders input when loading is false', (done) => {
-        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);        
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
         component.root.findAllByType('input')[2].props.onClick().then((val) => {
             expect(val).toEqual(false);
             done();
         }).catch((err) => {
             done(err);
         });
+    });
+
+    it('renders register button correctly', () => {
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
+        component.getInstance().redirectToPath = jest.fn();
+        component.root.findAllByType('a')[0].props.onClick();
+        expect(component.root.findAllByType('a')[0].props.className).toEqual('signup-image-link');
+        expect(component.getInstance().redirectToPath).toHaveBeenCalledWith('/register');
+    });
+
+    it('renders images correctly', () => {
+        const component = renderer.create(<LoginUser onSubmitLogin={() => {}} apiStatus={true} userId={1}/>);
+        expect(component.root.findAllByType('img')[0].props.src).toEqual('signin-image.jpg');
+        expect(component.root.findAllByType('img')[1].props.src).toEqual('signup-email.png');
+        expect(component.root.findAllByType('img')[2].props.src).toEqual('signup-pass.png');
     });
 });

@@ -1,0 +1,402 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>app module &#8212; Donatify 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dbconfig module" href="dbconfig.html" />
+    <link rel="prev" title="Backend" href="modules.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dbconfig.html" title="dbconfig module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Backend"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Donatify 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Backend</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">app module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-app">
+<span id="app-module"></span><h1>app module<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h1>
+<p>Flask application script to create the backend endpoints for the software</p>
+<hr class="docutils" />
+<p>Endpoints:</p>
+<p>1. /
+empty()  –  empty function that only returns a static string</p>
+<ol class="arabic" start="2">
+<li><p>/items/</p>
+<blockquote>
+<div><p>Input parameters:
+None</p>
+<p>Output:
+Response returns the items present in table</p>
+</div></blockquote>
+</li>
+<li><p>/additem/</p>
+<blockquote>
+<div><p>Input parameters:
+item_name, quantity, description, zipcode, city, donor_id, category</p>
+<p>Output:
+Response returns a success, message</p>
+</div></blockquote>
+</li>
+<li><p>/updateitem/</p>
+<blockquote>
+<div><p>Input parameters:
+item_name, quantity, description, zipcode, city, donor_id, category</p>
+<p>Output:
+Response returns a success, message</p>
+</div></blockquote>
+</li>
+</ol>
+<hr class="docutils" />
+<dl class="py function">
+<dt class="sig sig-object py" id="app.add_Donation">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">add_Donation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.add_Donation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information of a donation transaction which happens betweens two users.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Information about the item which is getting donated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.additem">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">additem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.additem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserting an item into the dashboard.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Information about item which is going to get added into the dashboard.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.empty">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty function which sends a json when we start the application.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.getDonorInfo">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">getDonorInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.getDonorInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets information for the current users previous donations.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – ID associated with the logged in user.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data which contains the information of the current user’s past donations, message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.getProfile">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">getProfile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.getProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the profile of the current user.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – ID of the user who is logged in.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data which contains user’s information, message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.getRecieverInfo">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">getRecieverInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.getRecieverInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets information for all the items received by the user in the past.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – ID associated with the currently logged in user.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data which contains the information of the items received by the user in the past, message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.home" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dashboard which contains a set of items that interests the user.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<em>int</em>) – Page number of the home dashboard for a particular user.</p></li>
+<li><p><strong>id</strong> (<em>int</em>) – ID of the user to get their interested items.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data which contains interested items for the user, message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.login">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>User login.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Information about user who is logging in.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data which contains logged in user’s information, message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.register">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a user.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Information about user who is registering.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.updateitem">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">updateitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.updateitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updating an item which is currently posted on the dashboard.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Updated Item information.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.updateprofile">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">updateprofile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.updateprofile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the profile of the current user.</p>
+<p>Response is a json which contains:</p>
+<ol class="arabic simple">
+<li><p>Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side ).</p></li>
+<li><p>Data - Associated data with the operation.</p></li>
+<li><p>Message - A message assoicated with the status.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>json</em>) – Updated data of the user.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">Backend</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dbconfig.html"
+                        title="next chapter">dbconfig module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/app.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dbconfig.html" title="dbconfig module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Backend"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Donatify 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >Backend</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">app module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Akash Gupta, Arun Srinivasan P, Nagaraj Madamshetti, Nitesh Mishra, Sumit Singh.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

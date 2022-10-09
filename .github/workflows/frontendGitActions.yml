@@ -48,7 +48,7 @@ jobs:
       uses: andstor/jsdoc-action@v1
       with:
         source_dir: ./src/frontend/src
-        output_dir: ./docs/frontendDocs
+        output_dir: ./docs/frontendDocs/left-overs/0.1.0
         recurse: true
         front_page: README.md
 

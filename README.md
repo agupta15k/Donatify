@@ -186,3 +186,12 @@ Accept a donation:
 ## Chat channel
 
 * All the communication was handled through a private chat channel and online meets. Some screenshots of discussions can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/chatChannel/screenshots).
+
+## Support
+We do our best to answer all tickets in a timely manner, but sometimes we accumulate a backlog and may take awhile to respond. Please be patient—we will get back to you as soon as we can! 
+Please do contact any of us:
+* Akash Gupta(agupta57@ncsu.edu)
+* Nagaraj Madamshetti(nmadams@ncsu.edu)
+* Arun Srinivasan P(apartha4@ncsu.edu)
+* Nitesh Mishra(nmishra4@ncsu.edu)
+* Sumit Singh(ssingh57@ncsu.edu)

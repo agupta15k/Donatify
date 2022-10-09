@@ -43,3 +43,17 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
+
+    - name: Build jsdoc documentation
+      uses: andstor/jsdoc-action@v1
+      with:
+        source_dir: ./src/frontend/src
+        output_dir: ./docs/frontendDocs
+        recurse: true
+        front_page: README.md
+
+    - name: Upload jsdoc documentation to github page
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_dir: ./docs/frontendDocs
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}

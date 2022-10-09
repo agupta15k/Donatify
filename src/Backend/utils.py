@@ -5,11 +5,12 @@ import ast
 import re
 import mysql.connector
 from ast import literal_eval as make_tuple
+from dbconfig import constants
 
 connection = mysql.connector.connect(
-    host="localhost", user="root", password="", database="donationsystem")
+    host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
 
-cursor = connection.cursor(dictionary=True)
+# cursor = connection.cursor(dictionary=True)
 # cursor.execute('set GLOBAL max_allowed_packet=67108864')
 # connection.query('SET GLOBAL connect_timeout=6000')
 # cursor.execute('set max_allowed_packet=67108864')
@@ -202,11 +203,16 @@ def getRecieverHistory(ID):
 
     try:
         cursor = connection.cursor(dictionary=True)
+        finalData =[]
         cursor.execute(
-            'SELECT item_id, donation_id, recipient_id FROM Donation where recipient_id = %s', (int(ID),))
+            'SELECT items.item_id, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s', (int(ID),))
         data = cursor.fetchall()
+        for record in data:
+            finalData.append({"itemId": record["item_id"], "itemName": record["item_name"], "itemQuantity": record["quantity"], "itemDescription": record["description"],
+                              "itemZipCode": record["zipcode"], "itemCity": record["city"], "itemDonorId": record["Name"], "itemCategory": record["category"]})
+        # print(record[0]["Interests"])
         cursor.close()
-        return True, data
+        return True, finalData
     except mysql.connector.Error as error:
         msg = "Failed to get history {}".format(error)
         return False, msg

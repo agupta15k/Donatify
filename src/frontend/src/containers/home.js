@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const mapStateToProps = state =>  ({
+const mapStateToProps = state => ({
 	apiStatus: state.home.success,
 	apiMessage: state.home.message,
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId

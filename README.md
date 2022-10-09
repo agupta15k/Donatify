@@ -84,16 +84,19 @@ Majority of us have noticed items which go to waste even when they are in their 
     ├── .github
     |   ├── workflows
     |   |   ├── frontendGitActions.yml      # GitActions workflow for frontend
+    |   |   ├── backendGitActions.yml       # GitActions workflow for frontend
     ├── .vscode
     |   ├── extensions.json                 # Recommended extensions for vscode
     |   ├── settings.json                   # Workspace settings for vscode
     ├── docs
     |   ├── Rubrics
     |   |   ├── proj1rubric.md              # Project rubric
+    |   ├── Backend                         # Documentation for backend
     |   ├── frontendDocs/left-overs/0.1.0   # Documentation for frontend
     |   ├── README.md                       # Readme file for docs folder
     ├── src
     |   ├── Backend
+    |   |   ├── __init__.py                 # Init file for backend
     |   |   ├── app.py                      # File containing backend APIs
     |   |   ├── dbconfig.py                 # DB configuration for backend
     |   |   ├── utils.py                    # Utilities for backend
@@ -117,15 +120,18 @@ Majority of us have noticed items which go to waste even when they are in their 
     |   |   ├── .eslintrc.js                # eslint configuration
     |   |   ├── package.json                # Package configuration and dependency closure
     |   ├── README.md                       # Readme file for src folder
-    |   ├── requirements.txt                # Details of dependency packages
-    ├── test                                # Folder containing unit tests for backend
-    ├── .gitattributes                  # File for git attributes
-    ├── .gitignore                      # File for git ignore
-    ├── CODE_OF_CONDUCT.md              # Code of conduct for repository
-    ├── CONTRIBUTING.md                 # Details about contributing to the repository
-    ├── LICENSE.md                      # MIT License details
-    └── README.md                       # Readme file for repository
-
+    ├── test
+    |   ├── README.md                       # Readme file for test folder
+    |   ├── __init__.py                     # Init file for test folder
+    |   ├── test_app.py                     # Tests for backend
+    ├── .gitattributes                      # File for git attributes
+    ├── .gitignore                          # File for git ignore
+    ├── CODE_OF_CONDUCT.md                  # Code of conduct for repository
+    ├── CONTRIBUTING.md                     # Details about contributing to the repository
+    ├── LICENSE.md                          # MIT License details
+    ├── README.md                           # Readme file for repository
+    ├── requirements.txt                    # Details of dependency packages
+    └── setup.py                            # Setup file for the module
 ## Roadmap
 
 * Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/2).

@@ -11,41 +11,100 @@
 
 Majority of us have noticed items which go to waste even when they are in their prime conditions. For example, many atriums, dining halls around the world dispose of their leftovers at the end of the day and a lot of food is being wasted. We introduce to you Donatify, a platform for donors and receivers to communicate to donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate and other users, if their interests match with the item would choose to receive it.    
 
----
-## Installation
+## Getting started
+  - ### Prerequisites
+    - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) should be installed.
+    - Make sure the database server(mysql) is on.
 
-**Backend**
+  - ### Installation and Run
 
-1. Create virtual environment  
-```
-python3 -m venv <name_of_virtualenv>
-```     
-2. Activate Python Virtual environment  
-```
-<name_of_virtualenv>\Scripts\activate.bat
-```
-3. Install dependencies
-```
-pip install -r requirement.txt
-```
-4. Move in directory ```src\Backend``` where our app.py file is located   
+    **Backend**
 
-5. Run below command to start the backend application
-```
-python app.py
-```
-**Note:** Make sure the database server(mysql) is on. The backend flask application will be up and running at ```localhost:5001```
+    1. Create virtual environment
 
-**Frontend**
+    ```
+    python3 -m venv <name_of_virtualenv>
+    ```
 
-[Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/frontendDocs/left-overs/0.1.0/index.html)
+    2. Activate Python Virtual environment
 
-* Prerequisite: [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) should be installed
+    ```
+    <name_of_virtualenv>\Scripts\activate.bat
+    ```
 
-1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located
+    3. Install dependencies
 
-2. Install all the dependencies using npm. Command to run: ```npm install```. This will fetch the dependecies from package.json file, and install them.
+    ```
+    pip install -r requirement.txt
+    ```
 
-3. Start the server by using the command ```npm start```. This will run the server on port ```3000```, and the website can be accessed by going to ```http://localhost:3000/```.
+    4. Move in directory ```src\Backend``` where our app.py file is located
 
-4. If credentials of a registered user are available, use them, or register a new user and interact with the website.
+    5. Run below command to start the backend application
+
+    ```
+    python app.py
+    ```
+
+    6. The backend flask application will be up and running at ```localhost:5001```
+
+    **Frontend**
+    
+       [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/frontendDocs/left-overs/0.1.0/index.html)
+
+    1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located
+
+    2. Install all the dependencies using npm. Command to run: ```npm install```. This will fetch the dependecies from package.json file, and install them.
+
+    3. Start the server by using the command ```npm start```. This will run the server on port ```3000```, and the website can be accessed by going to ```http://localhost:3000/```.
+
+    4. If credentials of a registered user are available, use them, or register a new user and interact with the website.
+
+## Directory structure
+
+    .
+    ├── .vscode
+    |   ├── extensions.json                 # Recommended extensions for vscode
+    |   ├── settings.json                   # Workspace settings for vscode
+    ├── docs
+    |   ├── Rubrics
+    |   |   ├── proj1rubric.md              # Project rubric
+    |   ├── frontendDocs/left-overs/0.1.0   # Documentation for frontend
+    |   ├── README.md                       # Readme file for docs folder
+    ├── src
+    |   ├── Backend
+    |   |   ├── app.py                      # File containing backend APIs
+    |   |   ├── dbconfig.py                 # DB configuration for backend
+    |   |   ├── utils.py                    # Utilities for backend
+    |   ├── database
+    |   |   ├── donationsystem.sql          # Backend SQL
+    |   ├── frontend
+    |   |   ├── public                      # Folder containing assets and images
+    |   |   ├── src
+    |   |   |   ├── API                     # Folder containing API calling frontend code
+    |   |   |   ├── __tests__               # Folder containing unit tests for frontend
+    |   |   |   ├── app                     # Folder containing redux store configuration
+    |   |   |   ├── components              # Folder containing frontend react components
+    |   |   |   ├── containers              # Folder containing containers to connect components with redux store
+    |   |   |   ├── reducers                # Folder containing reducers
+    |   |   |   ├── axiox.js                # API client generation
+    |   |   |   ├── index.css               # CSS configuration for frontend
+    |   |   |   ├── index.js                # Entry point for frontend
+    |   |   |   ├── leftOver.jsx            # Root react component
+    |   |   |   ├── setupTests.js           # Setup jest configuration for unit testing
+    |   |   ├── .eslintignore               # Ignore configuration for eslint
+    |   |   ├── .eslintrc.js                # eslint configuration
+    |   |   ├── package.json                # Package configuration and dependency closure
+    |   ├── README.md                       # Readme file for src folder
+    |   ├── requirements.txt                # Details of dependency packages
+    ├── test                                # Folder containing unit tests for backend
+    ├── .gitattributes                  # File for git attributes
+    ├── .gitignore                      # File for git ignore
+    ├── CODE_OF_CONDUCT.md              # Code of conduct for repository
+    ├── CONTRIBUTING.md                 # Details about contributing to the repository
+    ├── LICENSE.md                      # MIT License details
+    └── README.md                       # Readme file for repository
+
+## Roadmap
+
+* Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/2).

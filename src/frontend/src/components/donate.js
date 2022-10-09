@@ -135,7 +135,7 @@ class Donate extends React.Component {
 								</div>
 								<div className='form-group'>
 									<img src='../item-description.png' alt='item description' />
-									<textarea  name='description' id='itemDescription' placeholder='Item description' value={this.state.itemDescription} onChange={this.handleInput} required />
+									<textarea name='description' id='itemDescription' placeholder='Item description' value={this.state.itemDescription} onChange={this.handleInput} required />
 								</div>
 								<div className='form-group'>
 									<img src='../signup-zip.png' alt='item zipcode' />

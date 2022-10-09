@@ -4,10 +4,10 @@ import importStore from '../../app/store';
 
 
 describe('reduxStore', () => {
-    it('store should be set correctly', () => {
-        const store = configureStore({
-            reducer
-        });
-        expect(JSON.stringify(store)).toEqual(JSON.stringify(importStore));
-    });
+	it('store should be set correctly', () => {
+		const store = configureStore({
+			reducer
+		});
+		expect(JSON.stringify(store)).toEqual(JSON.stringify(importStore));
+	});
 });

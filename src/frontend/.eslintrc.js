@@ -1,7 +1,8 @@
 module.exports = {
 	'env': {
 		'browser': true,
-		'es2021': true
+		'es2021': true,
+		'jest': true
 	},
 	'extends': [
 		'eslint:recommended',
@@ -37,6 +38,7 @@ module.exports = {
 			'always'
 		],
 		'no-trailing-spaces': ['error'],
+		'react/jsx-key': ['off'],
 		'react/prop-types': ['off'],
 		'no-unused-vars': ['warn'],
 		'no-multi-spaces': ['warn']

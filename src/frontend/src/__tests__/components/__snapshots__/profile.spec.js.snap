@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`profileComponent renders without crashing 1`] = `
+<div>
+  <div
+    className="card"
+    style={
+      Object {
+        "width": "18rem",
+      }
+    }
+  >
+    <img
+      alt="Sample"
+      src="https://picsum.photos/300/200"
+    />
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      />
+      <h6
+        className="mb-2 text-muted card-subtitle"
+      />
+      <p
+        className="card-text"
+      >
+        CItites: 
+      </p>
+      <button
+        className="btn btn-danger"
+        onClick={[Function]}
+        type="button"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</div>
+`;

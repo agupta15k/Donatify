@@ -70,7 +70,7 @@ Majority of us have noticed items which go to waste even when they are in their 
   1. Run the below command from the main directory. This should run all the test cases for app.py.
 
   ```
-  python -m src.Backend.app
+  pytest
   ``` 
 
 ## Directory structure

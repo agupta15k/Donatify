@@ -13,7 +13,7 @@ Majority of us have noticed items which go to waste even when they are in their 
 
 ## Getting started
   - ### Prerequisites
-    - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) should be installed.
+    - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) (version 16.X or 16.17.1) should be installed.
     - Make sure the database server(mysql) is on.
 
   - ### Installation and Run

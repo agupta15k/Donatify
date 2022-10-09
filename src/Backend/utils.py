@@ -11,7 +11,7 @@ try:
     connection = mysql.connector.connect(
         host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
 except:
-    exit("Server down: Couldn't connect to database")
+    pass
 # cursor = connection.cursor(dictionary=True)
 # cursor.execute('set GLOBAL max_allowed_packet=67108864')
 # connection.query('SET GLOBAL connect_timeout=6000')

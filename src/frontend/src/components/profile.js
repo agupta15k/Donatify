@@ -71,11 +71,13 @@ class Profile extends Component {
 	handleSave = async () => {
 		let zipCodes = this.state.user.zipCodes.map((code) => (code.text));
 		let res = await updateProfileAPI({ ...this.state.user, zipCodes });
-		if (res.data.success) {
+		if (res.data && res.data.success) {
 			alert('Profile updated successfully');
+			await this.loadProfile();
+			this.toggle();
+			return true;
 		}
-		await this.loadProfile();
-		this.toggle();
+		return false;
 	};
 
 	handleChange = (event) => {
@@ -86,6 +88,7 @@ class Profile extends Component {
 				[event.target.id]: event.target.value
 			}
 		});
+		return true;
 	};
 
 

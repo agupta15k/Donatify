@@ -18,7 +18,8 @@ build
 .env.test.local
 .env.production.local
 
-./src/Backend/_pycache/
+__pycache__
+.coverage
 
 npm-debug.log*
 yarn-debug.log*

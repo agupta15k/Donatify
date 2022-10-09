@@ -90,6 +90,13 @@ def get_items(page, user_id):
         msg = &#34;Failed to get record from MySQL table: {}&#34;.format(error)
         return False, msg
 
+    except Exception as e:
+        print(&#34;some error occurred in get_items: {}&#34;.format(e))
+        msg = &#34;Failed to get record from MySQL table: {}&#34;.format(e)
+        return False, msg
+
+        # print(&#34;Database error: {}&#34;.format(e))
+
     # finally:
     #     if connection.is_connected():
     #         cursor.close()
@@ -144,6 +151,12 @@ def insert_item(item_name, quantity, description, zipcode, city, donor_id, categ
         msg = &#34;Failed to insert into items table {}&#34;.format(error)
         return False, msg
 
+    except Exception as e:
+        print(&#34;some error occurred in insert_item: {}&#34;.format(e))
+        msg = &#34;Failed to insert into items table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
+
     # finally:
     #     if connection.is_connected():
     #         cursor.close()
@@ -184,6 +197,12 @@ def update_item(data):
         msg = &#34;Failed to update into items table {}&#34;.format(error)
         return False, msg
 
+    except Exception as e:
+        print(&#34;some error occurred in update_item: {}&#34;.format(e))
+        msg = &#34;Failed to update into items table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
+
 
 def getDonorHistory(ID):
     &#34;&#34;&#34;
@@ -214,8 +233,15 @@ def getDonorHistory(ID):
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
+        print(&#34;Failed to get history {}&#34;.format(error))
         msg = &#34;Failed to get history {}&#34;.format(error)
         return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in getDonorHistory: {}&#34;.format(e))
+        msg = &#34;Failed to get history {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
 
 
 def getRecieverHistory(ID):
@@ -246,8 +272,15 @@ def getRecieverHistory(ID):
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
+        print(&#34;Failed to get history {}&#34;.format(error))
         msg = &#34;Failed to get history {}&#34;.format(error)
         return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in getRecieverHistory: {}&#34;.format(e))
+        msg = &#34;Failed to get history {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
 
 
 def addDonation(item_id, recipient_id):
@@ -276,8 +309,15 @@ def addDonation(item_id, recipient_id):
         cursor.close()
         return True, msg
     except mysql.connector.Error as error:
+        print(&#34;Failed to insert into donation table {}&#34;.format(error))
         msg = &#34;Failed to insert into donation table {}&#34;.format(error)
         return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in addDonation: {}&#34;.format(e))
+        msg = &#34;Failed to insert into donation table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
 
 
 def getUserProfileByID(ID):
@@ -310,6 +350,11 @@ def getUserProfileByID(ID):
     except mysql.connector.Error as error:
         print(error)
         return []
+
+    except Exception as e:
+        print(&#34;some error occurred in getUserProfileByID: {}&#34;.format(e))
+        return []
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))
 
 
 def updateProfile(data):
@@ -346,6 +391,12 @@ def updateProfile(data):
         msg = &#34;Failed to update table {}&#34;.format(error)
         return False, msg
 
+    except Exception as e:
+        print(&#34;some error occurred in updateProfile: {}&#34;.format(e))
+        msg = &#34;Failed to update table {}&#34;.format(e)
+        return False, msg
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))
+
 
 def getUserProfileByEmail(email):
     &#34;&#34;&#34;
@@ -374,7 +425,13 @@ def getUserProfileByEmail(email):
         cursor.close()
         return user
     except mysql.connector.Error as error:
+        print(error)
         return []
+
+    except Exception as e:
+        print(&#34;some error occurred in getUserProfileByEmail: {}&#34;.format(e))
+        return []
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))
 
 
 def loginCheck(email, password):
@@ -405,7 +462,13 @@ def loginCheck(email, password):
         else:
             return (False, 1)
     except mysql.connector.Error as error:
+        print(error)
         return (False, 0)
+
+    except Exception as e:
+        print(&#34;some error occurred in loginCheck: {}&#34;.format(e))
+        return (False, 0)
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))
 
 
 def addUser(name, password, email, city, zipcode, interests):
@@ -442,7 +505,13 @@ def addUser(name, password, email, city, zipcode, interests):
         cursor.close()
         return True
     except mysql.connector.Error as error:
+        print(error)
         return False
+
+    except Exception as e:
+        print(&#34;some error occurred in addUser: {}&#34;.format(e))
+        return False
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))
 
 
 def checkDuplicateEmail(email):
@@ -473,6 +542,11 @@ def checkDuplicateEmail(email):
         else:
             return (False, 1)
     except mysql.connector.Error as error:
+        print(error)
+        return (False, 0)
+
+    except Exception as e:
+        print(&#34;some error occurred in checkDuplicateEmail: {}&#34;.format(e))
         return (False, 0)</code></pre>
 </details>
 </section>
@@ -530,8 +604,15 @@ def checkDuplicateEmail(email):
         cursor.close()
         return True, msg
     except mysql.connector.Error as error:
+        print(&#34;Failed to insert into donation table {}&#34;.format(error))
         msg = &#34;Failed to insert into donation table {}&#34;.format(error)
-        return False, msg</code></pre>
+        return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in addDonation: {}&#34;.format(e))
+        msg = &#34;Failed to insert into donation table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.addUser"><code class="name flex">
@@ -597,7 +678,13 @@ def checkDuplicateEmail(email):
         cursor.close()
         return True
     except mysql.connector.Error as error:
-        return False</code></pre>
+        print(error)
+        return False
+
+    except Exception as e:
+        print(&#34;some error occurred in addUser: {}&#34;.format(e))
+        return False
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.checkDuplicateEmail"><code class="name flex">
@@ -647,6 +734,11 @@ def checkDuplicateEmail(email):
         else:
             return (False, 1)
     except mysql.connector.Error as error:
+        print(error)
+        return (False, 0)
+
+    except Exception as e:
+        print(&#34;some error occurred in checkDuplicateEmail: {}&#34;.format(e))
         return (False, 0)</code></pre>
 </details>
 </dd>
@@ -698,8 +790,15 @@ def checkDuplicateEmail(email):
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
+        print(&#34;Failed to get history {}&#34;.format(error))
         msg = &#34;Failed to get history {}&#34;.format(error)
-        return False, msg</code></pre>
+        return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in getDonorHistory: {}&#34;.format(e))
+        msg = &#34;Failed to get history {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.getRecieverHistory"><code class="name flex">
@@ -749,8 +848,15 @@ def checkDuplicateEmail(email):
         cursor.close()
         return True, finalData
     except mysql.connector.Error as error:
+        print(&#34;Failed to get history {}&#34;.format(error))
         msg = &#34;Failed to get history {}&#34;.format(error)
-        return False, msg</code></pre>
+        return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in getRecieverHistory: {}&#34;.format(e))
+        msg = &#34;Failed to get history {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.getUserProfileByEmail"><code class="name flex">
@@ -799,7 +905,13 @@ def checkDuplicateEmail(email):
         cursor.close()
         return user
     except mysql.connector.Error as error:
-        return []</code></pre>
+        print(error)
+        return []
+
+    except Exception as e:
+        print(&#34;some error occurred in getUserProfileByEmail: {}&#34;.format(e))
+        return []
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.getUserProfileByID"><code class="name flex">
@@ -850,7 +962,12 @@ def checkDuplicateEmail(email):
         return user
     except mysql.connector.Error as error:
         print(error)
-        return []</code></pre>
+        return []
+
+    except Exception as e:
+        print(&#34;some error occurred in getUserProfileByID: {}&#34;.format(e))
+        return []
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.get_items"><code class="name flex">
@@ -916,6 +1033,13 @@ def checkDuplicateEmail(email):
         print(&#34;Failed to get record from MySQL table: {}&#34;.format(error))
         msg = &#34;Failed to get record from MySQL table: {}&#34;.format(error)
         return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in get_items: {}&#34;.format(e))
+        msg = &#34;Failed to get record from MySQL table: {}&#34;.format(e)
+        return False, msg
+
+        # print(&#34;Database error: {}&#34;.format(e))
 
     # finally:
     #     if connection.is_connected():
@@ -1002,6 +1126,12 @@ def checkDuplicateEmail(email):
         msg = &#34;Failed to insert into items table {}&#34;.format(error)
         return False, msg
 
+    except Exception as e:
+        print(&#34;some error occurred in insert_item: {}&#34;.format(e))
+        msg = &#34;Failed to insert into items table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)
+
     # finally:
     #     if connection.is_connected():
     #         cursor.close()
@@ -1058,7 +1188,13 @@ def checkDuplicateEmail(email):
         else:
             return (False, 1)
     except mysql.connector.Error as error:
-        return (False, 0)</code></pre>
+        print(error)
+        return (False, 0)
+
+    except Exception as e:
+        print(&#34;some error occurred in loginCheck: {}&#34;.format(e))
+        return (False, 0)
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.updateProfile"><code class="name flex">
@@ -1112,7 +1248,13 @@ def checkDuplicateEmail(email):
     except mysql.connector.Error as error:
         print(&#34;Failed to update table {}&#34;.format(error))
         msg = &#34;Failed to update table {}&#34;.format(error)
-        return False, msg</code></pre>
+        return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in updateProfile: {}&#34;.format(e))
+        msg = &#34;Failed to update table {}&#34;.format(e)
+        return False, msg
+        # exit(&#34;some error occurred in get_items: {}&#34;.format(e))</code></pre>
 </details>
 </dd>
 <dt id="Backend.utils.update_item"><code class="name flex">
@@ -1165,7 +1307,13 @@ def checkDuplicateEmail(email):
     except mysql.connector.Error as error:
         print(&#34;Failed to update into items table {}&#34;.format(error))
         msg = &#34;Failed to update into items table {}&#34;.format(error)
-        return False, msg</code></pre>
+        return False, msg
+
+    except Exception as e:
+        print(&#34;some error occurred in update_item: {}&#34;.format(e))
+        msg = &#34;Failed to update into items table {}&#34;.format(e)
+        return False, msg
+        # return False, &#34;some error occurred in get_items: {}&#34;.format(e)</code></pre>
 </details>
 </dd>
 </dl>

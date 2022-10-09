@@ -68,13 +68,15 @@ Accept a donation:
     pip install -r requirements.txt
     ```
 
-    4. Run the below command from the main directory to start the backend application server.
+	4. Make sure the database is imported from ```src/database/donationsystem.sql``` onto the sql system.
+	
+    5. Run the below command from the main directory to start the backend application server.
 
     ```
     python -m src.Backend.app
     ```
 
-    5. The backend flask application will be up and running at ```localhost:5001```
+    6. The backend flask application will be up and running at ```localhost:5001```
 
     **Frontend**: [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/frontendDocs/left-overs/0.1.0/index.html)
 

@@ -63,6 +63,9 @@ Majority of us have noticed items which go to waste even when they are in their 
 ## Directory structure
 
     .
+    ├── .github
+    |   ├── workflows
+    |   |   ├── frontendGitActions.yml      # GitActions workflow for frontend
     ├── .vscode
     |   ├── extensions.json                 # Recommended extensions for vscode
     |   ├── settings.json                   # Workspace settings for vscode

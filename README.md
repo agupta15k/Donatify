@@ -88,6 +88,22 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
     
     2. Run the tests using the command ```npm test -- --coverage --watchAll=false```. This will run all the tests across the frontend code.
 
+
+  - ### Troubleshooting
+  
+    Try the following troubleshooting steps. If none of them work, contact the repository owner/file an issue.
+
+    **Backend**
+
+    1. We have added the print statements in all of the backend functions to know execution of the codes.
+    2. In case of error the print statements will let us know about the issue of code break.
+    3. The api responses the status code, valid message and response header which they can share back for troubleshooting.
+
+    **Frontend**
+    
+    1. Since frontend is build using JavaScript, React and Redux, check for console logs under developer tools to identify any failures.
+    2. Consider installing and using [React developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Redux developer tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) to track the request through the system.
+
 ## Directory structure
 
     .
@@ -142,11 +158,6 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
     ├── README.md                           # Readme file for repository
     ├── requirements.txt                    # Details of dependency packages
     └── setup.py                            # Setup file for the module
-## Troubleshooting
-Troubleshoot Backend
-1. We have added the print statements in all of the backend functions to know execution of the codes.
-2. In case of error the print statements will let us know about the issue of code break.
-3. The api responses the status code, valid message and response header which they can share back for troubleshooting.
 
 ## Roadmap
 

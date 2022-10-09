@@ -142,6 +142,12 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
     ├── README.md                           # Readme file for repository
     ├── requirements.txt                    # Details of dependency packages
     └── setup.py                            # Setup file for the module
+## Troubleshooting
+Troubleshoot Backend
+1. We have added the print statements in all of the backend functions to know execution of the codes.
+2. In case of error the print statements will let us know about the issue of code break.
+3. The api responses the status code, valid message and response header which they can share back for troubleshooting.
+
 ## Roadmap
 
 * Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/2).

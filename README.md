@@ -11,7 +11,11 @@
 
 :clap: “Happiness doesn’t result from what we get, but from what we give." ~ Ben Carson :clap:
 
-Majority of us have noticed items which go to waste even when they are in their prime conditions. For example, many atriums, dining halls around the world dispose of their leftovers at the end of the day and a lot of food is being wasted. We introduce to you Donatify, a platform for donors and receivers to communicate to donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate and other users, if their interests match with the item would choose to receive it.
+Majority of us have noticed items which go to waste even when they are in their prime condition. For example, many atriums, dining halls around the world, dispose of their leftovers at the end of the day, and a lot of food is being wasted.
+
+We introduce to you Donatify, a platform for donors and receivers to communicate, donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate, and other users, if their interests match with the item, would choose to receive it.
+
+**Want to be part of an environment saving initiative, while sitting in the comfort of your home?** Get on Donatify, donate the stuff you don't need, and feel good.
 
 ## App in action
 

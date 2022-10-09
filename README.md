@@ -24,7 +24,7 @@ Majority of us have noticed items which go to waste even when they are in their 
 
 - ### Installation and Run
 
-    **Backend**
+    **Backend**: [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/Backend/index.html)
 
     1. Create virtual environment
 

@@ -57,3 +57,4 @@ jobs:
       with:
         publish_dir: ./docs/frontendDocs
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_branch: frontendDocs

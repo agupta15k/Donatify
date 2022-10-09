@@ -17,7 +17,7 @@ This project and everyone participating in it is governed by the repository owne
 
 This section guides you through submitting a bug report.
 #### Before submitting an issue please:
-* Check the **debugging guide.**
+* Check the **troubleshooting section** in the [README](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/README.md) file.
 * Determine the **repository in which the issue should be reported in.**
 * Perform a **cursory search** to check if the problem was already reported or not. If this is an open issue, please do add a comment to it.
 
@@ -34,7 +34,7 @@ This section guides you through submitting a bug report.
 This section guides you through submitting an enhancement suggestion for the Donatify.
 
 #### Before Submitting An Enhancement Suggestion
-* Check the **debugging guide.**
+* Check the **troubleshooting section** in the [README](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/README.md) file.
 * Determine the **repository in which the enhancement should be suggested in.**
 * Perform a **cursory search** to check if the enhancement was already suggested or not. If this is an open issue, please do add a comment to it.
 
@@ -72,10 +72,13 @@ While the prerequisites above must be satisfied prior to having your pull reques
 ### Python Style Guide
 Please do follow this guide to maintain the standard Python formatting [PEP-8](https://peps.python.org/pep-0008/)
 
+### JavaScript Style Guide
+Please do follow this guide to maintain the standard JavaScript formatting [eslint](https://eslint.org/)
+
 
 ## Technical Guide
-* Make sure you are working in the correct project directory
-* Make sure you are working on the correct versions of python and pip.(python3)
+* Make sure you are working in the correct project directory.
+* Make sure you are working on the correct versions of python, npm, node, and pip.
 * Make sure you are working on a separate development enviroment and install all the requirements to this enviroment.
 
 ## Attribution

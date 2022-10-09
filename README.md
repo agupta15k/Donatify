@@ -39,7 +39,7 @@ Majority of us have noticed items which go to waste even when they are in their 
     source <name_of_virtualenv>/bin/activate for linux users.
     ```
 
-    3. Install dependencies.
+    3. Install dependencies
 
     ```
     pip install -r requirements.txt
@@ -55,7 +55,7 @@ Majority of us have noticed items which go to waste even when they are in their 
 
     **Frontend**: [Documentation](https://agupta15k.github.io/ncsu_se_fall22_22_pr_1/)
 
-    1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located
+    1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located.
 
     2. Install all the dependencies using npm. Command to run: ```npm install```. This will fetch the dependecies from package.json file, and install them.
 
@@ -63,15 +63,21 @@ Majority of us have noticed items which go to waste even when they are in their 
 
     4. If credentials of a registered user are available, use them, or register a new user and interact with the website.
   
-## For running tests
+ - ### Testing
 
-  **Backend:**
+    **Backend**
 
-  1. Run the below command from the main directory. This should run all the test cases for app.py.
+    1. Run the below command from the main directory. This should run all the test cases for app.py.
 
-  ```
-  pytest
-  ``` 
+    ```
+    pytest
+    ```
+    
+    **Frontend**
+
+    1. Move to the directory ```src\frontend``` where our frontend tests are located.
+    
+    2. Run the tests using the command ```npm test -- --coverage --watchAll=false```. This will run all the tests across the frontend code.
 
 ## Directory structure
 

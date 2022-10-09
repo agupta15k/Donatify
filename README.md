@@ -50,7 +50,7 @@ Majority of us have noticed items which go to waste even when they are in their 
 
     6. The backend flask application will be up and running at ```localhost:5001```
 
-    **Frontend**: [Documentation](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/frontendDocs/left-overs/0.1.0/index.html)
+    **Frontend**: [Documentation](https://agupta15k.github.io/ncsu_se_fall22_22_pr_1/)
 
     1. After cloning the repository, move to the directory ```src\frontend``` where our frontend code is located
 

@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import History from '../components/history';
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = () => {
 	return {
 	};
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId,
 });
 

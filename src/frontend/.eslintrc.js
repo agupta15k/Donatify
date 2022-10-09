@@ -38,6 +38,7 @@ module.exports = {
 			'always'
 		],
 		'no-trailing-spaces': ['error'],
+		'react/jsx-key': ['off'],
 		'react/prop-types': ['off'],
 		'no-unused-vars': ['warn'],
 		'no-multi-spaces': ['warn']

@@ -1,10 +1,19 @@
+/**@module registerUserReducer */
+
 const initialState = {
 	message: '',
 	success: false,
 };
 
-const reducer = (state = initialState, action) => {
+/**
+ * Reducer for user registration component
+ * @param {*} state Initial state
+ * @param {*} action Action which triggers the reducer execution
+ * @returns {Object} Updated state
+ */
+const registerUserReducer = (state = initialState, action) => {
 	switch (action.type) {
+		// Success case
 		case 'SUBMITREGISTER': {
 			return {
 				...state,
@@ -12,6 +21,7 @@ const reducer = (state = initialState, action) => {
 				message: action.payload.message
 			};
 		}
+		// Failure case
 		case 'REGISTERFAILURE': {
 			return {
 				...state,
@@ -22,4 +32,4 @@ const reducer = (state = initialState, action) => {
 		default: return state;
 	}
 };
-export default reducer;
+export default registerUserReducer;

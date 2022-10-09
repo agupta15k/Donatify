@@ -1,13 +1,25 @@
+/**@module historyContainer */
+
 import { connect } from 'react-redux';
 import History from '../components/history';
 
-const mapDispatchToProps = () => {
-	return {
-	};
+/**
+ * Map actions to props for history component
+ * @returns {Object} Actions object
+ */
+const historyMapDispatchToProps = () => {
+	return {};
 };
 
-const mapStateToProps = () => ({
+/**
+ * Map state to props for history component
+ * @returns {Object} Props
+ */
+const historyMapStateToProps = () => ({
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(History);
+/**
+ * Using connect, subscribe history component to redux store
+ */
+export default connect(historyMapStateToProps, historyMapDispatchToProps)(History);

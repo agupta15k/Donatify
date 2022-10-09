@@ -1,5 +1,12 @@
+/**@module loginApi */
+
 import axios from '../axios';
 
+/**
+ * API to authenticate the user
+ * @param {Object} value Object containing email and password
+ * @returns {Promise} Response for axios POST request
+ */
 const loginAPI = (value) => {
 	// Success dummy response
 	// return {

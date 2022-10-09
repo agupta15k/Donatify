@@ -4,7 +4,15 @@ import { Card, Avatar, Modal, Button } from 'antd';
 const { Meta } = Card;
 // const recieveItemAPI = require('../API/recieveItem');
 
+/**
+ * React component for receiving component
+ * @extends React.Component
+ */
 class MarketPlace extends Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,6 +23,9 @@ class MarketPlace extends Component {
 		};
 	}
 
+	/**
+	 * Call getRecipientItemsAPI and store results in state
+	 */
 	loadData = async () => {
 		let res = await getRecipientItemsAPI(this.props.props.userId);
 
@@ -146,6 +157,9 @@ class MarketPlace extends Component {
 		});
 	};
 
+	/**
+	 * Load next page results
+	 */
 	loadMore = () => {
 		this.setState(
 			prevState => ({
@@ -156,6 +170,9 @@ class MarketPlace extends Component {
 		);
 	};
 
+	/**
+	 * Lifecycle method to trigger loading available items
+	 */
 	componentDidMount = async () => {
 		// console.log(this.state)
 		console.log('history component');
@@ -163,17 +180,31 @@ class MarketPlace extends Component {
 		await this.loadData();
 	};
 
+	/**
+	 * Update state with type of history required
+	 * @param {Object} event onChange event for user input
+	 */
 	setHistory = (event) => {
 		console.log('radio', event);
 		this.setState({
 			history: event.target.value
 		});
 	};
+
+	/**
+	 * Set modal display to be true
+	 * @param {Boolean} value True to display the modal, false otherwise
+	 */
 	setIsModalOpen = (value) => {
 		this.setState({
 			isModalOpen: value
 		});
 	};
+
+	/**
+	 * Show an alert with donor information
+	 * @param {String} email Email of the donor
+	 */
 	showDonorContact = (email) => {
 		alert(`This item is donated by the seller directly, please contact them at : ${email}`);
 		// this.setState({
@@ -181,12 +212,20 @@ class MarketPlace extends Component {
 		// })
 	};
 
+	/**
+	 * Render receiving component
+	 * @returns {React.Component} Cards with available items
+	 */
 	render() {
 		const gridStyle = {
 			width: '25%',
 			textAlign: 'center',
 		};
 
+		/**
+		 * Store selected item data in state and display model
+		 * @param {Object} data Object containing item details
+		 */
 		const showModal = (data) => {
 			this.setState({
 				items: {
@@ -196,6 +235,9 @@ class MarketPlace extends Component {
 			this.setIsModalOpen(true);
 		};
 
+		/**
+		 * Hide modal when OK button clicked
+		 */
 		const handleOk = () => {
 			// const res= await recieveItemAPI({itemId,userId:this.props.props.userId})
 			// const res={status:200,data:{
@@ -208,6 +250,9 @@ class MarketPlace extends Component {
 			this.setIsModalOpen(false);
 		};
 
+		/**
+		 * Hide modal when Cancel button clicked
+		 */
 		const handleCancel = () => {
 			this.setIsModalOpen(false);
 		};

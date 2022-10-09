@@ -1,5 +1,11 @@
+/**@module axiosClient */
+
 import axios from 'axios';
 
+/**
+ * Create axios client
+ * @returns {Object} Object of axios client
+ */
 const fetchClient = () => {
 	const defaultOptions = {
 		baseURL: 'http://localhost:5001',

@@ -1,7 +1,13 @@
+/**@module registerUserContainer */
+
 import { connect } from 'react-redux';
 import RegisterUser from '../components/register';
 import registerUserApi from '../API/registerUser';
 
+/**
+ * Map actions to props for login component
+ * @returns {Object} Register user request action that triggers register API
+ */
 const mapDispatchToProps = dispatch => {
 	return {
 		onSubmitRegister: async (value) => {
@@ -18,9 +24,16 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
+/**
+ * Map state to props for login component
+ * @returns {Object} Props
+ */
 const mapStateToProps = state => ({
 	apiStatus: state.registerReducer.success,
 	apiMessage: state.registerReducer.message
 });
 
+/**
+ * Using connect, subscribe login component to redux store
+ */
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterUser);

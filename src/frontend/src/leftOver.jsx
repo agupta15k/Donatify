@@ -9,7 +9,16 @@ import {
 	RouterProvider
 } from 'react-router-dom';
 
+/**
+ * Root component to connect child components with redux store and render them
+ * @extends React.Component
+ */
 class LeftOver extends React.Component {
+	/**
+	 * Create and return a router to render the respective component based on the path in URL
+	 * @returns {React.Component} Router with respective component subscribed to the shared redux store
+	 * <br/>
+	 */
 	render() {
 		const router = createBrowserRouter([
 			{

@@ -1,5 +1,12 @@
+/**@module registerUserApi */
+
 import axios from '../axios';
 
+/**
+ * API to register new user
+ * @param {Object} value Object containing new user details
+ * @returns {Promise} Response for axios POST request
+ */
 const registerUserApi = (value) => {
 	// Success dummy response
 	// return {

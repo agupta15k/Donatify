@@ -1,11 +1,20 @@
+/**@module homeReducer */
+
 const initialState = {
 	message: '',
 	success: false
 	// user_id: '',
 };
 
-const reducer = (state = initialState, action) => {
+/**
+ * Reducer for user dashboard component
+ * @param {*} state Initial state
+ * @param {*} action Action which triggers the reducer execution
+ * @returns {Object} Updated state
+ */
+const homeReducer = (state = initialState, action) => {
 	switch (action.type) {
+		// Success case
 		case 'SUBMITITEM': {
 			return {
 				...state,
@@ -13,6 +22,7 @@ const reducer = (state = initialState, action) => {
 				message: action.payload.message
 			};
 		}
+		// Failure case
 		case 'ITEMADDFAILURE': {
 			return {
 				...state,
@@ -23,4 +33,4 @@ const reducer = (state = initialState, action) => {
 		default: return state;
 	}
 };
-export default reducer;
+export default homeReducer;

@@ -6,7 +6,15 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import updateProfileAPI from '../API/updateProfile';
 import getProfileAPI from '../API/getProfile';
 
+/**
+ * React component for showing user profile
+ * @extends React.Component
+ */
 class Profile extends Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,11 +34,17 @@ class Profile extends Component {
 		};
 	}
 
+	/**
+	 * Reload the original profile when Cancel button is clicked after edit operation
+	 */
 	cancelChange = async () => {
 		await this.loadProfile();
 		this.toggle();
 	};
 
+	/**
+	 * Toggle modal display
+	 */
 	toggle = () => {
 		this.setState({
 			...this.state,
@@ -38,6 +52,10 @@ class Profile extends Component {
 		});
 	};
 
+	/**
+	 * Calls getProfileAPI API and get user profile details
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	loadProfile = async () => {
 		let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId;
 		let res = await getProfileAPI(userId);
@@ -60,6 +78,10 @@ class Profile extends Component {
 		return false;
 	};
 
+	/**
+	 * Toggle show password
+	 * @param {Object} event onClick event on Show button
+	 */
 	togglePassword = (event) => {
 		event.preventDefault();
 		this.setState({
@@ -68,6 +90,10 @@ class Profile extends Component {
 		});
 	};
 
+	/**
+	 * Calls updateProfileAPI API to update the profile details
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleSave = async () => {
 		let zipCodes = this.state.user.zipCodes.map((code) => (code.text));
 		let res = await updateProfileAPI({ ...this.state.user, zipCodes });
@@ -80,6 +106,11 @@ class Profile extends Component {
 		return false;
 	};
 
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleChange = (event) => {
 		this.setState({
 			...this.state,
@@ -91,19 +122,30 @@ class Profile extends Component {
 		return true;
 	};
 
-
+	/**
+	 * Add new zip codes to state
+	 * @param {Object} event New zip code addition event
+	 */
 	handleAddition = (event) => {
 		this.setState({
 			user: { ...this.state.user, zipCodes: [...this.state.user.zipCodes, event] }
 		});
 	};
 
+	/**
+	 * Remove deleted zip code from state
+	 * @param {Number} id Id of the item to be removed
+	 */
 	handleDelete = (id) => {
 		this.setState({
 			user: { ...this.state.user, zipCodes: this.state.user.zipCodes.filter((tag, index) => index !== id) }
 		});
 	};
 
+	/**
+	 * Store updated city into state
+	 * @param {Object} event Event with new value for city
+	 */
 	handleCityChange = (event) => {
 		let city = event.values.map(item => item.value);
 		this.setState({
@@ -124,6 +166,10 @@ class Profile extends Component {
 	// 	});
 	// };
 
+	/**
+	 * Store updated city into state
+	 * @param {Object} event Event with new value for interest
+	 */
 	handleInterestsChange = (event) => {
 		let interests = event.values.map(item => item.value);
 		this.setState({
@@ -134,9 +180,17 @@ class Profile extends Component {
 		});
 	};
 
+	/**
+	 * Lifecycle method to trigger loading profile
+	 */
 	componentDidMount = async () => {
 		await this.loadProfile();
 	};
+
+	/**
+	 * Render Profile component
+	 * @returns {React.Component} Profile card with edit button and modal to edit profile details
+	 */
 	render() {
 		const cities = [
 			{

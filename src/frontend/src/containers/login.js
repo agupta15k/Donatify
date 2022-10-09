@@ -1,8 +1,14 @@
+/**@module loginContainer */
+
 import { connect } from 'react-redux';
 import LoginUser from '../components/login';
 import onSubmitLoginAPI from '../API/login';
 
-const mapDispatchToProps = dispatch => {
+/**
+ * Map actions to props for login component
+ * @returns  {Object} Submit login request action that triggers login API
+ */
+const loginMapDispatchToProps = dispatch => {
 	return {
 		onSubmitLogin: async (value) => {
 			try {
@@ -18,10 +24,17 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const mapStateToProps = state => ({
+/**
+ * Map state to props for login component
+ * @returns  {Object} Props
+ */
+const loginMapStateToProps = state => ({
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId,
 	apiStatus: state.loginReducer.success,
 	apiMessage: state.loginReducer.message
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginUser);
+/**
+ * Using connect, subscribe login component to redux store
+ */
+export default connect(loginMapStateToProps, loginMapDispatchToProps)(LoginUser);

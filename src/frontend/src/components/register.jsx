@@ -4,7 +4,15 @@ import makeAnimated from 'react-select/animated';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { Spinner } from 'reactstrap';
 
+/**
+ * React component for RegisterUser
+ * @extends React.Component
+ */
 class RegisterUser extends React.Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -18,6 +26,10 @@ class RegisterUser extends React.Component {
 		};
 	}
 
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 */
 	handleInput = (event) => {
 		if (event.type === 'change') {
 			if (event.target) {
@@ -32,18 +44,31 @@ class RegisterUser extends React.Component {
 		}
 	};
 
+	/**
+	 * Add new zip codes to state
+	 * @param {Object} event New zip code addition event
+	 */
 	handleAddition = (event) => {
 		this.setState({
 			zipCodes: [...this.state.zipCodes, event]
 		});
 	};
 
+	/**
+	 * Remove deleted zip code from state
+	 * @param {Number} id Id of the item to be removed
+	 */
 	handleDelete = (id) => {
 		this.setState({
 			zipCodes: this.state.zipCodes.filter((tag, index) => index !== id)
 		});
 	};
 
+	/**
+	 * Validate input values and call onSubmitRegister API to register new user
+	 * @param {Object} event Button click event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleSubmit = async (event) => {
 		const keys = ['name', 'email', 'pass', 'rePass'];
 		for (let i = 0; i < keys.length; i++) {
@@ -95,12 +120,20 @@ class RegisterUser extends React.Component {
 		return false;
 	};
 
+	/**
+	 * Redirect to specified path
+	 * @param {String} path Path to redirect
+	 */
 	redirectToPath = (path) => {
 		const url = new URL(document.location.href);
 		document.location.href = `${url.origin}${path}`;
 		document.getElementsByClassName('signup-image-link')[0].href = url.origin;
 	};
 
+	/**
+	 * Render RegisterUser component
+	 * @returns {React.Component} Form with register user related HTML tags
+	 */
 	render() {
 		const cities = [
 			{

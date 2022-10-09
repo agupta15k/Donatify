@@ -4,7 +4,15 @@ import getRecipientHistoryAPI from '../API/getRecipientHistory';
 import { Card, Avatar, Radio, Modal, Button } from 'antd';
 const { Meta } = Card;
 
+/**
+ * React component for showing user donation and receive history
+ * @extends React.Component
+ */
 class History extends Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -29,6 +37,9 @@ class History extends Component {
 		};
 	}
 
+	/**
+	 * Get donor and receiver history from database and save it to state
+	 */
 	loadHistory = async () => {
 		let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId;
 		const donorHistoryResponse = await getDonorHistoryAPI(userId);
@@ -40,6 +51,9 @@ class History extends Component {
 		});
 	};
 
+	/**
+	 * Load next page results
+	 */
 	loadMore = () => {
 		this.setState(
 			prevState => ({
@@ -50,27 +64,47 @@ class History extends Component {
 		);
 	};
 
+	/**
+	 * Lifecycle method to trigger loading history
+	 */
 	componentDidMount = async () => {
 		await this.loadHistory();
 	};
 
+	/**
+	 * Update state with type of history required
+	 * @param {Object} event onChange event for user input
+	 */
 	setHistory = (event) => {
 		this.setState({
 			history: event.target.value
 		});
 	};
+
+	/**
+	 * Set modal display to be true
+	 * @param {Boolean} value True to display the modal, false otherwise
+	 */
 	setIsModalOpen = (value) => {
 		this.setState({
 			isModalOpen: value
 		});
 	};
 
+	/**
+	 * Render History component
+	 * @returns {React.Component} History related cards
+	 */
 	render() {
 		const gridStyle = {
 			width: '25%',
 			textAlign: 'center',
 		};
 
+		/**
+		 * Store selected item data in state and display model
+		 * @param {Object} data Object containing item details
+		 */
 		const showModal = (data) => {
 			this.setState({
 				d: {
@@ -80,10 +114,16 @@ class History extends Component {
 			this.setIsModalOpen(true);
 		};
 
+		/**
+		 * Hide modal when OK button clicked
+		 */
 		const handleOk = () => {
 			this.setIsModalOpen(false);
 		};
 
+		/**
+		 * Hide model when Cancel button clicked
+		 */
 		const handleCancel = () => {
 			this.setIsModalOpen(false);
 		};

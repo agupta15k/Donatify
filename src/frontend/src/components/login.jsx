@@ -2,8 +2,15 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 
-
+/**
+ * React component for login
+ * @extends React.Component
+ */
 class LoginUser extends React.Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -14,6 +21,10 @@ class LoginUser extends React.Component {
 		};
 	}
 
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 */
 	handleInput = (event) => {
 		if (event.type === 'change') {
 			if (event.target) {
@@ -24,6 +35,11 @@ class LoginUser extends React.Component {
 		}
 	};
 
+	/**
+	 * Validate input values and call onSubmitLogin API to authenticate the user
+	 * @param {Object} event Button click event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleSubmit = async (event) => {
 		const keys = ['email', 'pass'];
 		for (let i = 0; i < keys.length; i++) {
@@ -60,6 +76,10 @@ class LoginUser extends React.Component {
 		return false;
 	};
 
+	/**
+	 * Redirect to specified path
+	 * @param {String} path Path to redirect
+	 */
 	redirectToPath = (path) => {
 		const url = new URL(document.location.href);
 		const target = `${url.origin}${path}`;
@@ -67,6 +87,10 @@ class LoginUser extends React.Component {
 		document.getElementsByClassName('signup-image-link')[0].href = target;
 	};
 
+	/**
+	 * Render Login component
+	 * @returns {React.Component} Form with login related HTML tags
+	 */
 	render() {
 		return (
 			<section>

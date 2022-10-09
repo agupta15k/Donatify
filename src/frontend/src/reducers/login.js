@@ -1,11 +1,20 @@
+/**@module loginReducer */
+
 const initialState = {
 	userId: '',
 	message: '',
 	success: false,
 };
 
-const reducer = (state = initialState, action) => {
+/**
+ * Reducer for login component
+ * @param {*} state Initial state
+ * @param {*} action Action which triggers the reducer execution
+ * @returns {Object} Updated state
+ */
+const loginReducer = (state = initialState, action) => {
 	switch (action.type) {
+		// Success case
 		case 'SUBMITLOGIN': {
 			if (action.payload && action.payload.data) {
 				const userId = action.payload.data.ID;
@@ -23,6 +32,7 @@ const reducer = (state = initialState, action) => {
 				message: action.payload.message
 			};
 		}
+		// Failure case
 		case 'LOGINFAILURE': {
 			return {
 				...state,
@@ -33,4 +43,4 @@ const reducer = (state = initialState, action) => {
 		default: return state;
 	}
 };
-export default reducer;
+export default loginReducer;

@@ -3,8 +3,15 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { Spinner } from 'reactstrap';
 
-
+/**
+ * React component for capturing donations
+ * @extends React.Component
+ */
 class Donate extends React.Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,6 +26,10 @@ class Donate extends React.Component {
 		};
 	}
 
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 */
 	handleInput = (event) => {
 		if (event.type === 'change') {
 			if (event.target) {
@@ -33,7 +44,13 @@ class Donate extends React.Component {
 		}
 	};
 
+	/**
+	 * Validate input values and call onAddItem API to submit item to database
+	 * @param {Object} event Button click event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
 	handleSubmit = async (event) => {
+		// Validate if input values are empty
 		const keys = ['itemName', 'itemDescription', 'itemZipCode'];
 		for (let i = 0; i < keys.length; i++) {
 			if (this.state[keys[i]] === '') return false;
@@ -75,11 +92,19 @@ class Donate extends React.Component {
 		return false;
 	};
 
+	/**
+	 * Redirect to specified path
+	 * @param {String} path Path to redirect
+	 */
 	redirectToPath = (path) => {
 		const url = new URL(document.location.href);
 		document.location.href = `${url.origin}${path}`;
 	};
 
+	/**
+	 * Render Donate component
+	 * @returns {React.Component} Form with donation related HTML tags
+	 */
 	render() {
 		const cities = [
 			{

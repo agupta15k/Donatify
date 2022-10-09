@@ -17,7 +17,15 @@ import MarketPlace from './marketPlace';
 
 const { Header, Sider, Content } = Layout;
 
+/**
+ * React component for user dashboard
+ * @extends React.Component
+ */
 class Home extends Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -27,6 +35,9 @@ class Home extends Component {
 		};
 	}
 
+	/**
+	 * React lifecycle method to route to login page if user is not logged in, else route to history page
+	 */
 	componentDidMount() {
 		const userLogonDetails = JSON.parse(localStorage.getItem('userLogonDetails'));
 		if (!userLogonDetails.signInStatus) {
@@ -50,23 +61,38 @@ class Home extends Component {
 		}
 	}
 
+	/**
+	 * Redirect to specified path
+	 * @param {String} path Path to redirect
+	 */
 	redirectToPath = (value) => {
 		const url = new URL(document.location.href);
 		document.location.href = `${url.origin}${value}`;
 	};
 
+	/**
+	 * Toggle side panel view
+	 */
 	setCollapsed = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});
 	};
 
+	/**
+	 * Change tab based on user input
+	 * @param {String} value Name of the tab to render
+	 */
 	setContent = (value) => {
 		this.setState({
 			content: value
 		});
 	};
 
+	/**
+	 * Render user dashboard component
+	 * @returns {React.Component} Layout containing options for user dashboard
+	 */
 	render() {
 		const items3 = [
 			{

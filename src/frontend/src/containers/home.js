@@ -1,8 +1,14 @@
+/**@module homeContainer */
+
 import { connect } from 'react-redux';
 import Home from '../components/home';
 import addItemApi from '../API/addItem';
 
-const mapDispatchToProps = dispatch => {
+/**
+ * Map actions to props for user dashboard component
+ * @returns  {Object} Item addition action that triggers addItem API
+ */
+const homeMapDispatchToProps = dispatch => {
 	return {
 		onAddItem: async (value) => {
 			try {
@@ -18,10 +24,17 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const mapStateToProps = state => ({
+/**
+ * Map state to props for user dashboard component
+ * @returns  {Object} Props
+ */
+const homeMapStateToProps = state => ({
 	apiStatus: state.home.success,
 	apiMessage: state.home.message,
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+/**
+ * Using connect, subscribe user dashboard component to redux store
+ */
+export default connect(homeMapStateToProps, homeMapDispatchToProps)(Home);

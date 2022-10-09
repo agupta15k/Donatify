@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardText, CardTitle, CardSubtitle, FormGroup, Form, Input } from 'reactstrap';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import { WithContext as ReactTags } from 'react-tag-input';
+import updateProfileAPI from '../API/updateProfile';
+import getProfileAPI from '../API/getProfile';
+
+/**
+ * React component for showing user profile
+ * @extends React.Component
+ */
+class Profile extends Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
+	constructor(props) {
+		super(props);
+		this.state = {
+			modal: false,
+			codes: [],
+			showPassword: false,
+			user: {
+				id: 1,
+				name: '',
+				email: '',
+				phone: '',
+				city: [],
+				zipCodes: [],
+				password: '',
+				interests: []
+			}
+		};
+	}
+
+	/**
+	 * Reload the original profile when Cancel button is clicked after edit operation
+	 */
+	cancelChange = async () => {
+		await this.loadProfile();
+		this.toggle();
+	};
+
+	/**
+	 * Toggle modal display
+	 */
+	toggle = () => {
+		this.setState({
+			...this.state,
+			modal: !this.state.modal
+		});
+	};
+
+	/**
+	 * Calls getProfileAPI API and get user profile details
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	loadProfile = async () => {
+		let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId;
+		let res = await getProfileAPI(userId);
+		if (res.data &amp;&amp; res.data.data) {
+			this.setState({
+				...this.state,
+				user: {
+					id: res.data.data.id,
+					name: res.data.data.name,
+					email: res.data.data.email,
+					city: res.data.data.city,
+					zipCodes: res.data.data.zipcode.map((code) => ({ id: code, text: code })),
+					password: res.data.data.password,
+					interests: res.data.data.interests
+				},
+			});
+			return true;
+		}
+		alert('No response from the server');
+		return false;
+	};
+
+	/**
+	 * Toggle show password
+	 * @param {Object} event onClick event on Show button
+	 */
+	togglePassword = (event) => {
+		event.preventDefault();
+		this.setState({
+			...this.state,
+			showPassword: !this.state.showPassword,
+		});
+	};
+
+	/**
+	 * Calls updateProfileAPI API to update the profile details
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	handleSave = async () => {
+		let zipCodes = this.state.user.zipCodes.map((code) => (code.text));
+		let res = await updateProfileAPI({ ...this.state.user, zipCodes });
+		if (res.data &amp;&amp; res.data.success) {
+			alert('Profile updated successfully');
+			await this.loadProfile();
+			this.toggle();
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	handleChange = (event) => {
+		this.setState({
+			...this.state,
+			user: {
+				...this.state.user,
+				[event.target.id]: event.target.value
+			}
+		});
+		return true;
+	};
+
+	/**
+	 * Add new zip codes to state
+	 * @param {Object} event New zip code addition event
+	 */
+	handleAddition = (event) => {
+		this.setState({
+			user: { ...this.state.user, zipCodes: [...this.state.user.zipCodes, event] }
+		});
+	};
+
+	/**
+	 * Remove deleted zip code from state
+	 * @param {Number} id Id of the item to be removed
+	 */
+	handleDelete = (id) => {
+		this.setState({
+			user: { ...this.state.user, zipCodes: this.state.user.zipCodes.filter((tag, index) => index !== id) }
+		});
+	};
+
+	/**
+	 * Store updated city into state
+	 * @param {Object} event Event with new value for city
+	 */
+	handleCityChange = (event) => {
+		let city = event.values.map(item => item.value);
+		this.setState({
+			user: {
+				...this.state.user,
+				city
+			}
+		});
+	};
+
+	// handleZipCodeChange = (event) => {
+	// 	let zipCodes = event.values.map(item => item.text);
+	// 	this.setState({
+	// 		user: {
+	// 			...this.state.user,
+	// 			zipCodes
+	// 		}
+	// 	});
+	// };
+
+	/**
+	 * Store updated city into state
+	 * @param {Object} event Event with new value for interest
+	 */
+	handleInterestsChange = (event) => {
+		let interests = event.values.map(item => item.value);
+		this.setState({
+			user: {
+				...this.state.user,
+				interests
+			}
+		});
+	};
+
+	/**
+	 * Lifecycle method to trigger loading profile
+	 */
+	componentDidMount = async () => {
+		await this.loadProfile();
+	};
+
+	/**
+	 * Render Profile component
+	 * @returns {React.Component} Profile card with edit button and modal to edit profile details
+	 */
+	render() {
+		const cities = [
+			{
+				label: 'Raleigh',
+				value: 'raleigh'
+			},
+			{
+				label: 'Cary',
+				value: 'cary'
+			},
+			{
+				label: 'Durham',
+				value: 'durham'
+			}
+		];
+		const interestItems = [
+			{
+				label: 'Fruits',
+				value: 'fruits'
+			},
+			{
+				label: 'Vegetables',
+				value: 'vegetables'
+			},
+			{
+				label: 'Table',
+				value: 'table'
+			},
+			{
+				label: 'Chair',
+				value: 'chair'
+			},
+			{
+				label: 'Chair1',
+				value: 'chair1'
+			},
+			{
+				label: 'Chair2',
+				value: 'chair2'
+			}
+		];
+		const animatedComponents = makeAnimated();
+		const keyCodes = {
+			comma: 188,
+			enter: 13,
+		};
+		const delimiters = [keyCodes.comma, keyCodes.enter];
+		return (
+			&lt;div>
+				&lt;Card
+					style={{
+						width: '18rem'
+					}}
+				>
+					&lt;img
+						alt="Sample"
+						src="https://picsum.photos/300/200"
+					/>
+					&lt;CardBody>
+						&lt;CardTitle tag="h5">
+							{this.state.user.name}
+						&lt;/CardTitle>
+						&lt;CardSubtitle
+							className="mb-2 text-muted"
+							tag="h6"
+						>
+							{this.state.user.email}
+						&lt;/CardSubtitle>
+						&lt;CardText>
+							CItites: {this.state.user.city}
+						&lt;/CardText>
+						&lt;Button color="danger" onClick={this.toggle}>
+							Edit Profile
+						&lt;/Button>
+					&lt;/CardBody>
+				&lt;/Card>
+
+				&lt;Modal isOpen={this.state.modal} toggle={this.toggle}>
+					&lt;ModalHeader toggle={this.toggle}>Edit Profile&lt;/ModalHeader>
+					&lt;ModalBody>
+						&lt;Form>
+							&lt;FormGroup>
+								{/* &lt;Label> */}
+								Name
+								{/* &lt;/Label> */}
+								&lt;Input
+									id="name"
+									name="nam"
+									placeholder="name"
+									type="name"
+									value={this.state.user.name}
+									onChange={this.handleChange}
+								/>
+							&lt;/FormGroup>
+							&lt;FormGroup>
+								{/* &lt;Label for="password"> */}
+								Password
+								{/* &lt;/Label> */}
+								&lt;Input
+									id="password"
+									name="password"
+									placeholder="password"
+									type={this.state.showPassword ? 'text' : 'password'}
+									value={this.state.user.password}
+									onChange={this.handleChange}
+								/>
+								&lt;button onClick={this.togglePassword}>Show&lt;/button>
+							&lt;/FormGroup>
+							&lt;FormGroup>
+								{/* &lt;Label for="password"> */}
+								Email
+								{/* &lt;/Label> */}
+								&lt;Input
+									id="email"
+									name="email"
+									type={'text'}
+									value={this.state.user.email}
+									readOnly={true}
+								/>
+							&lt;/FormGroup>
+							&lt;div className="form-group" style={{ overflow: 'unset' }}>
+								{/* &lt;img src="signup-city.png" alt='signup city' /> */}
+								&lt;Select
+									closeMenuOnSelect={false}
+									components={animatedComponents}
+									isMulti
+									options={cities}
+									placeholder={'Your city'}
+									maxMenuHeight={200}
+									menuPlacement='top'
+									name='city'
+									onChange={(event) => this.handleCityChange({ values: event, name: 'city' })}
+								/>
+							&lt;/div>
+							&lt;div className="form-group">
+								{/* &lt;img src="signup-zip.png" alt='signup zip' /> */}
+								&lt;ReactTags
+									name='zip'
+									id='zip'
+									placeholder='Your zip codes'
+									tags={this.state.user.zipCodes}
+									delimiters={delimiters}
+									handleAddition={this.handleAddition}
+									handleDelete={this.handleDelete}
+									autofocus={false}
+								/>
+							&lt;/div>
+							&lt;div className="form-group" style={{ overflow: 'unset' }}>
+								{/* &lt;img src="signup-groceries.png" alt='signup items' /> */}
+								&lt;Select
+									closeMenuOnSelect={false}
+									components={animatedComponents}
+									isMulti
+									options={interestItems}
+									placeholder={'Interested items'}
+									maxMenuHeight={200}
+									menuPlacement='top'
+									name='interests'
+									onChange={(event) => this.handleInterestsChange({ values: event, name: 'interests' })}
+								/>
+							&lt;/div>
+							{/* &lt;FormGroup>
+                                &lt;Label for="exampleFile">
+                                    File
+                                &lt;/Label>
+                                &lt;Input
+                                    id="exampleFile"
+                                    name="file"
+                                    type="file"
+                                />
+                                &lt;FormText>
+                                    This is some placeholder block-level help text for the above input. It‘s a bit lighter and easily wraps to a new line.
+                                &lt;/FormText>
+                            &lt;/FormGroup> */}
+						&lt;/Form>
+					&lt;/ModalBody>
+					&lt;ModalFooter>
+						&lt;Button color="primary" onClick={this.handleSave}>
+							Save
+						&lt;/Button>{' '}
+						&lt;Button color="secondary" onClick={this.cancelChange}>
+							Cancel
+						&lt;/Button>
+					&lt;/ModalFooter>
+				&lt;/Modal>
+			&lt;/div>
+		);
+	}
+}
+
+export default Profile;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addItemApi.html">addItemApi</a></li><li><a href="module-axiosClient.html">axiosClient</a></li><li><a href="module-Card.html">Card</a></li><li><a href="module-combineReducers.html">combineReducers</a></li><li><a href="module-getDonorHistoryAPI.html">getDonorHistoryAPI</a></li><li><a href="module-getProfleAPI.html">getProfleAPI</a></li><li><a href="module-getRecipientHistoryAPI.html">getRecipientHistoryAPI</a></li><li><a href="module-getRecipientItemsAPI.html">getRecipientItemsAPI</a></li><li><a href="module-historyContainer.html">historyContainer</a></li><li><a href="module-homeContainer.html">homeContainer</a></li><li><a href="module-homeReducer.html">homeReducer</a></li><li><a href="module-loginApi.html">loginApi</a></li><li><a href="module-loginContainer.html">loginContainer</a></li><li><a href="module-loginReducer.html">loginReducer</a></li><li><a href="module-marketPlaceContainer.html">marketPlaceContainer</a></li><li><a href="module-profileContainer.html">profileContainer</a></li><li><a href="module-recieveItemAPI.html">recieveItemAPI</a></li><li><a href="module-registerUserApi.html">registerUserApi</a></li><li><a href="module-registerUserContainer.html">registerUserContainer</a></li><li><a href="module-registerUserReducer.html">registerUserReducer</a></li><li><a href="module-updateProfileAPI.html">updateProfileAPI</a></li></ul><h3>Classes</h3><ul><li><a href="Donate.html">Donate</a></li><li><a href="History.html">History</a></li><li><a href="Home.html">Home</a></li><li><a href="LeftOver.html">LeftOver</a></li><li><a href="LoginUser.html">LoginUser</a></li><li><a href="MarketPlace.html">MarketPlace</a></li><li><a href="Profile.html">Profile</a></li><li><a href="RegisterUser.html">RegisterUser</a></li></ul><h3>Global</h3><ul><li><a href="global.html#root">root</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Oct 09 2022 00:42:03 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

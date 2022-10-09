@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/donate.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/donate.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import { Spinner } from 'reactstrap';
+
+/**
+ * React component for capturing donations
+ * @extends React.Component
+ */
+class Donate extends React.Component {
+	/**
+	 * Set initial state
+	 * @param {Object} props Props for the component
+	 */
+	constructor(props) {
+		super(props);
+		this.state = {
+			itemName: '',
+			itemQuantity: 1,
+			itemDescription: '',
+			itemZipCode: '',
+			itemCity: {},
+			itemDonorId: props.props &amp;&amp; props.props.userId,
+			itemCategory: {},
+			loading: false
+		};
+	}
+
+	/**
+	 * Update state with user entered values
+	 * @param {Object} event Event sent for onChange event
+	 */
+	handleInput = (event) => {
+		if (event.type === 'change') {
+			if (event.target) {
+				this.setState({
+					[event.target.id]: event.target.value
+				});
+			}
+		} else {
+			this.setState({
+				[event.name]: event.values
+			});
+		}
+	};
+
+	/**
+	 * Validate input values and call onAddItem API to submit item to database
+	 * @param {Object} event Button click event
+	 * @returns {Boolean} True if everything succeeds, false otherwise
+	 */
+	handleSubmit = async (event) => {
+		// Validate if input values are empty
+		const keys = ['itemName', 'itemDescription', 'itemZipCode'];
+		for (let i = 0; i &lt; keys.length; i++) {
+			if (this.state[keys[i]] === '') return false;
+		}
+		event.preventDefault();
+		if (Object.keys(this.state.itemCity).length === 0) {
+			alert('Missing value for city. Enter city for the item.');
+			return false;
+		}
+		if (Object.keys(this.state.itemCategory).length === 0) {
+			alert('Missing value for category. Enter category for the item.');
+			return false;
+		}
+		if (this.props.props) {
+			const apiInput = {
+				itemName: this.state.itemName,
+				itemQuantity: this.state.itemQuantity,
+				itemDescription: this.state.itemDescription,
+				itemZipCode: this.state.itemZipCode,
+				itemCity: this.state.itemCity.value,
+				itemDonorId: this.state.itemDonorId,
+				itemCategory: this.state.itemCategory.value
+			};
+			this.setState({
+				loading: true
+			});
+			await this.props.props.onAddItem(apiInput);
+			if (this.props.props.apiStatus) {
+				this.redirectToPath('/home/history');
+				return true;
+			} else {
+				alert(this.props.props.apiMessage || 'Item addition could not complete. Please try again.');
+				this.setState({
+					loading: false
+				});
+				return false;
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Redirect to specified path
+	 * @param {String} path Path to redirect
+	 */
+	redirectToPath = (path) => {
+		const url = new URL(document.location.href);
+		document.location.href = `${url.origin}${path}`;
+	};
+
+	/**
+	 * Render Donate component
+	 * @returns {React.Component} Form with donation related HTML tags
+	 */
+	render() {
+		const cities = [
+			{
+				label: 'Raleigh',
+				value: 'raleigh'
+			},
+			{
+				label: 'Cary',
+				value: 'cary'
+			},
+			{
+				label: 'Durham',
+				value: 'durham'
+			}
+		];
+		const interestItems = [
+			{
+				label: 'Fruits',
+				value: 'fruits'
+			},
+			{
+				label: 'Vegetables',
+				value: 'vegetables'
+			},
+			{
+				label: 'Table',
+				value: 'table'
+			},
+			{
+				label: 'Chair',
+				value: 'chair'
+			},
+			{
+				label: 'Chair1',
+				value: 'chair1'
+			},
+			{
+				label: 'Chair2',
+				value: 'chair2'
+			}
+		];
+		const animatedComponents = makeAnimated();
+		return (
+			&lt;section>
+				&lt;div className='container'>
+					&lt;div className='signup-content'>
+						&lt;div className='signup-form'>
+							&lt;h2 className='form-title'>Donate&lt;/h2>
+							&lt;form className='register-form' id='donate-form'>
+								&lt;div className='form-group'>
+									&lt;img src='../signup-name.png' alt='item name' />
+									&lt;input autoFocus type='text' name='name' id='itemName' placeholder='Item name' value={this.state.itemName} onChange={this.handleInput} required />
+								&lt;/div>
+								&lt;div className='form-group'>
+									&lt;img src='../item-description.png' alt='item description' />
+									&lt;textarea name='description' id='itemDescription' placeholder='Item description' value={this.state.itemDescription} onChange={this.handleInput} required />
+								&lt;/div>
+								&lt;div className='form-group'>
+									&lt;img src='../signup-zip.png' alt='item zipcode' />
+									&lt;input type='text' name='zipcode' id='itemZipCode' placeholder='Item zipcode' value={this.state.itemZipCode} onChange={this.handleInput} required />
+								&lt;/div>
+								&lt;div className='form-group' style={{overflow: 'unset'}}>
+									&lt;img src='../signup-city.png' alt='item city'/>
+									&lt;Select
+										closeMenuOnSelect={true}
+										components={animatedComponents}
+										options={cities}
+										placeholder={'City'}
+										maxMenuHeight={200}
+										menuPlacement='top'
+										name='itemCity'
+										onChange={(event) => this.handleInput({values: event, name: 'itemCity'})}
+									/>
+								&lt;/div>
+								&lt;div className='form-group' style={{overflow: 'unset'}}>
+									&lt;img src='../signup-groceries.png' alt='signup items'/>
+									&lt;Select
+										closeMenuOnSelect={true}
+										components={animatedComponents}
+										options={interestItems}
+										placeholder={'Category'}
+										maxMenuHeight={200}
+										menuPlacement='top'
+										name='itemCategory'
+										onChange={(event) => this.handleInput({values: event, name: 'itemCategory'})}
+									/>
+								&lt;/div>
+								&lt;div className='form-group form-button'>
+									{this.state.loading ? &lt;Spinner/> : &lt;input type='submit' name='donate' id='donate' className='form-submit' value='Donate' onClick={this.handleSubmit} />}
+								&lt;/div>
+							&lt;/form>
+						&lt;/div>
+						&lt;div className='signup-image'>
+							&lt;figure>&lt;img src='../donate-image.jpg' alt='donate' />&lt;/figure>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>
+			&lt;/section>
+		);
+	}
+}
+
+export default Donate;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addItemApi.html">addItemApi</a></li><li><a href="module-axiosClient.html">axiosClient</a></li><li><a href="module-Card.html">Card</a></li><li><a href="module-combineReducers.html">combineReducers</a></li><li><a href="module-getDonorHistoryAPI.html">getDonorHistoryAPI</a></li><li><a href="module-getProfleAPI.html">getProfleAPI</a></li><li><a href="module-getRecipientHistoryAPI.html">getRecipientHistoryAPI</a></li><li><a href="module-getRecipientItemsAPI.html">getRecipientItemsAPI</a></li><li><a href="module-historyContainer.html">historyContainer</a></li><li><a href="module-homeContainer.html">homeContainer</a></li><li><a href="module-homeReducer.html">homeReducer</a></li><li><a href="module-loginApi.html">loginApi</a></li><li><a href="module-loginContainer.html">loginContainer</a></li><li><a href="module-loginReducer.html">loginReducer</a></li><li><a href="module-marketPlaceContainer.html">marketPlaceContainer</a></li><li><a href="module-profileContainer.html">profileContainer</a></li><li><a href="module-recieveItemAPI.html">recieveItemAPI</a></li><li><a href="module-registerUserApi.html">registerUserApi</a></li><li><a href="module-registerUserContainer.html">registerUserContainer</a></li><li><a href="module-registerUserReducer.html">registerUserReducer</a></li><li><a href="module-updateProfileAPI.html">updateProfileAPI</a></li></ul><h3>Classes</h3><ul><li><a href="Donate.html">Donate</a></li><li><a href="History.html">History</a></li><li><a href="Home.html">Home</a></li><li><a href="LeftOver.html">LeftOver</a></li><li><a href="LoginUser.html">LoginUser</a></li><li><a href="MarketPlace.html">MarketPlace</a></li><li><a href="Profile.html">Profile</a></li><li><a href="RegisterUser.html">RegisterUser</a></li></ul><h3>Global</h3><ul><li><a href="global.html#root">root</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Oct 09 2022 00:42:03 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

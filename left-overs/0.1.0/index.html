@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1><a href="https://agupta15k.github.io/ncsu_se_fall22_22_pr_1/">Donatify</a></h1>
+<p><a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/agupta15k/ncsu_se_fall22_22_pr_1?color=green&amp;label=license&amp;logo=MIT" alt="GitHub"></a>
+<a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/issues"><img src="https://img.shields.io/github/issues-raw/agupta15k/ncsu_se_fall22_22_pr_1" alt="GitHub issues"></a>
+<a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/agupta15k/ncsu_se_fall22_22_pr_1" alt="Github closed issues"></a>
+<a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/pulls"><img src="https://img.shields.io/github/issues-pr/agupta15k/ncsu_se_fall22_22_pr_1?color=red" alt="Github pull requests"></a>
+<a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/pulls?q=is%3Apr+is%3Aclosed"><img src="https://img.shields.io/github/issues-pr-closed/agupta15k/ncsu_se_fall22_22_pr_1?color=blue" alt="Github closed pull requests"></a>
+<a href="https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors"><img src="https://img.shields.io/github/contributors/agupta15k/ncsu_se_fall22_22_pr_1?color=green" alt="Github all contributors"></a>
+<a href="https://zenodo.org/badge/latestdoi/542853527"><img src="https://zenodo.org/badge/542853527.svg" alt="DOI"></a></p>
+<p>Frontend code coverage: <a href="https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1"><img src="https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1/branch/main/graph/badge.svg?token=BNXSAGHWJZ" alt="codecov"></a></p>
+<p>:clap: “Happiness doesn’t result from what we get, but from what we give.&quot; ~ Ben Carson :clap:</p>
+<p>Majority of us have noticed items which go to waste even when they are in their prime conditions. For example, many atriums, dining halls around the world dispose of their leftovers at the end of the day and a lot of food is being wasted. We introduce to you Donatify, a platform for donors and receivers to communicate to donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate and other users, if their interests match with the item would choose to receive it.</p>
+<h2>Getting started</h2>
+<ul>
+<li>
+<h3>Prerequisites</h3>
+<ul>
+<li><a href="https://www.npmjs.com/">npm</a> and <a href="https://nodejs.org/en/">node</a> (version 16.X or 16.17.1) should be installed.</li>
+<li>Make sure the database server(mysql) is on.</li>
+<li>Download <a href="https://www.python.org/downloads/">Python3</a>.</li>
+<li>pytest for testing the application server.</li>
+</ul>
+</li>
+<li>
+<h3>Installation and Run</h3>
+<p><strong>Backend</strong>: <a href="https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/Backend/index.html">Documentation</a></p>
+<ol>
+<li>Create virtual environment</li>
+</ol>
+<pre class="prettyprint source"><code>python -m venv &lt;name_of_virtualenv>
+</code></pre>
+<ol start="2">
+<li>Activate Python Virtual environment</li>
+</ol>
+<pre class="prettyprint source"><code>&lt;name_of_virtualenv>\Scripts\activate.bat for Windows users.
+source &lt;name_of_virtualenv>/bin/activate for linux users.
+</code></pre>
+<ol start="3">
+<li>Install dependencies</li>
+</ol>
+<pre class="prettyprint source"><code>pip install -r requirements.txt
+</code></pre>
+<ol start="4">
+<li>Run the below command from the main directory to start the backend application server.</li>
+</ol>
+<pre class="prettyprint source"><code>python -m src.Backend.app
+</code></pre>
+<ol start="5">
+<li>The backend flask application will be up and running at <code>localhost:5001</code></li>
+</ol>
+<p><strong>Frontend</strong>: <a href="https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/gh-pages/frontendDocs/left-overs/0.1.0/index.html">Documentation</a></p>
+<ol>
+<li>
+<p>After cloning the repository, move to the directory <code>src\frontend</code> where our frontend code is located.</p>
+</li>
+<li>
+<p>Install all the dependencies using npm. Command to run: <code>npm install</code>. This will fetch the dependecies from package.json file, and install them.</p>
+</li>
+<li>
+<p>Start the server by using the command <code>npm start</code>. This will run the server on port <code>3000</code>, and the website can be accessed by going to <code>http://localhost:3000/</code>.</p>
+</li>
+<li>
+<p>If credentials of a registered user are available, use them, or register a new user and interact with the website.</p>
+</li>
+</ol>
+</li>
+<li>
+<h3>Testing</h3>
+<p><strong>Backend</strong></p>
+<ol>
+<li>Run the below command from the main directory. This should run all the test cases for app.py.</li>
+</ol>
+<pre class="prettyprint source"><code>pytest
+</code></pre>
+<p><strong>Frontend</strong></p>
+<ol>
+<li>
+<p>Move to the directory <code>src\frontend</code> where our frontend tests are located.</p>
+</li>
+<li>
+<p>Run the tests using the command <code>npm test -- --coverage --watchAll=false</code>. This will run all the tests across the frontend code.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2>Directory structure</h2>
+<pre><code>.
+├── .github
+|   ├── workflows
+|   |   ├── frontendGitActions.yml      # GitActions workflow for frontend
+├── .vscode
+|   ├── extensions.json                 # Recommended extensions for vscode
+|   ├── settings.json                   # Workspace settings for vscode
+├── docs
+|   ├── Rubrics
+|   |   ├── proj1rubric.md              # Project rubric
+|   ├── frontendDocs/left-overs/0.1.0   # Documentation for frontend
+|   ├── README.md                       # Readme file for docs folder
+├── src
+|   ├── Backend
+|   |   ├── app.py                      # File containing backend APIs
+|   |   ├── dbconfig.py                 # DB configuration for backend
+|   |   ├── utils.py                    # Utilities for backend
+|   ├── database
+|   |   ├── donationsystem.sql          # Backend SQL
+|   ├── frontend
+|   |   ├── public                      # Folder containing assets and images
+|   |   ├── src
+|   |   |   ├── API                     # Folder containing API calling frontend code
+|   |   |   ├── __tests__               # Folder containing unit tests for frontend
+|   |   |   ├── app                     # Folder containing redux store configuration
+|   |   |   ├── components              # Folder containing frontend react components
+|   |   |   ├── containers              # Folder containing containers to connect components with redux store
+|   |   |   ├── reducers                # Folder containing reducers
+|   |   |   ├── axiox.js                # API client generation
+|   |   |   ├── index.css               # CSS configuration for frontend
+|   |   |   ├── index.js                # Entry point for frontend
+|   |   |   ├── leftOver.jsx            # Root react component
+|   |   |   ├── setupTests.js           # Setup jest configuration for unit testing
+|   |   ├── .eslintignore               # Ignore configuration for eslint
+|   |   ├── .eslintrc.js                # eslint configuration
+|   |   ├── package.json                # Package configuration and dependency closure
+|   ├── README.md                       # Readme file for src folder
+|   ├── requirements.txt                # Details of dependency packages
+├── test                                # Folder containing unit tests for backend
+├── .gitattributes                  # File for git attributes
+├── .gitignore                      # File for git ignore
+├── CODE_OF_CONDUCT.md              # Code of conduct for repository
+├── CONTRIBUTING.md                 # Details about contributing to the repository
+├── LICENSE.md                      # MIT License details
+└── README.md                       # Readme file for repository
+</code></pre>
+<h2>Roadmap</h2>
+<ul>
+<li>Roadmap for this project can be found <a href="https://github.com/users/agupta15k/projects/2">here</a>.</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addItemApi.html">addItemApi</a></li><li><a href="module-axiosClient.html">axiosClient</a></li><li><a href="module-Card.html">Card</a></li><li><a href="module-combineReducers.html">combineReducers</a></li><li><a href="module-getDonorHistoryAPI.html">getDonorHistoryAPI</a></li><li><a href="module-getProfleAPI.html">getProfleAPI</a></li><li><a href="module-getRecipientHistoryAPI.html">getRecipientHistoryAPI</a></li><li><a href="module-getRecipientItemsAPI.html">getRecipientItemsAPI</a></li><li><a href="module-historyContainer.html">historyContainer</a></li><li><a href="module-homeContainer.html">homeContainer</a></li><li><a href="module-homeReducer.html">homeReducer</a></li><li><a href="module-loginApi.html">loginApi</a></li><li><a href="module-loginContainer.html">loginContainer</a></li><li><a href="module-loginReducer.html">loginReducer</a></li><li><a href="module-marketPlaceContainer.html">marketPlaceContainer</a></li><li><a href="module-profileContainer.html">profileContainer</a></li><li><a href="module-recieveItemAPI.html">recieveItemAPI</a></li><li><a href="module-registerUserApi.html">registerUserApi</a></li><li><a href="module-registerUserContainer.html">registerUserContainer</a></li><li><a href="module-registerUserReducer.html">registerUserReducer</a></li><li><a href="module-updateProfileAPI.html">updateProfileAPI</a></li></ul><h3>Classes</h3><ul><li><a href="Donate.html">Donate</a></li><li><a href="History.html">History</a></li><li><a href="Home.html">Home</a></li><li><a href="LeftOver.html">LeftOver</a></li><li><a href="LoginUser.html">LoginUser</a></li><li><a href="MarketPlace.html">MarketPlace</a></li><li><a href="Profile.html">Profile</a></li><li><a href="RegisterUser.html">RegisterUser</a></li></ul><h3>Global</h3><ul><li><a href="global.html#root">root</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Oct 09 2022 20:09:23 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

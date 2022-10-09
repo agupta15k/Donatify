@@ -173,6 +173,16 @@ Accept a donation:
     ├── requirements.txt                    # Details of dependency packages
     └── setup.py                            # Setup file for the module
 
+## Releases
+
+* [Donatify v0.1](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v0.1): Initial v0.1 release
+* [Donatify v1.0.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v1.0.0): First major release
+* [Donatify v1.0.1](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v1.0.1): Minor version release
+
 ## Roadmap
 
 * Roadmap for this project can be found [here](https://github.com/users/agupta15k/projects/2).
+
+## Chat channel
+
+* All the communication was handled through a private chat channel and online meets. Some screenshots of discussions can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/chatChannel/screenshots).

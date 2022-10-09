@@ -7,8 +7,7 @@
 [![Github closed pull requests](https://img.shields.io/github/issues-pr-closed/agupta15k/ncsu_se_fall22_22_pr_1?color=blue)](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/pulls?q=is%3Apr+is%3Aclosed)
 [![Github all contributors](https://img.shields.io/github/contributors/agupta15k/ncsu_se_fall22_22_pr_1?color=green)](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors)
 [![DOI](https://zenodo.org/badge/542853527.svg)](https://zenodo.org/badge/latestdoi/542853527)
-
-Frontend code coverage: [![codecov](https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1/branch/main/graph/badge.svg?token=BNXSAGHWJZ)](https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1)
+[![codecov](https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1/branch/main/graph/badge.svg?token=BNXSAGHWJZ)](https://codecov.io/gh/agupta15k/ncsu_se_fall22_22_pr_1)
 
 :clap: “Happiness doesn’t result from what we get, but from what we give." ~ Ben Carson :clap:
 

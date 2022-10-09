@@ -1,4 +1,5 @@
 # Donatify
+
 [![GitHub](https://img.shields.io/github/license/agupta15k/ncsu_se_fall22_22_pr_1?color=green&label=license&logo=MIT)](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md)
 [![GitHub issues](https://img.shields.io/github/issues-raw/agupta15k/ncsu_se_fall22_22_pr_1)](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/issues)
 [![Github closed issues](https://img.shields.io/github/issues-closed-raw/agupta15k/ncsu_se_fall22_22_pr_1)](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/issues?q=is%3Aissue+is%3Aclosed)
@@ -11,44 +12,46 @@ Frontend code coverage: [![codecov](https://codecov.io/gh/agupta15k/ncsu_se_fall
 
 :clap: “Happiness doesn’t result from what we get, but from what we give." ~ Ben Carson :clap:
 
-Majority of us have noticed items which go to waste even when they are in their prime conditions. For example, many atriums, dining halls around the world dispose of their leftovers at the end of the day and a lot of food is being wasted. We introduce to you Donatify, a platform for donors and receivers to communicate to donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate and other users, if their interests match with the item would choose to receive it.    
+Majority of us have noticed items which go to waste even when they are in their prime conditions. For example, many atriums, dining halls around the world dispose of their leftovers at the end of the day and a lot of food is being wasted. We introduce to you Donatify, a platform for donors and receivers to communicate to donate and recieve items respectively. In simple terms, a user would put up items which they would like to donate and other users, if their interests match with the item would choose to receive it.
 
 ## Getting started
-  - ### Prerequisites
-    - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) (version 16.X or 16.17.1) should be installed.
-    - Make sure the database server(mysql) is on.
 
-  - ### Installation and Run
+- ### Prerequisites
+  - [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) (version 16.X or 16.17.1) should be installed.
+  - Make sure the database server(mysql) is on.
+  - Download [Python3](https://www.python.org/downloads/).
+  - pytest for testing the application server.
+
+- ### Installation and Run
 
     **Backend**
 
     1. Create virtual environment
 
     ```
-    python3 -m venv <name_of_virtualenv>
+    python -m venv <name_of_virtualenv>
     ```
 
     2. Activate Python Virtual environment
 
     ```
-    <name_of_virtualenv>\Scripts\activate.bat
+    <name_of_virtualenv>\Scripts\activate.bat for Windows users.
+    source <name_of_virtualenv>/bin/activate for linux users.
     ```
 
-    3. Install dependencies
+    3. Install dependencies.
 
     ```
-    pip install -r requirement.txt
+    pip install -r requirements.txt
     ```
 
-    4. Move in directory ```src\Backend``` where our app.py file is located
-
-    5. Run below command to start the backend application
+    4. Run the below command from the main directory to start the backend application server.
 
     ```
-    python app.py
+    python -m src.Backend.app
     ```
 
-    6. The backend flask application will be up and running at ```localhost:5001```
+    5. The backend flask application will be up and running at ```localhost:5001```
 
     **Frontend**: [Documentation](https://agupta15k.github.io/ncsu_se_fall22_22_pr_1/)
 
@@ -59,6 +62,16 @@ Majority of us have noticed items which go to waste even when they are in their 
     3. Start the server by using the command ```npm start```. This will run the server on port ```3000```, and the website can be accessed by going to ```http://localhost:3000/```.
 
     4. If credentials of a registered user are available, use them, or register a new user and interact with the website.
+  
+## For running tests
+
+  **Backend:**
+
+  1. Run the below command from the main directory. This should run all the test cases for app.py.
+
+  ```
+  python -m src.Backend.app
+  ``` 
 
 ## Directory structure
 

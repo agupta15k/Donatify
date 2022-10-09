@@ -31,6 +31,11 @@ jobs:
         cd src/frontend
         npm install
 
+    - name: Run eslint check
+      run: |
+        cd src/frontend/src
+        npx eslint ./**/*.js
+
     - name: Run the tests
       run: |
         cd src/frontend
@@ -38,8 +43,3 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
-
-    - name: Run eslint check
-      run: |
-        cd src/frontend
-        npx eslint **

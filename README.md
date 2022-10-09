@@ -21,15 +21,15 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
 
 List available items:
 
-![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/marketplace.png)
+![](https://raw.githubusercontent.com/agupta15k/ncsu_se_fall22_22_pr_1/main/docs/execution/screenshots/marketplace.png)
 
 Donate an item:
 
-![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/donate.png)
+![](https://raw.githubusercontent.com/agupta15k/ncsu_se_fall22_22_pr_1/main/docs/execution/screenshots/donate.png)
 
 Accept a donation:
 
-![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/acceptDonation.png)
+![](https://raw.githubusercontent.com/agupta15k/ncsu_se_fall22_22_pr_1/main/docs/execution/screenshots/acceptDonation.png)
 
 ## Getting started
 

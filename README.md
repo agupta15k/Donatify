@@ -19,8 +19,16 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
 
 ## App in action
 
+List available items:
+
 ![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/marketplace.png)
+
+Donate an item:
+
 ![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/donate.png)
+
+Accept a donation:
+
 ![](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/docs/execution/screenshots/acceptDonation.png)
 
 ## Getting started
@@ -30,6 +38,12 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
   - Make sure the database server (mysql) is on. Consider using XAMPP.
   - Download [Python3](https://www.python.org/downloads/).
   - pytest for testing the application server.
+
+- ### Dependencies
+
+  **Backend**: [flask](https://flask.palletsprojects.com/en/2.2.x/) (2.2.2), [flask_cors](https://flask-cors.readthedocs.io/en/latest/) (3.0.10), [json](https://docs.python.org/3/library/json.html), [asyncio](https://docs.python.org/3/library/asyncio.html), [ast](https://docs.python.org/3/library/ast.html), [re](https://docs.python.org/3/library/re.html), [mysql](https://dev.mysql.com/doc/connector-python/en/) (8.0.30), [pytest](https://docs.pytest.org/en/7.1.x/) (7.1.2), [pdoc](https://pdoc.dev/) (0.10.0).
+  
+  **Frontend**: [axios](https://axios-http.com/docs/intro) (1.0.0), [antd](https://ant.design/docs/react/introduce) (4.23.4), [jsdoc](https://jsdoc.app/) (3.6.11), [react-select](https://react-select.com/home) (5.4.0), [react-tag-input](https://www.npmjs.com/package/react-tag-input) (6.8.1), [reactstrap](https://www.npmjs.com/package/reactstrap) (9.1.4), [jest](https://jestjs.io/).
 
 - ### Installation and Run
 

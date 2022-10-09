@@ -5,17 +5,18 @@ import ast
 import re
 import mysql.connector
 from ast import literal_eval as make_tuple
-from dbconfig import constants
+from src.Backend.dbconfig import constants
 
 try:
-	connection = mysql.connector.connect(
-    host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
+    connection = mysql.connector.connect(
+        host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
 except:
-	pass
+    pass
 # cursor = connection.cursor(dictionary=True)
 # cursor.execute('set GLOBAL max_allowed_packet=67108864')
 # connection.query('SET GLOBAL connect_timeout=6000')
 # cursor.execute('set max_allowed_packet=67108864')
+
 
 def get_items(page, user_id):
     """
@@ -36,7 +37,7 @@ def get_items(page, user_id):
 
     try:
         cursor = connection.cursor(dictionary=True)
-        finalData =[]
+        finalData = []
         sql_get_data_query = """select email, Interests from users where ID = %s"""
         record = (int(user_id),)
         cursor.execute(sql_get_data_query, record)
@@ -172,7 +173,7 @@ def getDonorHistory(ID):
 
     try:
         cursor = connection.cursor(dictionary=True)
-        finalData=[]
+        finalData = []
         cursor.execute(
             'SELECT * FROM items where donor_id = %s', (int(ID),))
         data = cursor.fetchall()
@@ -205,7 +206,7 @@ def getRecieverHistory(ID):
 
     try:
         cursor = connection.cursor(dictionary=True)
-        finalData =[]
+        finalData = []
         cursor.execute(
             'SELECT items.item_id, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s', (int(ID),))
         data = cursor.fetchall()

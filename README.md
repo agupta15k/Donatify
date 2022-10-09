@@ -68,7 +68,7 @@ Accept a donation:
     pip install -r requirements.txt
     ```
 
-	4. Make sure the database is imported from ```src/database/donationsystem.sql``` onto the sql system.
+	4. Make sure the database is imported from ```src/database/donationsystem.sql``` onto the mysql server.
 	
     5. Run the below command from the main directory to start the backend application server.
 

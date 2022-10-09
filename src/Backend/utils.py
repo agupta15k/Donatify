@@ -60,7 +60,7 @@ def get_items(page, user_id):
         print("Failed to get record from MySQL table: {}".format(error))
         msg = "Failed to get record from MySQL table: {}".format(error)
         return False, msg
-    
+
     except Exception as e:
         print("some error occurred in get_items: {}".format(e))
         msg = "Failed to get record from MySQL table: {}".format(e)
@@ -121,7 +121,7 @@ def insert_item(item_name, quantity, description, zipcode, city, donor_id, categ
         print("Failed to insert into items table {}".format(error))
         msg = "Failed to insert into items table {}".format(error)
         return False, msg
-    
+
     except Exception as e:
         print("some error occurred in insert_item: {}".format(e))
         msg = "Failed to insert into items table {}".format(e)
@@ -174,6 +174,7 @@ def update_item(data):
         return False, msg
         # return False, "some error occurred in get_items: {}".format(e)
 
+
 def getDonorHistory(ID):
     """
     Gets Donor history of an user given their ID. 
@@ -212,7 +213,8 @@ def getDonorHistory(ID):
         msg = "Failed to get history {}".format(e)
         return False, msg
         # return False, "some error occurred in get_items: {}".format(e)
-    
+
+
 def getRecieverHistory(ID):
     """
     Gets receiving history of an user given their ID. 
@@ -251,6 +253,7 @@ def getRecieverHistory(ID):
         return False, msg
         # return False, "some error occurred in get_items: {}".format(e)
 
+
 def addDonation(item_id, recipient_id):
     """
     Adds a transaction when the donation has taken place between two users.
@@ -286,6 +289,7 @@ def addDonation(item_id, recipient_id):
         msg = "Failed to insert into donation table {}".format(e)
         return False, msg
         # return False, "some error occurred in get_items: {}".format(e)
+
 
 def getUserProfileByID(ID):
     """
@@ -323,6 +327,7 @@ def getUserProfileByID(ID):
         return []
         # exit("some error occurred in get_items: {}".format(e))
 
+
 def updateProfile(data):
     """
     Updates an user in the database.
@@ -359,9 +364,10 @@ def updateProfile(data):
 
     except Exception as e:
         print("some error occurred in updateProfile: {}".format(e))
-        msg = "Failed to update table {}".format(error)
+        msg = "Failed to update table {}".format(e)
         return False, msg
         # exit("some error occurred in get_items: {}".format(e))
+
 
 def getUserProfileByEmail(email):
     """
@@ -398,6 +404,7 @@ def getUserProfileByEmail(email):
         return []
         # exit("some error occurred in get_items: {}".format(e))
 
+
 def loginCheck(email, password):
     """
     Checks if the password and email are matching in the database.
@@ -433,6 +440,7 @@ def loginCheck(email, password):
         print("some error occurred in loginCheck: {}".format(e))
         return (False, 0)
         # exit("some error occurred in get_items: {}".format(e))
+
 
 def addUser(name, password, email, city, zipcode, interests):
     """
@@ -476,6 +484,7 @@ def addUser(name, password, email, city, zipcode, interests):
         return False
         # exit("some error occurred in get_items: {}".format(e))
 
+
 def checkDuplicateEmail(email):
     """
     Checks if an email is present twice in the database.
@@ -509,4 +518,4 @@ def checkDuplicateEmail(email):
 
     except Exception as e:
         print("some error occurred in checkDuplicateEmail: {}".format(e))
-        return (False,0)
+        return (False, 0)

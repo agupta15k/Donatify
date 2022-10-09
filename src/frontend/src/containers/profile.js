@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Profile from '../components/profile';
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = () => {
 	return {
 		// onUpdateProfile: async (value) => {
 		//     try {
@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
 	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId
 });
 

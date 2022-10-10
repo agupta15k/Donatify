@@ -6,13 +6,13 @@ import axios from '../../axios';
 describe('profileComponent', () => {
 	it('renders without crashing', () => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		expect(component.toJSON()).toMatchSnapshot();
 	});
 
 	it('initial state set correctly', () => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],
@@ -34,7 +34,7 @@ describe('profileComponent', () => {
 
 	it('cancelChange function updates state correctly', (done) => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		component.getInstance().toggle = jest.fn();
 		component.getInstance().loadProfile = jest.fn();
 		component.getInstance().cancelChange().then(() => {
@@ -48,7 +48,7 @@ describe('profileComponent', () => {
 
 	it('toggle function updates state correctly', () => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: true,
 			codes: [],
@@ -71,7 +71,7 @@ describe('profileComponent', () => {
 
 	it('loadProfile function updates state correctly', (done) => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		component.getInstance().setState = jest.fn();
 		window.alert = jest.fn();
 		const mockfn = () => {
@@ -89,7 +89,7 @@ describe('profileComponent', () => {
 
 	it('togglePassword function updates state correctly', () => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],
@@ -113,7 +113,7 @@ describe('profileComponent', () => {
 
 	it('handleSave function updates state correctly', (done) => {
 		localStorage.setItem('userLogonDetails', JSON.stringify({ userId: 1, signInTime: new Date(), signInStatus: true }));
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		component.getInstance().setState = jest.fn();
 		window.alert = jest.fn();
 		const mockfn = () => {
@@ -129,7 +129,7 @@ describe('profileComponent', () => {
 	});
 
 	it('handleChange function updates state correctly', () => {
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],
@@ -157,7 +157,7 @@ describe('profileComponent', () => {
 	});
 
 	it('handleAddition function updates state correctly', () => {
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],
@@ -187,7 +187,7 @@ describe('profileComponent', () => {
 	});
 
 	it('handleCityChange function updates state correctly', () => {
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],
@@ -214,7 +214,7 @@ describe('profileComponent', () => {
 	});
 
 	it('handleInterestsChange function updates state correctly', () => {
-		const component = renderer.create(<Profile />);
+		const component = renderer.create(<Profile props={{userId: 1}} />);
 		const expectedOutput = {
 			modal: false,
 			codes: [],

@@ -14,7 +14,7 @@ describe('updateProfileAPI', () => {
 		};
 		axios.put = jest.fn();
 		updateProfileAPI(mockApiInput);
-		expect(axios.put).toHaveBeenCalledWith('/profile', mockApiInput);
+		expect(axios.put).toHaveBeenCalledWith('/updateprofile', mockApiInput);
 		jest.clearAllMocks();
 	});
 });

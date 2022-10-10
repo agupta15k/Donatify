@@ -400,7 +400,7 @@ def login():
     return jsonify({"status": 200, "data": {}, "message": ""})
 
 
-@app.route('/profile', methods=['GET', 'OPTIONS', 'PUT'])
+@app.route('/profile', methods=['GET', 'OPTIONS'])
 def getProfile():
     """
     Gets the profile of the current user.\n

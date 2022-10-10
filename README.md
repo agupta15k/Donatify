@@ -198,6 +198,10 @@ Please do contact any of us:
 * Nitesh Mishra(nmishra4@ncsu.edu)
 * Sumit Singh(ssingh57@ncsu.edu)
 
-## [License](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md)
+## License
 * We are using [MIT license](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md)
 * Copyright (c) 2022 Group 22
+
+## Contributors ✨
+
+Thanks goes to [these](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors) wonderful people.

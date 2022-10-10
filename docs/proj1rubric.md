@@ -7,7 +7,7 @@ Total Score: 240
 | Video1 | - | N/A, started a new project | 
 | Video2 | 3 | Added [video](https://drive.google.com/file/d/1Y7WDqHnhxGI7bMoBCHcPmIpulzRuV2UB/view?usp=sharing) | 
 | Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Responsibilites of individual modules were deligated to different subgroups, thus all of the group members have contributed to the project. [Contributors](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors) |
-| Number of commits | 3 | There are a total of [189 commits](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/commits/main) in the repo |
+| Number of commits | 3 | There are a total of [203 commits](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/commits/main) in the repo |
 | Number of commits: by different people | 3 | The number of commits are balanced across all [contributors](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors) |
 | Issues reports: there are 18 | 2 | Most of the discussion happened over meetings and chat channels, thus not a lot of issues were needed |
 | Issues are being closed | 3 | All open issues apart from roadmap are closed |

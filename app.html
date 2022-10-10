@@ -461,7 +461,7 @@ def login():
     return jsonify({&#34;status&#34;: 200, &#34;data&#34;: {}, &#34;message&#34;: &#34;&#34;})
 
 
-@app.route(&#39;/profile&#39;, methods=[&#39;GET&#39;, &#39;OPTIONS&#39;, &#39;PUT&#39;])
+@app.route(&#39;/profile&#39;, methods=[&#39;GET&#39;, &#39;OPTIONS&#39;])
 def getProfile():
     &#34;&#34;&#34;
     Gets the profile of the current user.\n
@@ -767,7 +767,7 @@ def getDonorInfo():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@app.route(&#39;/profile&#39;, methods=[&#39;GET&#39;, &#39;OPTIONS&#39;, &#39;PUT&#39;])
+<pre><code class="python">@app.route(&#39;/profile&#39;, methods=[&#39;GET&#39;, &#39;OPTIONS&#39;])
 def getProfile():
     &#34;&#34;&#34;
     Gets the profile of the current user.\n

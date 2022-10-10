@@ -69,19 +69,30 @@ def get_items(page, user_id):
         finalData = []
         sql_get_data_query = &#34;&#34;&#34;select email, Interests from users where ID = %s&#34;&#34;&#34;
         record = (int(user_id),)
+    
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
+        # print(data)
 
         # data = make_tuple(data[0][&#34;Interests&#34;])
-        tuplerecord = tuple(make_tuple(data[0][&#34;Interests&#34;]))
-
-        sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(
-            tuplerecord, int(page)*10-10)
+        print(data[0][&#34;Interests&#34;])
+        data2 = data[0][&#34;Interests&#34;]
+        data2 = data2.replace(&#34;[&#34;,&#34;(&#34;)
+        data2 = data2.replace(&#34;]&#34;,&#34;)&#34;)
+        print(data2)
+        # print(type(data))
+        # data2 = &#34;(&#34; + data[1:-1] + &#34;)&#34;
+        # data2 = &#39;(\&#39;&#39; + &#39;\&#39;,\&#39;&#39;.join(data) + &#39;\&#39;)&#39;   
+        # print(data2)
+        sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(data2, int(page)*10-10)
+        print(sql_select_query)
         cursor.execute(sql_select_query)
+        
         new_record = cursor.fetchall()
         for record in new_record:
             finalData.append({&#34;itemId&#34;: record[&#34;item_id&#34;], &#34;itemName&#34;: record[&#34;item_name&#34;], &#34;itemQuantity&#34;: record[&#34;quantity&#34;], &#34;itemDescription&#34;: record[&#34;description&#34;],
                               &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;: record[&#34;donor_id&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;], &#34;donorEmail&#34;: data[0][&#34;email&#34;]})
+        print(finalData)
         cursor.close()
         return True, finalData
 
@@ -263,11 +274,11 @@ def getRecieverHistory(ID):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            &#39;SELECT items.item_id, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s&#39;, (int(ID),))
+            &#39;SELECT items.item_id, users.ID, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s&#39;, (int(ID),))
         data = cursor.fetchall()
         for record in data:
             finalData.append({&#34;itemId&#34;: record[&#34;item_id&#34;], &#34;itemName&#34;: record[&#34;item_name&#34;], &#34;itemQuantity&#34;: record[&#34;quantity&#34;], &#34;itemDescription&#34;: record[&#34;description&#34;],
-                              &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;: record[&#34;Name&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;]})
+                              &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;:record[&#34;ID&#34;], &#34;itemDonorName&#34;: record[&#34;Name&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;]})
         # print(record[0][&#34;Interests&#34;])
         cursor.close()
         return True, finalData
@@ -338,7 +349,7 @@ def getUserProfileByID(ID):
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            &#39;SELECT name, email, city, zipcode, interests FROM users where ID = %s&#39;, (int(ID),))
+            &#39;SELECT name, email, city, zipcode, password, interests FROM users where ID = %s&#39;, (int(ID),))
         user = cursor.fetchone()
         user[&#34;city&#34;] = ast.literal_eval(user[&#34;city&#34;])
         user[&#34;zipcode&#34;] = ast.literal_eval(user[&#34;zipcode&#34;])
@@ -366,7 +377,7 @@ def updateProfile(data):
     data : json
         Updated user information.
 
-    Returns
+    Returnsf
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
@@ -377,7 +388,7 @@ def updateProfile(data):
         mysql_update_query = &#34;&#34;&#34;UPDATE users set name = %s, email=%s, city=%s, zipcode=%s, interests=%s WHERE ID = %s &#34;&#34;&#34;
 
         input_data = (data[&#39;name&#39;], data[&#39;email&#39;],
-                      str(data[&#39;city&#39;]), str(data[&#39;zipcode&#39;]), str(data[&#39;interests&#39;]), int(data[&#39;ID&#39;]))
+                      str(data[&#39;city&#39;]), str(data[&#39;zipCodes&#39;]), str(data[&#39;interests&#39;]), int(data[&#39;id&#39;]))
         cursor.execute(mysql_update_query, input_data)
         connection.commit()
 
@@ -839,11 +850,11 @@ def checkDuplicateEmail(email):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            &#39;SELECT items.item_id, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s&#39;, (int(ID),))
+            &#39;SELECT items.item_id, users.ID, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s&#39;, (int(ID),))
         data = cursor.fetchall()
         for record in data:
             finalData.append({&#34;itemId&#34;: record[&#34;item_id&#34;], &#34;itemName&#34;: record[&#34;item_name&#34;], &#34;itemQuantity&#34;: record[&#34;quantity&#34;], &#34;itemDescription&#34;: record[&#34;description&#34;],
-                              &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;: record[&#34;Name&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;]})
+                              &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;:record[&#34;ID&#34;], &#34;itemDonorName&#34;: record[&#34;Name&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;]})
         # print(record[0][&#34;Interests&#34;])
         cursor.close()
         return True, finalData
@@ -951,7 +962,7 @@ def checkDuplicateEmail(email):
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            &#39;SELECT name, email, city, zipcode, interests FROM users where ID = %s&#39;, (int(ID),))
+            &#39;SELECT name, email, city, zipcode, password, interests FROM users where ID = %s&#39;, (int(ID),))
         user = cursor.fetchone()
         user[&#34;city&#34;] = ast.literal_eval(user[&#34;city&#34;])
         user[&#34;zipcode&#34;] = ast.literal_eval(user[&#34;zipcode&#34;])
@@ -1013,19 +1024,30 @@ def checkDuplicateEmail(email):
         finalData = []
         sql_get_data_query = &#34;&#34;&#34;select email, Interests from users where ID = %s&#34;&#34;&#34;
         record = (int(user_id),)
+    
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
+        # print(data)
 
         # data = make_tuple(data[0][&#34;Interests&#34;])
-        tuplerecord = tuple(make_tuple(data[0][&#34;Interests&#34;]))
-
-        sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(
-            tuplerecord, int(page)*10-10)
+        print(data[0][&#34;Interests&#34;])
+        data2 = data[0][&#34;Interests&#34;]
+        data2 = data2.replace(&#34;[&#34;,&#34;(&#34;)
+        data2 = data2.replace(&#34;]&#34;,&#34;)&#34;)
+        print(data2)
+        # print(type(data))
+        # data2 = &#34;(&#34; + data[1:-1] + &#34;)&#34;
+        # data2 = &#39;(\&#39;&#39; + &#39;\&#39;,\&#39;&#39;.join(data) + &#39;\&#39;)&#39;   
+        # print(data2)
+        sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(data2, int(page)*10-10)
+        print(sql_select_query)
         cursor.execute(sql_select_query)
+        
         new_record = cursor.fetchall()
         for record in new_record:
             finalData.append({&#34;itemId&#34;: record[&#34;item_id&#34;], &#34;itemName&#34;: record[&#34;item_name&#34;], &#34;itemQuantity&#34;: record[&#34;quantity&#34;], &#34;itemDescription&#34;: record[&#34;description&#34;],
                               &#34;itemZipCode&#34;: record[&#34;zipcode&#34;], &#34;itemCity&#34;: record[&#34;city&#34;], &#34;itemDonorId&#34;: record[&#34;donor_id&#34;], &#34;itemCategory&#34;: record[&#34;category&#34;], &#34;donorEmail&#34;: data[0][&#34;email&#34;]})
+        print(finalData)
         cursor.close()
         return True, finalData
 
@@ -1207,11 +1229,9 @@ def checkDuplicateEmail(email):
 <dt><strong><code>data</code></strong> :&ensp;<code>json</code></dt>
 <dd>Updated user information.</dd>
 </dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>tuple</code></dt>
-<dd>Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.</dd>
-</dl></div>
+<h2 id="returnsf">Returnsf</h2>
+<p>tuple
+Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1225,7 +1245,7 @@ def checkDuplicateEmail(email):
     data : json
         Updated user information.
 
-    Returns
+    Returnsf
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
@@ -1236,7 +1256,7 @@ def checkDuplicateEmail(email):
         mysql_update_query = &#34;&#34;&#34;UPDATE users set name = %s, email=%s, city=%s, zipcode=%s, interests=%s WHERE ID = %s &#34;&#34;&#34;
 
         input_data = (data[&#39;name&#39;], data[&#39;email&#39;],
-                      str(data[&#39;city&#39;]), str(data[&#39;zipcode&#39;]), str(data[&#39;interests&#39;]), int(data[&#39;ID&#39;]))
+                      str(data[&#39;city&#39;]), str(data[&#39;zipCodes&#39;]), str(data[&#39;interests&#39;]), int(data[&#39;id&#39;]))
         cursor.execute(mysql_update_query, input_data)
         connection.commit()
 

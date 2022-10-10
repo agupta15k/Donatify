@@ -43,18 +43,9 @@ def get_items(page, user_id):
     
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
-        # print(data)
-
-        # data = make_tuple(data[0]["Interests"])
-        print(data[0]["Interests"])
         data2 = data[0]["Interests"]
         data2 = data2.replace("[","(")
         data2 = data2.replace("]",")")
-        print(data2)
-        # print(type(data))
-        # data2 = "(" + data[1:-1] + ")"
-        # data2 = '(\'' + '\',\''.join(data) + '\')'   
-        # print(data2)
         sql_select_query = """select * from items where category in {} order by item_id  limit 10 offset {} """.format(data2, int(page)*10-10)
         print(sql_select_query)
         cursor.execute(sql_select_query)
@@ -348,7 +339,7 @@ def updateProfile(data):
     data : json
         Updated user information.
 
-    Returnsf
+    Returns
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.

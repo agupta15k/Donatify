@@ -72,18 +72,9 @@ def get_items(page, user_id):
     
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
-        # print(data)
-
-        # data = make_tuple(data[0][&#34;Interests&#34;])
-        print(data[0][&#34;Interests&#34;])
         data2 = data[0][&#34;Interests&#34;]
         data2 = data2.replace(&#34;[&#34;,&#34;(&#34;)
         data2 = data2.replace(&#34;]&#34;,&#34;)&#34;)
-        print(data2)
-        # print(type(data))
-        # data2 = &#34;(&#34; + data[1:-1] + &#34;)&#34;
-        # data2 = &#39;(\&#39;&#39; + &#39;\&#39;,\&#39;&#39;.join(data) + &#39;\&#39;)&#39;   
-        # print(data2)
         sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(data2, int(page)*10-10)
         print(sql_select_query)
         cursor.execute(sql_select_query)
@@ -377,7 +368,7 @@ def updateProfile(data):
     data : json
         Updated user information.
 
-    Returnsf
+    Returns
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
@@ -1027,18 +1018,9 @@ def checkDuplicateEmail(email):
     
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
-        # print(data)
-
-        # data = make_tuple(data[0][&#34;Interests&#34;])
-        print(data[0][&#34;Interests&#34;])
         data2 = data[0][&#34;Interests&#34;]
         data2 = data2.replace(&#34;[&#34;,&#34;(&#34;)
         data2 = data2.replace(&#34;]&#34;,&#34;)&#34;)
-        print(data2)
-        # print(type(data))
-        # data2 = &#34;(&#34; + data[1:-1] + &#34;)&#34;
-        # data2 = &#39;(\&#39;&#39; + &#39;\&#39;,\&#39;&#39;.join(data) + &#39;\&#39;)&#39;   
-        # print(data2)
         sql_select_query = &#34;&#34;&#34;select * from items where category in {} order by item_id  limit 10 offset {} &#34;&#34;&#34;.format(data2, int(page)*10-10)
         print(sql_select_query)
         cursor.execute(sql_select_query)
@@ -1229,9 +1211,11 @@ def checkDuplicateEmail(email):
 <dt><strong><code>data</code></strong> :&ensp;<code>json</code></dt>
 <dd>Updated user information.</dd>
 </dl>
-<h2 id="returnsf">Returnsf</h2>
-<p>tuple
-Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.</p></div>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1245,7 +1229,7 @@ Returns a tuple with two elements. The first element(a boolean variable) checks 
     data : json
         Updated user information.
 
-    Returnsf
+    Returns
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.

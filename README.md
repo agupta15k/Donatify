@@ -184,6 +184,7 @@ Accept a donation:
 * [Donatify v0.1](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v0.1): Initial v0.1 release
 * [Donatify v1.0.0](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v1.0.0): First major release
 * [Donatify v1.0.1](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v1.0.1): Minor version release
+* [Donatify v1.0.2](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/releases/tag/v1.0.2): Minor version release
 
 ## Roadmap
 

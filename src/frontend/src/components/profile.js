@@ -22,7 +22,7 @@ class Profile extends Component {
 			codes: [],
 			showPassword: false,
 			user: {
-				id: 1,
+				id: this.props.props.userId,
 				name: '',
 				email: '',
 				phone: '',
@@ -96,7 +96,7 @@ class Profile extends Component {
 	 */
 	handleSave = async () => {
 		let zipCodes = this.state.user.zipCodes.map((code) => (code.text));
-		let res = await updateProfileAPI({ ...this.state.user, zipCodes });
+		let res = await updateProfileAPI({ ...this.state.user,id:this.props.props.userId, zipCodes });
 		if (res.data&&res.data.status===200) {
 			alert('Profile updated successfully');
 			await this.loadProfile();

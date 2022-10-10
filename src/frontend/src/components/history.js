@@ -43,26 +43,35 @@ class History extends Component {
 	loadHistory = async () => {
 		let userId = JSON.parse(localStorage.getItem('userLogonDetails')).userId;
 		const donorHistoryResponse = await getDonorHistoryAPI(userId);
+		if (donorHistoryResponse.data && donorHistoryResponse.data.data) {
+			this.setState({
+				...this.state,
+				donorHistory: donorHistoryResponse.data.data,
+			});
+		}
+
 		const recipientHistoryResponse = await getRecipientHistoryAPI(userId);
-		this.setState({
-			...this.state,
-			donorHistory: donorHistoryResponse.data.data,
-			recipientHistory: recipientHistoryResponse.data.data
-		});
+		if (recipientHistoryResponse.data && donorHistoryResponse.data.data) {
+			this.setState({
+				...this.state,
+				recipientHistory: recipientHistoryResponse.data.data
+			});
+		}
+		return true;
 	};
 
-	/**
-	 * Load next page results
-	 */
-	loadMore = () => {
-		this.setState(
-			prevState => ({
-				page: prevState.page + 1,
-				scrolling: true
-			}),
-			this.loadHistory
-		);
-	};
+	// /**
+	//  * Load next page results
+	//  */
+	// loadMore = () => {
+	// 	this.setState(
+	// 		prevState => ({
+	// 			page: prevState.page + 1,
+	// 			scrolling: true
+	// 		}),
+	// 		this.loadHistory
+	// 	);
+	// };
 
 	/**
 	 * Lifecycle method to trigger loading history
@@ -79,6 +88,7 @@ class History extends Component {
 		this.setState({
 			history: event.target.value
 		});
+		return true;
 	};
 
 	/**
@@ -89,6 +99,7 @@ class History extends Component {
 		this.setState({
 			isModalOpen: value
 		});
+		return true;
 	};
 
 	/**
@@ -136,7 +147,7 @@ class History extends Component {
 					<p>Item Zip Code: {this.state.d.itemZipCode}</p>
 					<p>Item City: {this.state.d.itemCity}</p>
 					<p>Item Category: {this.state.d.itemCategory}</p>
-					<p>Donor Name: {this.state.d.itemDonorName || ''}</p>
+					{!this.state.history==='Donor History'?(<p>Donor Name: {this.state.d.itemDonorName || ''}</p>):(<></>)}
 				</Modal>) : (<></>)}
 
 				{/* <Modal title="Item Details" open={this.state.isModalOpen} onOk={handleOk} onCancel={handleCancel}>

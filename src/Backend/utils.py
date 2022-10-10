@@ -40,19 +40,30 @@ def get_items(page, user_id):
         finalData = []
         sql_get_data_query = """select email, Interests from users where ID = %s"""
         record = (int(user_id),)
+    
         cursor.execute(sql_get_data_query, record)
         data = cursor.fetchall()
+        # print(data)
 
         # data = make_tuple(data[0]["Interests"])
-        tuplerecord = tuple(make_tuple(data[0]["Interests"]))
-
-        sql_select_query = """select * from items where category in {} order by item_id  limit 10 offset {} """.format(
-            tuplerecord, int(page)*10-10)
+        print(data[0]["Interests"])
+        data2 = data[0]["Interests"]
+        data2 = data2.replace("[","(")
+        data2 = data2.replace("]",")")
+        print(data2)
+        # print(type(data))
+        # data2 = "(" + data[1:-1] + ")"
+        # data2 = '(\'' + '\',\''.join(data) + '\')'   
+        # print(data2)
+        sql_select_query = """select * from items where category in {} order by item_id  limit 10 offset {} """.format(data2, int(page)*10-10)
+        print(sql_select_query)
         cursor.execute(sql_select_query)
+        
         new_record = cursor.fetchall()
         for record in new_record:
             finalData.append({"itemId": record["item_id"], "itemName": record["item_name"], "itemQuantity": record["quantity"], "itemDescription": record["description"],
                               "itemZipCode": record["zipcode"], "itemCity": record["city"], "itemDonorId": record["donor_id"], "itemCategory": record["category"], "donorEmail": data[0]["email"]})
+        print(finalData)
         cursor.close()
         return True, finalData
 
@@ -234,11 +245,11 @@ def getRecieverHistory(ID):
         cursor = connection.cursor(dictionary=True)
         finalData = []
         cursor.execute(
-            'SELECT items.item_id, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s', (int(ID),))
+            'SELECT items.item_id, users.ID, items.item_name, users.Name, items.quantity, items.description, items.zipcode, items.city, items.category FROM Donation Inner join items on donation.item_id=items.item_id INNER JOIN users on items.donor_id=users.ID where recipient_id= %s', (int(ID),))
         data = cursor.fetchall()
         for record in data:
             finalData.append({"itemId": record["item_id"], "itemName": record["item_name"], "itemQuantity": record["quantity"], "itemDescription": record["description"],
-                              "itemZipCode": record["zipcode"], "itemCity": record["city"], "itemDonorId": record["Name"], "itemCategory": record["category"]})
+                              "itemZipCode": record["zipcode"], "itemCity": record["city"], "itemDonorId":record["ID"], "itemDonorName": record["Name"], "itemCategory": record["category"]})
         # print(record[0]["Interests"])
         cursor.close()
         return True, finalData
@@ -309,7 +320,7 @@ def getUserProfileByID(ID):
     try:
         cursor = connection.cursor(dictionary=True)
         cursor.execute(
-            'SELECT name, email, city, zipcode, interests FROM users where ID = %s', (int(ID),))
+            'SELECT name, email, city, zipcode, password, interests FROM users where ID = %s', (int(ID),))
         user = cursor.fetchone()
         user["city"] = ast.literal_eval(user["city"])
         user["zipcode"] = ast.literal_eval(user["zipcode"])
@@ -337,7 +348,7 @@ def updateProfile(data):
     data : json
         Updated user information.
 
-    Returns
+    Returnsf
     ----------
     tuple
         Returns a tuple with two elements. The first element(a boolean variable) checks to see if the database operations worked correctly. The second element is a message about the same.
@@ -348,7 +359,7 @@ def updateProfile(data):
         mysql_update_query = """UPDATE users set name = %s, email=%s, city=%s, zipcode=%s, interests=%s WHERE ID = %s """
 
         input_data = (data['name'], data['email'],
-                      str(data['city']), str(data['zipcode']), str(data['interests']), int(data['ID']))
+                      str(data['city']), str(data['zipCodes']), str(data['interests']), int(data['id']))
         cursor.execute(mysql_update_query, input_data)
         connection.commit()
 

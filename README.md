@@ -17,6 +17,10 @@ We introduce to you Donatify, a platform for donors and receivers to communicate
 
 **Want to be part of an environment saving initiative, while sitting in the comfort of your home?** Get on Donatify, donate the stuff you don't need, and feel good.
 
+## Demo video
+
+https://user-images.githubusercontent.com/112216701/194792312-64c5dea3-24a1-4a61-942c-df805e35800a.mp4
+
 ## App in action
 
 List available items:

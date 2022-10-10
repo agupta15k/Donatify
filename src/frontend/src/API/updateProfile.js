@@ -8,7 +8,7 @@ import axios from '../axios';
  * @returns {Promise} Response for axios PUT request
  */
 const updateProfileAPI = (user) => {
-	return axios.put('/profile', {
+	return axios.put('/updateprofile', {
 		...user
 	});
 };

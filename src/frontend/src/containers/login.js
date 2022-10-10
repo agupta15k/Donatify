@@ -29,7 +29,7 @@ const loginMapDispatchToProps = dispatch => {
  * @returns  {Object} Props
  */
 const loginMapStateToProps = state => ({
-	userId: JSON.parse(localStorage.getItem('userLogonDetails')).userId,
+	userId: '',
 	apiStatus: state.loginReducer.success,
 	apiMessage: state.loginReducer.message
 });

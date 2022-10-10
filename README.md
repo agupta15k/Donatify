@@ -197,3 +197,7 @@ Please do contact any of us:
 * Nagaraj Madamshetti(nmadams@ncsu.edu)
 * Nitesh Mishra(nmishra4@ncsu.edu)
 * Sumit Singh(ssingh57@ncsu.edu)
+
+## [License](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md)
+* We are using [MIT license](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/LICENSE.md)
+* Copyright (c) 2022 Group 22

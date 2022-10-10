@@ -29,7 +29,6 @@ const loginMapDispatchToProps = dispatch => {
  * @returns  {Object} Props
  */
 const loginMapStateToProps = state => ({
-	userId: '',
 	apiStatus: state.loginReducer.success,
 	apiMessage: state.loginReducer.message
 });

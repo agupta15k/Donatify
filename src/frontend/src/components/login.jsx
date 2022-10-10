@@ -60,7 +60,7 @@ class LoginUser extends React.Component {
 				loading: true
 			});
 			await this.props.onSubmitLogin(apiInput);
-			if (this.props.userId && this.props.apiStatus) {
+			if (this.props.apiStatus) {
 				this.setState({
 					loginSuccess: true
 				});

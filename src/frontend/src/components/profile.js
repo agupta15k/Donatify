@@ -97,7 +97,7 @@ class Profile extends Component {
 	handleSave = async () => {
 		let zipCodes = this.state.user.zipCodes.map((code) => (code.text));
 		let res = await updateProfileAPI({ ...this.state.user, zipCodes });
-		if (res.data && res.data.success) {
+		if (res.data&&res.data.status===200) {
 			alert('Profile updated successfully');
 			await this.loadProfile();
 			this.toggle();

@@ -5,18 +5,18 @@ Total Score: 240
 |Notes|Points|Evidence|
 |-----|------|---------|
 | Video1 | - | N/A, started a new project | 
-| Video2 | 3 | Added [video]() | 
+| Video2 | 3 | Added [video](https://drive.google.com/file/d/1Y7WDqHnhxGI7bMoBCHcPmIpulzRuV2UB/view?usp=sharing) | 
 | Workload is spread over the whole team (one team member is often Xtimes more productive than the others but nevertheless, here is a track record that everyone is contributing a lot) | 3 | Responsibilites of individual modules were deligated to different subgroups, thus all of the group members have contributed to the project. [Contributors](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors) |
 | Number of commits | 3 | There are a total of [189 commits](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/commits/main) in the repo |
 | Number of commits: by different people | 3 | The number of commits are balanced across all [contributors](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/graphs/contributors) |
-| Issues reports: there are 17 | 2 | Most of the discussion happened over meetings and chat channels, thus not a lot of issues were needed |
+| Issues reports: there are 18 | 2 | Most of the discussion happened over meetings and chat channels, thus not a lot of issues were needed |
 | Issues are being closed | 3 | All open issues apart from roadmap are closed |
 | DOI badge: exists | 3 | DOI badge exists |
 | Docs: docs generated, format not ugly | 3 | [Documentation](https://agupta15k.github.io/ncsu_se_fall22_22_pr_1/) present |
 | Docs: what: point descriptions of each class/function (in isolation) | 3 | [Frontend](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/frontendDocs/left-overs/0.1.0/index.html) and [Backend](https://htmlpreview.github.io/?https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/backendDocs/index.html) 'what' documentation exists |
-| Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z | 3 | Execution screenshots can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/execution/screenshots). [Video]() showing the execution is also available |
+| Docs: how: for common use cases X,Y,Z mini-tutorials showing worked examples on how to do X,Y,Z | 3 | Execution screenshots can be found [here](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/execution/screenshots). [Video](https://drive.google.com/file/d/1Y7WDqHnhxGI7bMoBCHcPmIpulzRuV2UB/view?usp=sharing) showing the execution is also available |
 | Docs: why: docs tell a story, motivate the whole thing, deliver a punchline that makes you want to rush out and use the thing | 3 | 'why' documentation present in the [README](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/blob/main/README.md) file |
-| Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code | 3 | [Video]() and [execution screenshots](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/execution/screenshots) available |
+| Docs: short video, animated, hosted on your repo. That convinces people why they want to work on your code | 3 | [Video](https://drive.google.com/file/d/1Y7WDqHnhxGI7bMoBCHcPmIpulzRuV2UB/view?usp=sharing) and [execution screenshots](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/docs/execution/screenshots) available |
 | Use of version control tools | 3 | Git is used in this project |
 | Use of style checkers | 3 | Using eslint for frontend and flake8 for backend |
 | Use of code formatters | 3 | Using default code formatters provided by vscode. Some formatting configuration present in the [.vscode folder](https://github.com/agupta15k/ncsu_se_fall22_22_pr_1/tree/main/.vscode) |

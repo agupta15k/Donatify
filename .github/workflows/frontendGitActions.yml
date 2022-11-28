@@ -2,9 +2,7 @@ name: Frontend run code coverage and build docs
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:

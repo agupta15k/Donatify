@@ -13,6 +13,7 @@
 		"bootstrap": "^5.2.2",
 		"chai": "^4.3.6",
 		"dotenv": "^16.0.3",
+		"emailjs-com": "^3.2.0",
 		"enzyme": "^3.11.0",
 		"jsdoc": "^3.6.11",
 		"mocha": "^10.0.0",
@@ -25,6 +26,8 @@
 		"react-tag-input": "^6.8.1",
 		"react-test-renderer": "^18.2.0",
 		"reactstrap": "^9.1.4",
+		"styled-components": "^5.3.6",
+		"two-step-auth": "^1.1.2",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {

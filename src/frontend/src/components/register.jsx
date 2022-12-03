@@ -3,6 +3,9 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { Spinner } from 'reactstrap';
+import styled from 'styled-components';
+import emailjs from 'emailjs-com';
+import { json } from 'react-router-dom';
 
 /**
  * React component for RegisterUser
@@ -18,11 +21,13 @@ class RegisterUser extends React.Component {
 		this.state = {
 			name: '',
 			email: '',
+			otp:'',
+			genotp:'',
 			pass: '',
 			rePass: '',
 			cities: [],
 			zipCodes: [],
-			interests: []
+			interests: [],
 		};
 	}
 
@@ -130,6 +135,36 @@ class RegisterUser extends React.Component {
 		document.getElementsByClassName('signup-image-link')[0].href = url.origin;
 	};
 
+	genOTP = () => {
+		return '';
+	};
+
+	sendOTP = async(e) => {
+		e.preventDefault();
+		const OTP = this.genOTP();
+		this.setState({genotp: OTP});
+		var data = {
+			'mail': this.state.email,
+			'otp': OTP
+		};
+		let response = await fetch('http://localhost:5001/getOTP', {
+			method: 'post',
+			headers: {'Content-Type':'application/json'},
+			body: JSON.stringify(data),
+		});
+
+		let res = await response.json();
+		if(res.status !== 200)
+			alert('OTP not sent. Please try again.');
+		return res;
+	};
+
+	authOTP = () => {
+		if(this.state.genotp === this.state.otp){
+			console.log('success');
+		}
+	};
+
 	/**
 	 * Render RegisterUser component
 	 * @returns {React.Component} Form with register user related HTML tags
@@ -181,6 +216,15 @@ class RegisterUser extends React.Component {
 			enter: 13,
 		};
 		const delimiters = [keyCodes.comma, keyCodes.enter];
+		const Button = styled.button`
+		background-color: blue;
+		color: white;
+		font-size: 12px;
+		padding: 8px 8px;
+		border-radius: 5px;
+		margin: 5px 0px;
+		cursor: pointer;
+		`;
 		return (
 			<div className='signup'>
 				<div className="container">
@@ -195,6 +239,16 @@ class RegisterUser extends React.Component {
 								<div className="form-group">
 									<img src="signup-email.png" alt='signup enail'/>
 									<input type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleInput} required/>
+									<div><Button onClick={this.sendOTP}>
+										Send OTP
+									</Button></div>
+								</div>
+								<div className="form-group">
+									<img src="OTP-email.png" alt='OTP for the email'/>
+									<input type="text" name="OTP" id="OTP" placeholder="Please enter the received OTP" value={this.state.otp} onChange={this.handleInput} required/>
+									<div><Button onClick={this.authOTP}>
+										Verify OTP
+									</Button></div>
 								</div>
 								<div className="form-group">
 									<img src="signup-pass.png" alt='signup password'/>

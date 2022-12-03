@@ -41,7 +41,7 @@ from werkzeug.exceptions import HTTPException
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
-from src.Backend.utils import *
+from utils import *
 
 # Flask application configuration
 app = Flask(__name__)
@@ -463,6 +463,15 @@ def updateprofile():
             return jsonify({"status": 400, "data": {}, "message": msg})
 
     return jsonify({"status": 200, "data": {}, "message": ""})
+
+@app.route('/getOTP', methods=['POST'])
+def getOTP():
+	data=request.get_json()
+	otp = data['otp']
+	mail = data['mail']
+	sendmail(mail, otp)
+	return jsonify({"status": 200, "data": {}, "message": "successfully sent the mail"})
+
 
 
 if __name__ == '__main__':

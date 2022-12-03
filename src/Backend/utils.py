@@ -5,13 +5,15 @@ import ast
 import re
 import mysql.connector
 from ast import literal_eval as make_tuple
-from src.Backend.dbconfig import constants
+from dbconfig import constants
+import smtplib, ssl
 
-try:
-    connection = mysql.connector.connect(
-        host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
-except:
-    pass
+# try:
+connection = mysql.connector.connect(
+    host=constants["host"], user=constants["user"], password=constants["password"], database=constants["database"])
+print("Hello World")
+# except:
+    # pass
 # cursor = connection.cursor(dictionary=True)
 # cursor.execute('set GLOBAL max_allowed_packet=67108864')
 # connection.query('SET GLOBAL connect_timeout=6000')
@@ -392,9 +394,9 @@ def getUserProfileByEmail(email):
             'SELECT ID, name, email, city, zipcode, interests FROM users WHERE email = %s', (email,))
         user = cursor.fetchone()
         print(user)
-        user["city"] = ast.literal_eval(user["city"])
-        user["zipcode"] = ast.literal_eval(user["zipcode"])
-        user["interests"] = ast.literal_eval(user["interests"])
+        # user["city"] = ast.literal_eval(user["city"])
+        # user["zipcode"] = ast.literal_eval(user["zipcode"])
+        # user["interests"] = ast.literal_eval(user["interests"])
         cursor.close()
         return user
     except mysql.connector.Error as error:
@@ -521,3 +523,20 @@ def checkDuplicateEmail(email):
     except Exception as e:
         print("some error occurred in checkDuplicateEmail: {}".format(e))
         return (False, 0)
+
+
+def sendmail(mail, otp):
+	port = 587  # For starttls
+	smtp_server = "smtp.gmail.com"
+	sender_email = "naveen.donatify@gmail.com"
+	receiver_email = mail
+	password = "kkifnlhthkdeurvb"
+	message = "Subject: Please use the following OTP: {}".format(otp)
+
+	context = ssl.create_default_context()
+	with smtplib.SMTP(smtp_server, port) as server:
+		server.ehlo()  # Can be omitted
+		server.starttls(context=context)
+		server.ehlo()  # Can be omitted
+		server.login(sender_email, password)
+		server.sendmail(sender_email, receiver_email, message)

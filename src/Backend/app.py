@@ -466,6 +466,23 @@ def updateprofile():
 
 @app.route('/getOTP', methods=['POST'])
 def getOTP():
+	"""
+    Sending a mail containing the automatically generated OTP.\n
+    Response is a json which contains:\n
+    1) Status - This can take 3 values = (200 : Perfect response, 405 : Database Error, 400 : Failure from client side, 500:the server encountered an unexpected condition that prevented it from fulfilling the request ).\n
+    2) Data - Associated data with the operation, here no data as we expect no response.\n
+    3) Message - A message assoicated with the status.
+
+    Parameters
+    ----------
+    data : json
+        Information about the generated OTP along with the mail ID of the yet to be verified user.
+
+    Returns
+    ----------
+    json
+        Returns a json containing the status, data(No data associated with this function, hence the data is empty), message in accordance with the status.
+    """
 	data=request.get_json()
 	otp = data['otp']
 	mail = data['mail']

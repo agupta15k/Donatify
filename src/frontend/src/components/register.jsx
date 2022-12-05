@@ -19,6 +19,8 @@ class RegisterUser extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			otpbtn: 'Verify OTP',
+			mailbtn: 'Send OTP',
 			name: '',
 			email: '',
 			otp:'',
@@ -135,7 +137,7 @@ class RegisterUser extends React.Component {
 		document.getElementsByClassName('signup-image-link')[0].href = url.origin;
 	};
 
-	genOTP = () => {
+	genOTP = async () => {
 		var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		let OTP = '';
 		var len = string.length;
@@ -143,13 +145,25 @@ class RegisterUser extends React.Component {
 			var char = string[Math.floor(Math.random() * len)];
 			OTP = OTP + char;
 		}
-		return OTP;
+		this.setState({genotp: OTP});
 	};
 
 	sendOTP = async(e) => {
 		e.preventDefault();
-		const OTP = this.genOTP();
-		this.setState({genotp: OTP});
+		// const OTP = await this.genOTP();
+		// this.setState({genotp: OTP});
+		if(this.state.email === ''){
+			alert('Please enter the mail ID and retry.');
+			return;
+		}
+		const emailRegex = new RegExp('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})');
+		if (!this.state.email.match(emailRegex)) {
+			alert('Email format not correct. Enter email in correct format');
+			return;
+		}
+		this.setState({mailbtn: 'Sending mail...'});
+		await this.genOTP();
+		console.log('genotp',this.state.genotp);
 		var data = {
 			'mail': this.state.email,
 			'otp': this.state.genotp
@@ -159,16 +173,21 @@ class RegisterUser extends React.Component {
 			headers: {'Content-Type':'application/json'},
 			body: JSON.stringify(data),
 		});
-
 		let res = await response.json();
+		this.setState({mailbtn: 'Resend mail'});
 		if(res.status !== 200)
 			alert('OTP not sent. Please try again.');
 		return res;
 	};
-
 	authOTP = () => {
+		console.log('genotp',this.state.genotp);
+		console.log('otp', this.state.otp);
 		if(this.state.genotp === this.state.otp){
 			console.log('success');
+			this.setState({otpbtn: 'OTP verified'});
+		}
+		else{
+			alert('Invalid OTP. Please try again.');
 		}
 	};
 
@@ -246,17 +265,17 @@ class RegisterUser extends React.Component {
 								<div className="form-group">
 									<img src="signup-email.png" alt='signup enail'/>
 									<input type="email" name="email" id="email" placeholder="Your Email" value={this.state.email} onChange={this.handleInput} required/>
-									<div><Button onClick={this.sendOTP}>
-										Send OTP
-									</Button></div>
 								</div>
+								<div><Button onClick={this.sendOTP}>
+									{this.state.mailbtn}
+								</Button></div>
 								<div className="form-group">
 									<img src="OTP-email.png" alt='OTP for the email'/>
-									<input type="text" name="OTP" id="OTP" placeholder="Please enter the received OTP" value={this.state.otp} onChange={this.handleInput} required/>
-									<div><Button onClick={this.authOTP}>
-										Verify OTP
-									</Button></div>
+									<input type="text" name="otp" id="otp" placeholder="Please enter the received OTP" value={this.state.otp} onChange={this.handleInput} required/>
 								</div>
+								<div><Button onClick={this.authOTP}>
+									{this.state.otpbtn}
+								</Button></div>
 								<div className="form-group">
 									<img src="signup-pass.png" alt='signup password'/>
 									<input type="password" name="pass" id="pass" placeholder="Password" value={this.state.pass} onChange={this.handleInput} required/>

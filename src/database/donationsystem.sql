@@ -69,7 +69,7 @@ CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
+  `Password` varchar(500) NOT NULL,
   `City` varchar(50) NOT NULL,
   `Zipcode` varchar(50) NOT NULL,
   `Interests` varchar(300) NOT NULL

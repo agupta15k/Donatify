@@ -136,7 +136,14 @@ class RegisterUser extends React.Component {
 	};
 
 	genOTP = () => {
-		return '';
+		var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		let OTP = '';
+		var len = string.length;
+		for (let i = 0; i < 6; i++ ) {
+			var char = string[Math.floor(Math.random() * len)];
+			OTP = OTP + char;
+		}
+		return OTP;
 	};
 
 	sendOTP = async(e) => {
@@ -145,7 +152,7 @@ class RegisterUser extends React.Component {
 		this.setState({genotp: OTP});
 		var data = {
 			'mail': this.state.email,
-			'otp': OTP
+			'otp': this.state.genotp
 		};
 		let response = await fetch('http://localhost:5001/getOTP', {
 			method: 'post',

@@ -42,6 +42,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 from src.Backend.utils import *
+from cryptography.fernet import Fernet
+key = Fernet.generate_key() #this is your "password"
+cipher_suite = Fernet(key)
+import smtplib
+from smtplib import SMTP
 
 # Flask application configuration
 app = Flask(__name__)
@@ -167,6 +172,31 @@ def additem():
             data['item_name'], data['quantity'], data['description'], data['zipcode'], data['city'], data['donor_id'], data['category'])
 
         if status:
+            cursor = connection.cursor(dictionary=True)
+            sql_get_data_query = """select email from users"""
+            cursor.execute(sql_get_data_query)
+            data = cursor.fetchall()
+            emails = [d['email'] for d in data]
+            smtp_port = SMTP("smtp.gmail.com", 587)
+            try:
+                smtp_port.ehlo()
+                smtp_port.starttls()
+                smtp_port.login('donatifynotifications@gmail.com' , 'pvuiescbegnhpxyj')
+                subject = 'Lorem ipsum dolor sit amet'
+                body = 'A new item is up for donation. Go to Donatify app to be the first person to get the item!! Hurry up!!'
+
+                email_text = """
+                            A new item is up for donation. Go to Donatify app to be the first person to get the item!! Hurry up!!
+                            """ 
+#                subject = "Hello"
+#                body = "Email Automation Project!"
+#                final_message = f"Subject: {subject} \n \n {body}"
+                smtp_port.sendmail('donatifynotifications@gmail.com', emails, email_text)
+                print("Email Sent")
+            except Exception as ex:
+                print ("Something went wrong….",ex)
+            smtp_port.quit()
+            print(emails,end="-----------------_!!!!!!!!!!!!!!!!!!!!!!_-----------\n\n")
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
             return jsonify({"status": 400, "data": {}, "message": msg})
@@ -232,7 +262,6 @@ def add_Donation():
         item_id = data['item_id']
         recipient_id = data['recipient_id']
         status, msg = addDonation(item_id, recipient_id)
-
         if status:
             return jsonify({"status": 200, "data": {}, "message": msg})
         else:
@@ -331,7 +360,6 @@ def register():
     """
 
     if request.method == 'POST':
-
         data = json.loads(request.data)
         name = data['name']
         password = data['password']
@@ -342,15 +370,15 @@ def register():
         interests = str(data['interests'])
 
         if (repeatPassword != password):
-            return jsonify({"status": 405, "data": {}, "message": "Passwords do not match"})
-
+            return jsonify({"status": 405, "data": {}, "message": "Passwords do not match"})		
+        
         check, status = checkDuplicateEmail(email)
         if (status == 0):
             return jsonify({"status": 400, "data": {}, "message": "Error while Accessing the database"})
         if (check):
             return jsonify({"status": 405, "data": {}, "message": "Please fill out the form again! The Email is taken/or is written in the wrong format"})
 
-        check = addUser(name, password, email, city, zipcode, interests)
+        check = addUser(name, cipher_suite.encrypt(password.encode()), email, city, zipcode, interests)
         if (check):
             return jsonify({"status": 200, "data": {}, "message": "You have registered succesfully"})
         else:
@@ -395,7 +423,7 @@ def login():
             else:
                 return jsonify({"status": 200, "data": userInfo, "message": "Logged in Succesfully"})
         else:
-            return jsonify({"status": 405, "data": {}, "message": "Incorrect email/Password"})
+            return jsonify({"status": 405, "data": {}, "message": "Log in error, check credentials"})
 
     return jsonify({"status": 200, "data": {}, "message": ""})
 
@@ -464,6 +492,40 @@ def updateprofile():
 
     return jsonify({"status": 200, "data": {}, "message": ""})
 
+def loginCheck(email, password):
+    """
+    Checks if the password and email are matching in the database.
+
+    Parameters
+    ----------
+    email : string
+        Email of the user.
+    password : string
+        Password of the user.
+
+    Returns
+    ----------
+    tuple
+        Returns a tuple with two elements. The first element(a boolean variable) is a check to see if there is a user present with matching password and email. The second element is a status code of whether there is a database error or not.
+    """
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
+        user = cursor.fetchone()
+        boom = cipher_suite.decrypt(user['Password']).decode()
+        if user and password==boom:
+            return (True, 1)
+        else:
+            return (False, 1)
+    except mysql.connector.Error as error:
+        print(error)
+        return (False, 0)
+
+    except Exception as e:
+        print("some error occurred in loginCheck: {}".format(e))
+        return (False, 0)
+        # exit("some error occurred in get_items: {}".format(e))
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5001)

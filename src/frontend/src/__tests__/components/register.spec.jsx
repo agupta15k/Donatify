@@ -240,7 +240,7 @@ describe('registerUserComponent', () => {
 		});
 		component.getInstance().handleSubmit({preventDefault: () => {}}).then((val) => {
 			expect(val).toEqual(false);
-			expect(window.alert).toHaveBeenCalledWith('Missing values for zip codes. Enter your zip code.');
+			expect(window.alert).toHaveBeenCalledWith('Missing values for zip codes. Please Enter your zip code.');
 			done();
 		}).catch((err) => {
 			done(err);
